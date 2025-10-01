@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -76,10 +77,14 @@ public class SurveyDiameterFragment extends Fragment
                              Bundle savedInstanceState) {
         binding = FragmentSurveyDiameterBinding.inflate(inflater, container, false);
 
-        binding.btnSurvey.setOnClickListener(v -> onClickSurveyToggle());
+//        binding.btnSurvey.setOnClickListener(v -> onClickSurveyToggle());
+        binding.mcAutoBtn.setOnClickListener(v -> onClickSurveyToggle());
+
+
 
         return binding.getRoot();
     }
+
 
     @Override
     public void onResume() {
@@ -151,10 +156,11 @@ public class SurveyDiameterFragment extends Fragment
 
         // UI 초기화
         if (binding != null) {
-            binding.tvRealtimeDistance.setText("");
-            binding.tvRealtimeAngle.setText("");
-            binding.tvMaxDistance.setText("");
-            binding.tvMaxAngle.setText("");
+//            binding.tvRealtimeDistance.setText("");
+//            binding.tvRealtimeAngle.setText("");
+//            binding.tvMaxDistance.setText("");
+            binding.tvDistance.setText("");
+//            binding.tvMaxAngle.setText("");
             binding.btnSurvey.setText("측정 정지");
         }
 
@@ -222,10 +228,10 @@ public class SurveyDiameterFragment extends Fragment
             // 실시간 표시
             if (binding != null) {
                 if (!Double.isNaN(distance)) {
-                    binding.tvRealtimeDistance.setText(basicData.distance + " " + distanceUnit);
+//                    binding.tvRealtimeDistance.setText(basicData.distance + " " + distanceUnit);
                 }
                 if (!Double.isNaN(angle)) {
-                    binding.tvRealtimeAngle.setText(basicData.inclination + " " + angleUnit);
+//                    binding.tvRealtimeAngle.setText(basicData.inclination + " " + angleUnit);
                 }
             }
 
@@ -234,14 +240,15 @@ public class SurveyDiameterFragment extends Fragment
                 maxDistance = distance;
                 maxDistanceUnit = distanceUnit;
                 if (binding != null) {
-                    binding.tvMaxDistance.setText(basicData.distance + " " + distanceUnit);
+//                    binding.tvMaxDistance.setText(basicData.distance + " " + distanceUnit);
+                    binding.tvDistance.setText(basicData.distance + " " + distanceUnit);
                 }
             }
             if (!Double.isNaN(angle) && angle > maxAngle) {
                 maxAngle = angle;
                 maxAngleUnit = angleUnit;
                 if (binding != null) {
-                    binding.tvMaxAngle.setText(basicData.inclination + " " + angleUnit);
+//                    binding.tvMaxAngle.setText(basicData.inclination + " " + angleUnit);
                 }
             }
 
