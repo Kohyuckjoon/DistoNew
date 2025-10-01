@@ -112,7 +112,7 @@
                         <!--                            android:paddingRight="10dp"-->
                         <!--                            android:hint="70">-->
                         <!--                        </EditText>-->
-                        <!--tv_max_distance-->
+
                         <TextView
                             android:id="@+id/tv_distance"
                             android:layout_width="match_parent"
@@ -360,108 +360,33 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/ll_measure_controll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.5"
-        android:clickable="true"
-        android:focusable="true" >
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mc_auto_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/BluetoothSearchButton"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft="15dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="30dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/btn_survey"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="관경 측경"
-                    android:textSize="@dimen/text_view_title_size_small_new"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-<!--        <com.google.android.material.card.MaterialCardView-->
-<!--            android:id="@+id/mc_manual"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            style="@style/BluetoothSearchButton"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:layout_marginBottom="20dp">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_margin="30dp">-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/tv_manual"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="관경 측경\n(자동)"-->
-<!--                    android:textSize="@dimen/text_view_title_size_small_new"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:gravity="center"/>-->
-<!--            </LinearLayout>-->
-<!--        </com.google.android.material.card.MaterialCardView>-->
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/camera"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mc_auto_btn"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/gl_entire_hor_top"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="@style/BluetoothSearchButton"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_entire_hor_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="30dp">
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/gl_entire_hor_bottom">-->
-
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/btn_survey"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:backgroundTint="@color/blue"-->
-<!--            android:text="@string/survey_diameter"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent" />-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/btn_survey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="관경 측경\n(수동)"
+                android:textSize="@dimen/text_view_title_size_small_new"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -49,6 +50,9 @@ public class SurveyDiameterFragment extends Fragment
     private double maxAngle = Double.NEGATIVE_INFINITY;
     private String maxAngleUnit = "";
 
+    private LinearLayout ll_measure_controll;
+    private float dX, dY;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +81,40 @@ public class SurveyDiameterFragment extends Fragment
                              Bundle savedInstanceState) {
         binding = FragmentSurveyDiameterBinding.inflate(inflater, container, false);
 
-//        binding.btnSurvey.setOnClickListener(v -> onClickSurveyToggle());
+
         binding.mcAutoBtn.setOnClickListener(v -> onClickSurveyToggle());
+        binding.mcAutoBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // 손가락을 눌렀을 때 기준 좌표 저장
+                        dX = v.getX() - event.getRawX();
+                        dY = v.getY() - event.getRawY();
+                        return true;
 
+                    case MotionEvent.ACTION_MOVE:
+                        // 움직일 때 View 위치 갱신 (애니메이션 사용)
+                        v.animate()
+                                .x(event.getRawX() + dX)
+                                .y(event.getRawY() + dY)
+                                .setDuration(0) // 즉시 이동
+                                .start();
+                        return true;
 
+                    case MotionEvent.ACTION_UP:
+                        // 접근성 이벤트 보장 (Kotlin 코드와 동일)
+                        v.performClick();
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
 
         return binding.getRoot();
     }
-
 
     @Override
     public void onResume() {
