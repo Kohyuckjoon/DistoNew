@@ -142,6 +142,7 @@ public class SurveyDiameterFragment extends Fragment
     private void resetMeasureData() {
         binding.tvDistance.setText("");
         binding.etPipMaterial.setText("");
+        binding.spinnerManholeCount.setSelection(0);
         showToast("초기화 되었습니다.");
     }
 
