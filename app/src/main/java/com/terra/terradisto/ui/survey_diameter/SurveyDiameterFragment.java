@@ -1,5 +1,7 @@
 package com.terra.terradisto.ui.survey_diameter;
 
+import static ch.leica.sdk.LeicaSdk.reset;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.terra.terradisto.databinding.FragmentSurveyDiameterBinding;
 
@@ -118,7 +122,27 @@ public class SurveyDiameterFragment extends Fragment
 
         binding.mcPicture.setOnClickListener(view -> openExternalApp());
 
+        /* SDK 전역 초기화 (캐시테이터 초기화) */
+//        binding.mcResetButton.setOnClickListener(view -> reset());
+
+        /* TextView reset */
+        binding.mcResetButton.setOnClickListener(view -> resetMeasureData());
+        binding.mcCreateButton.setOnClickListener(view -> handleBackButtonClick());
+
         return binding.getRoot();
+    }
+
+    private void handleBackButtonClick() {
+        NavController navController= Navigation.findNavController(requireView());
+
+        navController.popBackStack();
+        Log.e("khj", "backStack");
+    }
+
+    private void resetMeasureData() {
+        binding.tvDistance.setText("");
+        binding.etPipMaterial.setText("");
+        showToast("초기화 되었습니다.");
     }
 
     private void openExternalApp() {

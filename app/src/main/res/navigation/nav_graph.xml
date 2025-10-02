@@ -25,6 +25,6 @@
     <fragment
         android:id="@+id/surveyDiameterFragment"
         android:name="com.terra.terradisto.ui.survey_diameter.SurveyDiameterFragment"
-        android:label="fragment_survey_diameter"
+        android:label="측정"
         tools:layout="@layout/fragment_survey_diameter" />
 </navigation>

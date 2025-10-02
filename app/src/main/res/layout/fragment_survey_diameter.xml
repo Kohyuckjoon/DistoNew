@@ -123,7 +123,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:paddingRight="10dp"
-                            android:hint="70">
+                            android:hint="0">
                         </TextView>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
@@ -259,6 +259,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <EditText
+                            android:id="@+id/et_pip_material"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
