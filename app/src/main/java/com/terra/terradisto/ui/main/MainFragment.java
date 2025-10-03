@@ -54,6 +54,18 @@ public class MainFragment extends Fragment {
                     .navigate(R.id.action_mainFragment_to_surveyDiameterFragment);
         });
 
+        // project_create
+        binding.mcProjectCreate.setOnClickListener(v -> {
+            NavHostFragment.findNavController(MainFragment.this)
+                    .navigate(R.id.action_mainFragment_to_createProjectFragment);
+        });
+
+        // project_list
+        binding.mcProjectSelect.setOnClickListener(v -> {
+            NavHostFragment.findNavController(MainFragment.this)
+                    .navigate(R.id.action_mainFragment_to_projectListFragment);
+        });
+
         return binding.getRoot();
     }
 }
