@@ -34,7 +34,35 @@
         android:id="@+id/surveyDiameterFragment"
         android:name="com.terra.terradisto.ui.survey_diameter.SurveyDiameterFragment"
         android:label="측정"
-        tools:layout="@layout/fragment_survey_diameter" />
+        tools:layout="@layout/fragment_survey_diameter">
+
+        <action
+            android:id="@+id/fragmentSaveDialog"
+            app:destination="@+id/fragmentSaveDialog" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSaveDialog"
+        android:name="com.terra.terradisto.ui.popup.SaveDialogFragment"
+        tools:layout="@layout/fragment_save_dialog" >
+
+        <action
+            android:id="@+id/fragmentSaveComplite"
+            app:destination="@+id/fragmentSaveComplite" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSaveComplite"
+        android:name="com.terra.terradisto.ui.popup.SaveCompliteFragment"
+        tools:layout="@layout/fragment_save_complite">
+
+        <action
+            android:id="@+id/mainFragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+
+
+
 
     <fragment android:id="@+id/proejectCreate"
         android:name="com.terra.terradisto.ui.project.ProjectCreateFragment"
@@ -46,4 +74,5 @@
         android:name="com.terra.terradisto.ui.project.ProjectListFragment"
         android:label="프로젝트 목록"
         tools:layout="@layout/fragment_project_list"/>
+
 </navigation>

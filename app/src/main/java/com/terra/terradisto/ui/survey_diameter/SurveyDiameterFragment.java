@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.terra.terradisto.R;
 import com.terra.terradisto.databinding.FragmentSurveyDiameterBinding;
 
 // Leica SDK / 앱 내부 클래스들
@@ -128,8 +129,15 @@ public class SurveyDiameterFragment extends Fragment
         /* TextView reset */
         binding.mcResetButton.setOnClickListener(view -> resetMeasureData());
         binding.mcCreateButton.setOnClickListener(view -> handleBackButtonClick());
+        binding.mcMeasureResult.setOnClickListener(view -> saveMeasureData());
 
         return binding.getRoot();
+    }
+
+    private void saveMeasureData() {
+        NavController navController = Navigation.findNavController(requireView());
+
+        navController.navigate(R.id.fragmentSaveDialog);
     }
 
     private void handleBackButtonClick() {
