@@ -18,17 +18,31 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
+                android:text="TerraDisto"
+                android:textSize="@dimen/text_view_title_size_b"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black">
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/mc_project_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="#0000FF"
                 android:textSize="@dimen/main_view_project_status"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textview.MaterialTextView>
+                app:layout_constraintTop_toBottomOf="@+id/tv_title">
+            </com.google.android.material.textview.MaterialTextView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mc_project_create"

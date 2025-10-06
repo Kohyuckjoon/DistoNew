@@ -1,10 +1,8 @@
 package com.terra.terradisto.ui;
 
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -26,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         setSupportActionBar(binding.toolbar);
+
+        binding.toolbar.setVisibility(View.GONE);
 
         // ✅ 여기! FragmentManager에서 NavHostFragment를 찾아 NavController 얻기
         NavHostFragment navHostFragment =
