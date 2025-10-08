@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.terra.terradisto.R;
 import com.terra.terradisto.databinding.FragmentMainBinding;
@@ -45,7 +46,7 @@ public class MainFragment extends Fragment {
 
         // mc_camera_conn
         binding.mcCameraConn.setOnClickListener(v -> {
-
+            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
         });
 
         // mc_measurement
@@ -56,14 +57,20 @@ public class MainFragment extends Fragment {
 
         // project_create
         binding.mcProjectCreate.setOnClickListener(v -> {
-            NavHostFragment.findNavController(MainFragment.this)
-                    .navigate(R.id.action_mainFragment_to_createProjectFragment);
+//            NavHostFragment.findNavController(MainFragment.this)
+//                    .navigate(R.id.action_mainFragment_to_createProjectFragment);
+            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
         });
 
         // project_list
         binding.mcProjectSelect.setOnClickListener(v -> {
-            NavHostFragment.findNavController(MainFragment.this)
-                    .navigate(R.id.action_mainFragment_to_projectListFragment);
+//            NavHostFragment.findNavController(MainFragment.this)
+//                    .navigate(R.id.action_mainFragment_to_projectListFragment);
+            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
+        });
+
+        binding.mcMeasurementList.setOnClickListener( v -> {
+            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
         });
 
         return binding.getRoot();

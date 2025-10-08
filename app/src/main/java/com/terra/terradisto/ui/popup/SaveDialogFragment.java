@@ -2,6 +2,7 @@ package com.terra.terradisto.ui.popup;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -41,6 +42,9 @@ public class SaveDialogFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSaveDialogBinding.inflate(inflater, container, false);
         binding.mcSaveButton.setOnClickListener(view -> saveMeasureData());
+
+        // Cancel Button Click
+        binding.mcCancel.setOnClickListener(view -> {  });
 
         return binding.getRoot();
     }

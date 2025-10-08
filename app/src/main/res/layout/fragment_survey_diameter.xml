@@ -297,7 +297,7 @@
                     app:cardBackgroundColor="@color/black"
                     android:layout_margin="10dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/mc_create_button"
+                    app:layout_constraintEnd_toStartOf="@id/mc_back_button"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent">
 
@@ -313,7 +313,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mc_create_button"
+                    android:id="@+id/mc_back_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:strokeWidth="0dp"
@@ -344,7 +344,7 @@
                     app:cardCornerRadius="10dp"
                     app:cardBackgroundColor="@color/black"
                     android:layout_margin="10dp"
-                    app:layout_constraintStart_toEndOf="@id/mc_create_button"
+                    app:layout_constraintStart_toEndOf="@id/mc_back_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent">

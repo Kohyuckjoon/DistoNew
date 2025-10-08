@@ -31,6 +31,8 @@ import ch.leica.sdk.Devices.Device;
 import com.terra.terradisto.distosdkapp.clipboard.Clipboard;
 import com.terra.terradisto.distosdkapp.clipboard.InformationActivityData;
 import com.terra.terradisto.distosdkapp.device.YetiDeviceController;
+import com.terra.terradisto.ui.popup.SaveDialogFragment;
+
 import ch.leica.sdk.ErrorHandling.ErrorObject;
 
 public class SurveyDiameterFragment extends Fragment
@@ -128,7 +130,11 @@ public class SurveyDiameterFragment extends Fragment
 
         /* TextView reset */
         binding.mcResetButton.setOnClickListener(view -> resetMeasureData());
-        binding.mcCreateButton.setOnClickListener(view -> handleBackButtonClick());
+
+        // backButton
+        binding.mcBackButton.setOnClickListener(view -> handleBackButtonClick());
+
+        // MeasureResultButton
         binding.mcMeasureResult.setOnClickListener(view -> saveMeasureData());
 
         return binding.getRoot();
