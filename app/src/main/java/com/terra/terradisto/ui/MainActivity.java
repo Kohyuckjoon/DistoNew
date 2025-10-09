@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding.toolbar.setVisibility(View.GONE);
 
-        // ✅ 여기! FragmentManager에서 NavHostFragment를 찾아 NavController 얻기
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
