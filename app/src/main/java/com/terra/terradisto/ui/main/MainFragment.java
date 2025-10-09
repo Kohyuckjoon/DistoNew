@@ -57,16 +57,16 @@ public class MainFragment extends Fragment {
 
         // project_create
         binding.mcProjectCreate.setOnClickListener(v -> {
-//            NavHostFragment.findNavController(MainFragment.this)
-//                    .navigate(R.id.action_mainFragment_to_createProjectFragment);
-            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(MainFragment.this)
+                    .navigate(R.id.action_mainFragment_to_createProjectFragment);
+//            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
         });
 
         // project_list
         binding.mcProjectSelect.setOnClickListener(v -> {
-//            NavHostFragment.findNavController(MainFragment.this)
-//                    .navigate(R.id.action_mainFragment_to_projectListFragment);
-            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(MainFragment.this)
+                    .navigate(R.id.action_mainFragment_to_projectListFragment);
+//            Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
         });
 
         binding.mcMeasurementList.setOnClickListener( v -> {

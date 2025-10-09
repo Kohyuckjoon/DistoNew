@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.terra.terradisto.R;
 import com.terra.terradisto.databinding.FragmentSaveDialogBinding;
+import com.terra.terradisto.distosdkapp.data.AppDatabase;
+import com.terra.terradisto.distosdkapp.data.SurveyDiameterDao;
 import com.terra.terradisto.distosdkapp.data.SurveyDiameterData;
+import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,8 +69,25 @@ public class SaveDialogFragment extends Fragment {
     }
 
     private void saveMeasureData() {
-        Bundle bundle = new Bundle();
         SurveyDiameterData data = (SurveyDiameterData) getArguments().getSerializable("surveyData");
+
+        if (data != null) {
+            // 1. Room DB 저장
+            new Thread(() -> {
+                AppDatabase db = AppDatabase.getDatabase(requireContext());
+                SurveyDiameterEntity entity = new SurveyDiameterEntity(
+                        data.getManholType(),
+                        data.getDistance(),
+                        data.getPipeMaterial()
+                );
+                db.surveyDiameterDao().insert(entity);
+                Log.e("DB", "저장 완료 : " + entity.toString());
+            }).start();
+        }
+
+        // 2. 다음 화면으로 이동 (Bundle 전달)
+        Bundle bundle = new Bundle();
+
         bundle.putSerializable("surveyData", data);
 
         NavController navController = Navigation.findNavController(requireView());
