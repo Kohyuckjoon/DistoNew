@@ -7,12 +7,15 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.terra.terradisto.R;
 import com.terra.terradisto.databinding.FragmentSaveDialogBinding;
+import com.terra.terradisto.distosdkapp.data.SurveyDiameterData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,18 +43,41 @@ public class SaveDialogFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_save_dialog, container, false);
         binding = FragmentSaveDialogBinding.inflate(inflater, container, false);
-        binding.mcSaveButton.setOnClickListener(view -> saveMeasureData());
 
-        // Cancel Button Click
-        binding.mcCancel.setOnClickListener(view -> {  });
+        Bundle args = getArguments();
+        if (args != null) {
+            SurveyDiameterData data = (SurveyDiameterData) args.getSerializable("surveyData");
+
+            if (data != null) {
+                Log.e("SaveDialogFragment", "받은 데이터 : " + data.toString());
+
+                binding.tvPipNumber.setText("배관 번호 : " + data.getManholType());
+                binding.tvDistanceNumber.setText("관 경 : " + data.getDistance());
+                binding.tvClMaterialNumber.setText("관 재질 : " + data.getPipeMaterial());
+            }
+        }
+
+        binding.mcSaveButton.setOnClickListener(v -> saveMeasureData());
+        binding.mcCancel.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack() );
 
         return binding.getRoot();
     }
 
     private void saveMeasureData() {
-        NavController navController = Navigation.findNavController(requireView());
+        Bundle bundle = new Bundle();
+        SurveyDiameterData data = (SurveyDiameterData) getArguments().getSerializable("surveyData");
+        bundle.putSerializable("surveyData", data);
 
-        navController.navigate(R.id.fragmentSaveComplite);
+        NavController navController = Navigation.findNavController(requireView());
+        navController.popBackStack(R.id.fragmentSaveDialog, false);
+        navController.navigate(R.id.fragmentSaveComplite, bundle);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // 메모리 누수 방지
     }
 }

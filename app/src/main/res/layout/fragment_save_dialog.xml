@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.popup.SaveDialogFragment"
-    android:id="@+id/fragment_save_dialog">
+    android:id="@+id/fragment_save_dialog"
+    android:background="#80000000">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mc_project_list"

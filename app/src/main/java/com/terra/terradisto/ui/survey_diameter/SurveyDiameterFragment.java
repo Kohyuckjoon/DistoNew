@@ -30,6 +30,7 @@ import ch.leica.sdk.Devices.Device;
 
 import com.terra.terradisto.distosdkapp.clipboard.Clipboard;
 import com.terra.terradisto.distosdkapp.clipboard.InformationActivityData;
+import com.terra.terradisto.distosdkapp.data.SurveyDiameterData;
 import com.terra.terradisto.distosdkapp.device.YetiDeviceController;
 import com.terra.terradisto.ui.popup.SaveDialogFragment;
 
@@ -141,9 +142,28 @@ public class SurveyDiameterFragment extends Fragment
     }
 
     private void saveMeasureData() {
-        NavController navController = Navigation.findNavController(requireView());
+        // 1. 화면의 입력값/측정 값 수집
+        String manholType = binding.spinnerManholeCount.getSelectedItem().toString();
+        String distance = binding.tvDistance.getText().toString().trim();
+        String pipMaterial = binding.etPipMaterial.getText().toString().trim();
 
-        navController.navigate(R.id.fragmentSaveDialog);
+        // 2. 유효성 검사
+        if (distance.isEmpty() || pipMaterial.isEmpty()) {
+            showToast("모든 값을 입력 해야 합니다.");
+            return;
+        }
+
+        // 3. 데이터 객체 생성
+        SurveyDiameterData data = new SurveyDiameterData(manholType, distance, pipMaterial);
+
+        // 4. 로그로 확인
+        Log.e(TAG, "저장 데이터 : " + data.toString());
+
+        // 5. 다음 화면으로 전달
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("surveyData", data);
+        NavController navController = Navigation.findNavController(requireView());
+        navController.navigate(R.id.fragmentSaveDialog, bundle);
     }
 
     private void handleBackButtonClick() {
