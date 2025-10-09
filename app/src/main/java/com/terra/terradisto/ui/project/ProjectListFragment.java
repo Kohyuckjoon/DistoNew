@@ -2,13 +2,24 @@ package com.terra.terradisto.ui.project;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.terra.terradisto.R;
+import com.terra.terradisto.databinding.FragmentProjectListBinding;
+import com.terra.terradisto.distosdkapp.data.AppDatabase;
+import com.terra.terradisto.distosdkapp.data.ProjectCreate;
+
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +27,9 @@ import com.terra.terradisto.R;
  * create an instance of this fragment.
  */
 public class ProjectListFragment extends Fragment {
+
+    private FragmentProjectListBinding binding;
+    private ProjectListAdapter adapter;
 
 
     public ProjectListFragment() {
@@ -31,10 +45,45 @@ public class ProjectListFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//
+//        return inflater.inflate(R.layout.fragment_project_list, container, false);
+//    }
 
-        return inflater.inflate(R.layout.fragment_project_list, container, false);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = FragmentProjectListBinding.inflate(inflater, container, false);
+
+        adapter = new ProjectListAdapter(null);
+        binding.rcProjectList.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rcProjectList.setAdapter(adapter);
+
+        loadProjectsFromDB();
+
+        return binding.getRoot();
+    }
+
+    private void loadProjectsFromDB() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            AppDatabase db = AppDatabase.getDatabase(requireContext());
+            List<ProjectCreate> projects = db.projectDao().getAllProjects();
+
+            requireActivity().runOnUiThread(() -> {
+                if (projects == null || projects.isEmpty()) {
+                    binding.mcNoData.setVisibility(View.VISIBLE);
+                    binding.rcProjectList.setVisibility(View.GONE);
+                } else {
+                    binding.mcNoData.setVisibility(View.GONE);
+                    binding.rcProjectList.setVisibility(View.VISIBLE);
+                    adapter.setProjects(projects);
+                }
+            });
+        });
     }
 }

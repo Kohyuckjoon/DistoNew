@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.terra.terradisto.distosdkapp.data.AppDatabase;
-import com.terra.terradisto.ProjectCreate;
 import com.terra.terradisto.databinding.FragmentProjectCreateBinding;
+import com.terra.terradisto.distosdkapp.data.ProjectCreate;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

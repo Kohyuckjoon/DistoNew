@@ -1,4 +1,4 @@
-package com.terra.terradisto;
+package com.terra.terradisto.distosdkapp.data;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
