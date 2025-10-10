@@ -70,6 +70,8 @@ public class MainFragment extends Fragment {
         });
 
         binding.mcMeasurementList.setOnClickListener( v -> {
+//            NavHostFragment.findNavController(MainFragment.this)
+//                    .navigate(R.id.action_mainFragment_to_measurementListFragment);
             Toast.makeText(requireContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
         });
 

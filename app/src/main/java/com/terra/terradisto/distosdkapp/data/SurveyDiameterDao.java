@@ -4,6 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.terra.terradisto.ui.survey_diameter.model.SurveyResult;
+
 import java.util.List;
 
 @Dao
@@ -14,4 +16,7 @@ public interface SurveyDiameterDao {
 
     @Query("SELECT * FROM survey_diameter ORDER BY id DESC")
     List<SurveyDiameterEntity> getAll();
+
+    @Query("SELECT id, manholType, distance, pipMaterial FROM survey_diameter ORDER BY id DESC")
+    List<SurveyResult> getAllResults();
 }

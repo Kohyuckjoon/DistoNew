@@ -12,6 +12,7 @@
     <dimen name="text_view_title_size_small_new">13sp</dimen>
     <dimen name="btn_auto_text_size">20sp</dimen>
     <dimen name="btn_auto_text_discription_size">15sp</dimen>
+    <dimen name="btn_size_small">12sp</dimen>
 
     <!-- 프로젝트 생성 -->
     <dimen name="project_create_input_box">200dp</dimen> <!--input Box-->
@@ -19,6 +20,10 @@
 
     <!-- 프로젝트 선택 -->
     <dimen name="project_select_button">70dp</dimen> <!--button-->
+
+    <!-- 데이터 삭제 -->
+    <dimen name="measurement_data_list_width">130dp</dimen> <!--button-->
+    <dimen name="measurement_data_list_height">28dp</dimen> <!--button-->
 
     <!-- text title (current)-->
     <dimen name="text_view_title_size_s">20sp</dimen>

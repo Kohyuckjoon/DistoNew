@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.mainFragment).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
     }
 
     @Override

@@ -7,7 +7,8 @@
     <string name="plz_select_disto">연결할 DISTO를 선택해주세요</string>
     <string name="CAM_Connect">카메라 연결</string>
     <string name="survey_diameter">관경 측정</string>
-    <string name="Searched_device">검색된 장치</string>
+    <string name="searched_device">검색된 장치</string>
+    <string name="measurement_list">측정 데이터</string>
 
     <string name="select_device_to_connect">Select Device to Connect</string>
     <string name="start_search">Start Search</string>

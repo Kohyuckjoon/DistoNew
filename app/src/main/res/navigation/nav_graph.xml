@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainFragment_to_projectListFragment"
             app:destination="@+id/projectList" />
+        <action
+            android:id="@+id/action_mainFragment_to_measurementListFragment"
+            app:destination="@+id/measurement_list" />
     </fragment>
 
     <fragment
@@ -29,6 +32,12 @@
         android:name="com.terra.terradisto.ui.distoconnect.ConnectDistoFragment"
         android:label="@string/Disto_Connect"
         tools:layout="@layout/fragment_connect_disto" />
+
+    <fragment
+        android:id="@+id/measurement_list"
+        android:name="com.terra.terradisto.MeasurementListFragment"
+        android:label="@string/Disto_Connect"
+        tools:layout="@layout/fragment_measurement_list" />
 
     <fragment
         android:id="@+id/surveyDiameterFragment"
