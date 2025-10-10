@@ -8,7 +8,7 @@
  1) 해상도 별 레이아웃 처리 완료(600dp 기준)
 
 [메인화면]
-![Screenshot_20251010_130341_TerraDisto](https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732)
+![Screenshot_20251010_130341_TerraDisto](https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732)![Screenshot_20251010_130350_TerraDisto](https://github.com/user-attachments/assets/8394bbe5-bbae-4ee9-a75a-58dafb5e9ed4)
 
 [프로젝트 생성하기]
 ![Screenshot_20251010_130350_TerraDisto](https://github.com/user-attachments/assets/8394bbe5-bbae-4ee9-a75a-58dafb5e9ed4)
