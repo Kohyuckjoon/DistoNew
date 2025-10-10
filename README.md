@@ -63,3 +63,8 @@
 <img src="https://github.com/user-attachments/assets/5a461ba1-9f47-47ca-821a-631785d7ec6b" width="300" />
 
 ---
+
+## 📂 저장된 데이터 리스트 확인하기
+<img src="https://github.com/user-attachments/assets/7921fea2-aa9b-43f3-a33a-5045fd1056a1" width="300 />
+
+---
