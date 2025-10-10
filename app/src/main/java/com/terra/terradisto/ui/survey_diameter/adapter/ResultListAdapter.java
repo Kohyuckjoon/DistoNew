@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
 import com.terra.terradisto.R;
 import com.terra.terradisto.ui.survey_diameter.model.SurveyResult;
 
@@ -43,22 +45,30 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     }
 
     static class ResultViewHolder extends RecyclerView.ViewHolder {
-        // 임시 뷰 변수 (실제 레이아웃 ID로 변경 필요)
-        // private final MaterialTextView tvId, tvType, tvDistance, tvMaterial;
+        private final MaterialTextView mtMeasurementName;
+        private final MaterialTextView mtManholType;
+        private final MaterialTextView mtMeasurementDate; // DB에 일자 필드가 있다면 사용
+        private final MaterialTextView mtDistance;
+        private final MaterialTextView mtPipMaterial;
+        private final MaterialCardView mcDeleteButton;
+        private final MaterialCardView mcDownloadButton;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
-            // 주석: 여기서 list_item_result.xml의 뷰 ID를 찾아 초기화해야 합니다.
-            // tvId = itemView.findViewById(R.id.tv_result_id);
-            // ...
+            mtMeasurementName = itemView.findViewById(R.id.mt_measurement_name);
+            mtManholType = itemView.findViewById(R.id.mt_manhol_type);
+            mtMeasurementDate = itemView.findViewById(R.id.mt_measurement_date);
+            mtDistance = itemView.findViewById(R.id.mt_distance);
+            mtPipMaterial = itemView.findViewById(R.id.mt_pip_material);
+            mcDeleteButton = itemView.findViewById(R.id.mc_delete_button);
+            mcDownloadButton = itemView.findViewById(R.id.mc_download_button);
         }
 
         public void bind(SurveyResult item) {
-            // 주석: 데이터 객체의 값을 뷰에 설정합니다.
-            // tvId.setText(String.valueOf(item.id));
-            // tvDistance.setText(String.format("%.3f %s", item.distance, "m")); // 단위는 적절히 적용
-            // tvType.setText(item.manholeType);
-            // tvMaterial.setText(item.pipMaterial);
+            mtMeasurementName.setText("" + item.id + "번 측정 값");
+            mtManholType.setText("맨홀 타입 : " + item.manholType + " 개");
+            mtDistance.setText("관 경 : " + item.distance + " m");
+            mtPipMaterial.setText("관 재질 : " + item.pipMaterial);
         }
     }
 }
