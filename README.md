@@ -66,5 +66,6 @@
 
 ## 📂 저장된 데이터 리스트 확인하기
 <img src="https://github.com/user-attachments/assets/7921fea2-aa9b-43f3-a33a-5045fd1056a1" width="300 />
+![Screenshot_20251010_170542_TerraDisto](https://github.com/user-attachments/assets/3e194266-cb6a-4fe9-8b5c-3e699c3dec12)
 
 ---
