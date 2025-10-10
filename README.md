@@ -27,7 +27,7 @@
 ---
 
 ## 📂 프로젝트 선택하기
-<p align="center">
+<p>
   <img src="https://github.com/user-attachments/assets/2fa94094-3ff0-4ca3-9f03-e85e8f3d3b65" width="300" />
   <img src="https://github.com/user-attachments/assets/67f06e75-cdd3-4a41-b34f-d98cbf6e71b7" width="300" />
 </p>
