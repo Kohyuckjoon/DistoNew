@@ -22,12 +22,14 @@
 ---
 
 ## 📁 프로젝트 생성하기
+<img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/8394bbe5-bbae-4ee9-a75a-58dafb5e9ed4" width="300" />
 
 ---
 
 ## 📂 프로젝트 선택하기
 <p>
+  <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
   <img src="https://github.com/user-attachments/assets/2fa94094-3ff0-4ca3-9f03-e85e8f3d3b65" width="300" />
   <img src="https://github.com/user-attachments/assets/67f06e75-cdd3-4a41-b34f-d98cbf6e71b7" width="300" />
 </p>
@@ -35,7 +37,8 @@
 ---
 
 ## 🔗 Bluetooth 연결하기
-> **Disto 장비 연결 (Leica SDK 활용)**  
+> **Disto 장비 연결 (Leica SDK 활용)**
+<img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/4ffe02c0-209e-4462-873c-ba0addc49e92" width="300" />
 
 ---
@@ -50,21 +53,20 @@
 > - **측정 결과 확인:** Fragment Popup에 표시 및 저장  
 > - **저장 방식:** Room DB  
 
+<img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/de41862e-b258-498e-a943-7cc51b91ca52" width="300" />
 
 ---
 
 ## 💾 측정 저장을 위한 최종 확인
+## ✅ 측정 저장 완료
+<img src="https://github.com/user-attachments/assets/5a461ba1-9f47-47ca-821a-631785d7ec6b" width="300" />
 <img src="https://github.com/user-attachments/assets/742a19cb-238f-4d28-be50-6daa4d0167a4" width="300" />
 
 ---
 
-## ✅ 측정 저장 완료
-<img src="https://github.com/user-attachments/assets/5a461ba1-9f47-47ca-821a-631785d7ec6b" width="300" />
-
----
-
 ## 📂 저장된 데이터 리스트 확인하기
+<img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/3e194266-cb6a-4fe9-8b5c-3e699c3dec12" width="300" />
 
 ---
