@@ -19,17 +19,27 @@
 ---
 
 ## 🏠 메인화면
+**메인화면에서는 다음과 같이 전체 메뉴 버튼이 구현되어 있습니다.
+**UI 구현 : XML, Material
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 
 ---
 
 ## 📁 프로젝트 생성하기
+**프로젝트 생성하기 화면에서는 프로젝트 단위로 측정 데이터를 관리할 수 있도록 구현 예정입니다.
+**A프로젝트 구현 시, A프로젝트에 저장되어있는 측정 데이터에 대해서 관리할 수 있도록 합니다.
+**저장 방법 : Room DB 사용
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/8394bbe5-bbae-4ee9-a75a-58dafb5e9ed4" width="300" />
 
 ---
 
 ## 📂 프로젝트 선택하기
+**프로젝트 선택하기 화면에서는 현재 생성되어있는 모든 프로젝트 목록들을 확인할 수 있습니다.
+**프로젝트 생성하기 화면에서 신규 추가된 내용들은 이곳에서 목록을 확인할 수 있습니다.
+**프로젝트 선택 시에는 선택된 프로젝트를 기반으로 저장되어 있는 데이터를 불러오거나 신규 측정 데이터를 추가할 수 있습니다.
+
+**현재로는 목록만 확인이 가능하지만, 프로젝트 선택 시 선택된 프로젝트에 저장되어있는 측정 데이터들을 볼 수 있도록 구현 예정입니다.
 <p>
   <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
   <img src="https://github.com/user-attachments/assets/2fa94094-3ff0-4ca3-9f03-e85e8f3d3b65" width="300" />
@@ -39,6 +49,8 @@
 ---
 
 ## 🔗 Bluetooth 연결하기
+**Leica사에서 제공하는 SDK를 활용해서 측량 데이터를 화면에 표시할 수 있도록 구현했습니다.
+**Leica사에서 제공하는 SDK 내용중 블루투스는 BLE 방식을 사용합니다.
 > **Disto 장비 연결 (Leica SDK 활용)**
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/4ffe02c0-209e-4462-873c-ba0addc49e92" width="300" />
@@ -63,12 +75,18 @@
 
 ## 💾 측정 저장을 위한 최종 확인
 ## ✅ 측정 저장 완료
+**측정 데이터 저장을 위해서 최종 확인이 진행되는 화면입니다.
+**측정이 완료된 데이터는 팝업에서 최종확인을 위해 표시되고, 최종확인이 완료된 후에는 저장이 진행됩니다.
+**저장 방식 : Room DB
 <img src="https://github.com/user-attachments/assets/5a461ba1-9f47-47ca-821a-631785d7ec6b" width="300" />
 <img src="https://github.com/user-attachments/assets/742a19cb-238f-4d28-be50-6daa4d0167a4" width="300" />
 
 ---
 
 ## 📂 저장된 데이터 리스트 확인하기
+**저장된 데이터는 아래 화면에서 확인할 수 있습니다.
+**RecyclerView를 사용하여 Room DB에 저장되어 있는 데이터들을 불러와서 저장된 데이터들을 확인할 수 있습니다.
+**데이터를 삭제하는 기능과 xlsx 파일로 내보는 기능은 추후 구현 예정으로 되어 있습니다.
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/3e194266-cb6a-4fe9-8b5c-3e699c3dec12" width="300" />
 <img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
