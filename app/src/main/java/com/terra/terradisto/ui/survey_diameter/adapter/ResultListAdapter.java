@@ -16,12 +16,25 @@ import java.util.List;
 
 public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.ResultViewHolder> {
 
+    // 1. 삭제 버튼 클릭 이벤트를 위한 인터페이스 정의
+    public interface OnItemDeleteListener {
+        void onDeleteClick(SurveyResult resultToDelete, int position);
+    }
+    private OnItemDeleteListener deleteListener;
+
     private List<SurveyResult> results;
 
-    // 주석: 데이터 목록을 어댑터에 설정합니다.
+    public void setOnItemDeleteListener(OnItemDeleteListener listener) {
+        this.deleteListener = listener;
+    }
+
     public void setResults(List<SurveyResult> results) {
         this.results = results;
         notifyDataSetChanged();
+    }
+
+    public List<SurveyResult> getResults() {
+        return results;
     }
 
     @NonNull
@@ -36,7 +49,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
         SurveyResult item = results.get(position);
-        holder.bind(item);
+        holder.bind(item, deleteListener);
     }
 
     @Override
@@ -64,11 +77,21 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             mcDownloadButton = itemView.findViewById(R.id.mc_download_button);
         }
 
-        public void bind(SurveyResult item) {
+//        public void bind(SurveyResult item) {
+        public void bind(final SurveyResult item, final OnItemDeleteListener listener) {
             mtMeasurementName.setText("" + item.id + "번 측정 값");
-            mtManholType.setText("맨홀 타입 : " + item.manholType + " 개");
+            mtManholType.setText("맨홀 타입 : " + item.manholType);
             mtDistance.setText("관 경 : " + item.distance + " m");
             mtPipMaterial.setText("관 재질 : " + item.pipMaterial);
+
+            mcDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onDeleteClick(item, getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }

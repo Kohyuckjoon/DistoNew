@@ -19,4 +19,7 @@ public interface SurveyDiameterDao {
 
     @Query("SELECT id, manholType, distance, pipMaterial FROM survey_diameter ORDER BY id DESC")
     List<SurveyResult> getAllResults();
+
+    @Query("DELETE FROM survey_diameter WHERE id = :itemId")
+    void deleteById(int itemId);
 }
