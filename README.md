@@ -28,7 +28,7 @@
 ## 📁 프로젝트 생성하기
 > - 프로젝트 생성하기 화면에서는 프로젝트 단위로 측정 데이터를 관리할 수 있도록 구현 예정입니다.
 > - A프로젝트 구현 시, A프로젝트에 저장되어있는 측정 데이터에 대해서 관리할 수 있도록 합니다.
-**저장 방법 : Room DB 사용
+> - 저장 방법 : Room DB 사용
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/8394bbe5-bbae-4ee9-a75a-58dafb5e9ed4" width="300" />
 
@@ -38,8 +38,8 @@
 > - 프로젝트 선택하기 화면에서는 현재 생성되어있는 모든 프로젝트 목록들을 확인할 수 있습니다.
 > - 프로젝트 생성하기 화면에서 신규 추가된 내용들은 이곳에서 목록을 확인할 수 있습니다.
 > - 프로젝트 선택 시에는 선택된 프로젝트를 기반으로 저장되어 있는 데이터를 불러오거나 신규 측정 데이터를 추가할 수 있습니다.
+> - 현재로는 목록만 확인이 가능하지만, 프로젝트 선택 시 선택된 프로젝트에 저장되어있는 측정 데이터들을 볼 수 있도록 구현 예정입니다.
 
-**현재로는 목록만 확인이 가능하지만, 프로젝트 선택 시 선택된 프로젝트에 저장되어있는 측정 데이터들을 볼 수 있도록 구현 예정입니다.
 <p>
   <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
   <img src="https://github.com/user-attachments/assets/2fa94094-3ff0-4ca3-9f03-e85e8f3d3b65" width="300" />
@@ -86,7 +86,8 @@
 ## 📂 저장된 데이터 리스트 확인하기
 > - 저장된 데이터는 아래 화면에서 확인할 수 있습니다.
 > - RecyclerView를 사용하여 Room DB에 저장되어 있는 데이터들을 불러와서 저장된 데이터들을 확인할 수 있습니다.
-> - 데이터를 삭제하는 기능과 xlsx 파일로 내보는 기능은 추후 구현 예정으로 되어 있습니다.
+> - Room DB에 저장되어 있는 데이터 중에 선택적으로 삭제하는 기능이 추가되어 있습니다.
+> - 내보내기 기능은 xlsx 파일로 내보내질 예정이며 추후 구현 예정으로 되어 있습니다.
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/3e194266-cb6a-4fe9-8b5c-3e699c3dec12" width="300" />
 <img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
