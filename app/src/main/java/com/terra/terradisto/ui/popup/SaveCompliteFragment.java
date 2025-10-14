@@ -54,8 +54,8 @@ public class SaveCompliteFragment extends Fragment {
                 Log.e("SaveCompliteFragment", "저장된 데이터 : " + data.toString());
 
                 binding.tvPipNumber.setText("배관 번호 : " + data.getManholType());
-                binding.tvDistanceNumber.setText("관 경 : " + data.getDistance());
-                binding.tvClMaterialNumber.setText("관 재질 : " + data.getPipeMaterial());
+//                binding.tvDistanceNumber.setText("관 경 : " + data.getDistance());
+//                binding.tvClMaterialNumber.setText("관 재질 : " + data.getPipeMaterial());
             }
         }
 

@@ -57,8 +57,8 @@ public class SaveDialogFragment extends Fragment {
                 Log.e("SaveDialogFragment", "받은 데이터 : " + data.toString());
 
                 binding.tvPipNumber.setText("배관 번호 : " + data.getManholType());
-                binding.tvDistanceNumber.setText("관 경 : " + data.getDistance());
-                binding.tvClMaterialNumber.setText("관 재질 : " + data.getPipeMaterial());
+//                binding.tvDistanceNumber.setText("관 경 : " + data.getDistance());
+//                binding.tvClMaterialNumber.setText("관 재질 : " + data.getPipeMaterial());
             }
         }
 
@@ -75,13 +75,13 @@ public class SaveDialogFragment extends Fragment {
             // 1. Room DB 저장
             new Thread(() -> {
                 AppDatabase db = AppDatabase.getDatabase(requireContext());
-                SurveyDiameterEntity entity = new SurveyDiameterEntity(
-                        data.getManholType(),
-                        data.getDistance(),
-                        data.getPipeMaterial()
-                );
-                db.surveyDiameterDao().insert(entity);
-                Log.e("DB", "저장 완료 : " + entity.toString());
+//                SurveyDiameterEntity entity = new SurveyDiameterEntity(
+//                        data.getManholType(),
+//                        data.getDistance(),
+//                        data.getPipeMaterial()
+//                );
+//                db.surveyDiameterDao().insert(entity);
+//                Log.e("DB", "저장 완료 : " + entity.toString());
             }).start();
         }
 

@@ -13,383 +13,816 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="35dp"
                 android:text="측정값"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_view_title_size_b"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/black" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- 정보값 -->
             <LinearLayout
                 android:id="@+id/cl_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_margin="30dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="배관 번호"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_view_title_size_small"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:textColor="@color/black" />
+                        android:paddingEnd="12dp"/>
 
-                    <View
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_piping_number"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:layout_marginVertical="5dp"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
 
+                        <TextView
+                            android:id="@+id/tv_piping_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:hint="도엽번호"
+                            android:gravity="center_vertical"
+                            android:paddingStart="13dp"
+                            android:paddingEnd="10dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+                    </com.google.android.material.card.MaterialCardView>
                     <LinearLayout
-                        android:id="@+id/constraintLayout01"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:id="@+id/ll_manhole_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end|center_vertical"
+                        android:paddingStart="10dp">
 
-                        <!--Spinner 구현-->
+                        <!-- Spinner 구현 -->
                         <Spinner
                             android:id="@+id/spinner_manhole_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:listitem="manhole_type"
-                            android:entries="@array/manhole_type">
-                        </Spinner>
+                            android:entries="@array/manhole_type"
+                            tools:listitem="manhole_type"/>
                     </LinearLayout>
                 </LinearLayout>
-
                 <LinearLayout
-                    android:id="@+id/ll_distance_max"
+                    android:id="@+id/ll_text_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="관 경"
-                        android:textSize="@dimen/text_view_title_size_small"
-                        android:textColor="@color/black"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/mc_distance_max"
-                        android:layout_width="@dimen/distance_text_width"
+                        android:id="@+id/mc_number"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:strokeWidth="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.5"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="10dp"
-                        app:cardBackgroundColor="#E9ECEF">
-                        <!--                        <EditText-->
-                        <!--                            android:id="@+id/et_distance"-->
-                        <!--                            android:layout_width="match_parent"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:background="@android:color/transparent"-->
-                        <!--                            android:layout_margin="7dp"-->
-                        <!--                            android:paddingLeft="13dp"-->
-                        <!--                            android:paddingTop="5dp"-->
-                        <!--                            android:paddingBottom="5dp"-->
-                        <!--                            android:paddingRight="10dp"-->
-                        <!--                            android:hint="70">-->
-                        <!--                        </EditText>-->
+                        app:strokeWidth="0dp">
 
                         <TextView
-                            android:id="@+id/tv_distance"
+                            android:id="@+id/tv_number"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
                             android:layout_margin="7dp"
-                            android:paddingLeft="13dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:paddingRight="10dp"
-                            android:hint="0">
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="횟수">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_scenery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_scenery"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingEnd="15dp"
+                            android:letterSpacing="-0.09"
+                            android:text="측정 관경">
+
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_input"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingEnd="20dp"
+                            android:text="입력">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_pip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_pip"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingEnd="10dp"
+                            android:text="재질">
                         </TextView>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:id="@+id/ll_measurement_01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_number_01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_number_01"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="1">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_scenery_01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_scenery_first"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="@color/black">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_input_01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/et_input_01"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_pip_01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.3"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/et_pip_material_first"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_measurement_02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_number_02"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_number_02"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="2">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_scenery_02"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_scenery_second"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="@color/black">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_input_02"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/tv_input_02"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_pip_02"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.3"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/et_pip_material_second"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_measurement_03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_number_03"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_number_03"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="3">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_scenery_03"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_scenery_third"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="@color/black">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_input_03"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/tv_input_03"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_pip_03"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.3"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/et_pip_material_third"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_measurement_04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_number_04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_number_04"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="4">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_scenery_04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <TextView
+                            android:id="@+id/tv_scenery_fourth"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:textColor="@color/black">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_input_04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.5"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/tv_input_04"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_pip_04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1.3"
+                        app:cardBackgroundColor="#E9ECEF"
+                        app:cardCornerRadius="10dp"
+                        app:strokeWidth="0dp">
+
+                        <EditText
+                            android:id="@+id/et_pip_material_fourth"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="7dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:textColor="@color/black">
+                        </EditText>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- 추후 현재 위치 개발 기능 예정 -->
-            <!--            <com.google.android.material.textview.MaterialTextView-->
-            <!--                android:id="@+id/mc_mv_loaction"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="현재 위치"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:textSize="@dimen/text_view_title_size_s"-->
-            <!--                android:layout_marginTop="50dp"-->
-            <!--                android:layout_marginStart="30dp"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/cl_info"-->
-            <!--                android:textColor="@color/black"/>-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mc_auto_btn"
+                android:layout_width="@dimen/measurement_data_list_width_medium"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@+id/cl_info"
+                app:layout_constraintTop_toBottomOf="@+id/cl_info">
 
-            <!--            <com.google.android.material.textview.MaterialTextView-->
-            <!--                android:id="@+id/mc_tv_current_location"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="서울특별시 송파구 송파대로 167 B동 6층 B608호(문정동,문정역테라타워)"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:textSize="@dimen/btn_gps_location"-->
-            <!--                android:textColor="#808080"-->
-            <!--                android:singleLine="false"-->
-            <!--                android:maxLines="2"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                app:layout_constraintStart_toStartOf="@+id/mc_mv_loaction"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/mc_mv_loaction"/>-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/btn_survey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="측정"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_view_title_size_small_new"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mc_measure_result_fix"
+                android:layout_width="@dimen/measurement_data_list_width_medium"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#E9ECEF"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_info"
+                app:layout_constraintEnd_toEndOf="@+id/cl_info">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mt_measure_result_fix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="측정값 확정"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_view_title_size_small_new"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mc_distance"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#E9ECEF"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0dp"
+                app:layout_constraintStart_toEndOf="@+id/mc_auto_btn"
+                app:layout_constraintTop_toTopOf="@+id/mc_auto_btn"
+                app:layout_constraintBottom_toBottomOf="@+id/mc_auto_btn">
+
+                <TextView
+                    android:id="@+id/tv_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="7dp"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center">
+                </TextView>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/mc_picture_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="배관 촬영"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_view_title_size_s"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_info"
-                android:textColor="@color/black"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_picture"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/mc_picture_title">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mc_picture"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:layout_margin="30dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:cardBackgroundColor="#E9ECEF">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="Picture"
-                        android:textSize="40sp"
-                        android:textStyle="bold"
-                        android:gravity="center">
-                    </com.google.android.material.textview.MaterialTextView>
-                </com.google.android.material.card.MaterialCardView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mc_piping_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="배관 재질"
-                android:textSize="@dimen/text_view_title_size_s"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_picture"
-                android:textColor="@color/black"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mc_essential_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(필수)"
-                android:textStyle="bold"
-                android:textSize="@dimen/tv_search_title"
-                android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@+id/mc_piping_title"
-                app:layout_constraintBottom_toBottomOf="@+id/mc_piping_title"
-                android:textColor="@color/red"/>
-
-            <LinearLayout
-                android:id="@+id/ll_input_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mc_piping_title">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mc_search_input_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:strokeWidth="0dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardBackgroundColor="#E9ECEF">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:id="@+id/iv_search_button"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/outline_search_24"
-                            android:layout_marginStart="7dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <EditText
-                            android:id="@+id/et_pip_material"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/tv_search_input_box"
-                            android:background="@android:color/transparent"
-                            android:hint="입력 하세요."
-                            android:gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            android:layout_margin="7dp"
-                            android:paddingLeft="13dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:paddingRight="10dp"
-                            app:layout_constraintStart_toEndOf="@+id/iv_search_button"
-                            app:layout_constraintTop_toTopOf="@+id/iv_search_button"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_search_button"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_input_box">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mc_reset_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:strokeWidth="0dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardBackgroundColor="@color/black"
-                    android:layout_margin="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/mc_back_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="초기화"
-                        android:textSize="@dimen/text_view_title_size_small_new"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textColor="@color/white"/>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mc_back_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:strokeWidth="0dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardBackgroundColor="@color/black"
-                    android:layout_margin="10dp"
-                    app:layout_constraintStart_toEndOf="@id/mc_reset_button"
-                    app:layout_constraintEnd_toStartOf="@id/mc_measure_result"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="뒤로가기"
-                        android:textSize="@dimen/text_view_title_size_small_new"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textColor="@color/white"/>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mc_measure_result"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:strokeWidth="0dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardBackgroundColor="@color/black"
-                    android:layout_margin="10dp"
-                    app:layout_constraintStart_toEndOf="@id/mc_back_button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="측정 결과 확인"
-                        android:textSize="@dimen/text_view_title_size_small_new"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textColor="@color/white"/>
-                </com.google.android.material.card.MaterialCardView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mc_auto_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        style="@style/BluetoothSearchButton"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="30dp">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/btn_survey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="관경 측경\nSTART"
-                android:textSize="@dimen/text_view_title_size_small_new"
+                android:text="카메라"
                 android:textColor="@color/black"
+                android:textSize="@dimen/text_view_title_size_s"
                 android:textStyle="bold"
-                android:gravity="center" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="@+id/mc_auto_btn"
+                app:layout_constraintTop_toBottomOf="@+id/mc_auto_btn" >
+            </com.google.android.material.textview.MaterialTextView>
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mc_picture"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                app:cardBackgroundColor="#E9ECEF"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0dp"
+                app:layout_constraintTop_toTopOf="@+id/mc_picture_title"
+                app:layout_constraintEnd_toEndOf="@+id/cl_info">
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/tv_picture"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                android:layout_margin="7dp"-->
+                <!--                android:background="@android:color/transparent"-->
+                <!--                android:hint="0"-->
+                <!--                android:paddingLeft="13dp"-->
+                <!--                android:paddingTop="5dp"-->
+                <!--                android:paddingRight="10dp"-->
+                <!--                android:paddingBottom="5dp">-->
+                <!--            </TextView>-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="13dp"
+                    android:src="@drawable/outline_photo_camera_24">
+                </ImageView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mc_measure_result"
+                android:layout_width="@dimen/measurement_data_list_width_medium"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/mc_measure_complite"
+                app:layout_constraintTop_toBottomOf="@+id/mc_picture">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mt_measure_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="저장"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_view_title_size_small_new"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mc_measure_complite"
+                android:layout_width="@dimen/measurement_data_list_width_medium"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#E9ECEF"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/mc_picture"
+                app:layout_constraintTop_toBottomOf="@+id/mc_picture">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mt_measure_complite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="완료"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_view_title_size_small_new"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <Spinner
+                android:id="@+id/q1w2e3er4r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/manhole_type"
+                tools:listitem="manhole_type" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+        <!--    <com.google.android.material.card.MaterialCardView-->
+        <!--        android:id="@+id/mc_auto_btn"-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_weight="1"-->
+        <!--        style="@style/BluetoothSearchButton"-->
+        <!--        android:layout_marginEnd="20dp"-->
+        <!--        android:layout_marginBottom="20dp"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintBottom_toBottomOf="parent">-->
+
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_margin="30dp">-->
+
+        <!--            <com.google.android.material.textview.MaterialTextView-->
+        <!--                android:id="@+id/btn_survey"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="관경 측경\nSTART"-->
+        <!--                android:textSize="@dimen/text_view_title_size_small_new"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textStyle="bold"-->
+        <!--                android:gravity="center" />-->
+        <!--        </LinearLayout>-->
+        <!--    </com.google.android.material.card.MaterialCardView>-->
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import static ch.leica.sdk.LeicaSdk.reset;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,9 @@ import ch.leica.sdk.Devices.Device;
 
 import com.terra.terradisto.distosdkapp.clipboard.Clipboard;
 import com.terra.terradisto.distosdkapp.clipboard.InformationActivityData;
+import com.terra.terradisto.distosdkapp.data.AppDatabase;
 import com.terra.terradisto.distosdkapp.data.SurveyDiameterData;
+import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
 import com.terra.terradisto.distosdkapp.device.YetiDeviceController;
 import com.terra.terradisto.ui.popup.SaveDialogFragment;
 
@@ -93,77 +96,204 @@ public class SurveyDiameterFragment extends Fragment
         binding = FragmentSurveyDiameterBinding.inflate(inflater, container, false);
 
 
-        binding.mcAutoBtn.setOnClickListener(v -> onClickSurveyToggle());
-        binding.mcAutoBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // 손가락을 눌렀을 때 기준 좌표 저장
-                        dX = v.getX() - event.getRawX();
-                        dY = v.getY() - event.getRawY();
-                        return true;
 
-                    case MotionEvent.ACTION_MOVE:
-                        // 움직일 때 View 위치 갱신 (애니메이션 사용)
-                        v.animate()
-                                .x(event.getRawX() + dX)
-                                .y(event.getRawY() + dY)
-                                .setDuration(0) // 즉시 이동
-                                .start();
-                        return true;
+        /* 버튼 이동 동작 삭제(보류) */
+//        binding.mcAutoBtn.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        // 손가락을 눌렀을 때 기준 좌표 저장
+//                        dX = v.getX() - event.getRawX();
+//                        dY = v.getY() - event.getRawY();
+//                        return true;
+//
+//                    case MotionEvent.ACTION_MOVE:
+//                        // 움직일 때 View 위치 갱신 (애니메이션 사용)
+//                        v.animate()
+//                                .x(event.getRawX() + dX)
+//                                .y(event.getRawY() + dY)
+//                                .setDuration(0) // 즉시 이동
+//                                .start();
+//                        return true;
+//
+//                    case MotionEvent.ACTION_UP:
+//                        // 접근성 이벤트 보장 (Kotlin 코드와 동일)
+//                        v.performClick();
+//                        return true;
+//
+//                    default:
+//                        return false;
+//                }
+//            }
+//        });
 
-                    case MotionEvent.ACTION_UP:
-                        // 접근성 이벤트 보장 (Kotlin 코드와 동일)
-                        v.performClick();
-                        return true;
+        /* 측정 시작 버튼 */
+        binding.mcAutoBtn.setOnClickListener(view -> onClickSurveyToggle());
 
-                    default:
-                        return false;
-                }
+        /* 측정값 확정 */
+        binding.mcMeasureResultFix.setOnClickListener(view -> {
+            String distanceValue = binding.tvDistance.getText().toString();
+            int color = android.graphics.Color.parseColor("#E9ECEF");
+            Log.e("khj", "측정 상태 - distance >>  : " + binding.tvDistance.getText().toString());
+            Log.e("khj", "입력 전 상태 - 01 >>> : " + binding.tvSceneryFirst.getText().toString());
+            Log.e("khj", "입력 전  상태 - 02 >>> : " + binding.tvScenerySecond.getText().toString());
+            Log.e("khj", "입력 전  상태 - 03 >>> : " + binding.tvSceneryThird.getText().toString());
+            Log.e("khj", "입력 전  상태 - 04 >>> : " + binding.tvSceneryFourth.getText().toString());
+
+            // TextUtils.isEmpty()를 사용하여 null 또는 빈 문자열을 안전하게 체크합니다.
+            // 1. 첫 번째 칸 확인
+            if (android.text.TextUtils.isEmpty(binding.tvSceneryFirst.getText().toString())) {
+                binding.tvSceneryFirst.setText(distanceValue);
+                binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
+                binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK); // change black
+                binding.tvDistance.setText("");
+                showToast("첫번째 측정 값이 입력되었습니다.");
+                return;
             }
+
+            // 2. 두 번째 칸 확인
+            if (android.text.TextUtils.isEmpty(binding.tvScenerySecond.getText().toString())) {
+                binding.tvScenerySecond.setText(distanceValue);
+                binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
+                binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK); // change black
+                binding.tvDistance.setText("");
+                showToast("두번째 측정 값이 입력되었습니다.");
+                return;
+            }
+
+            // 3. 세 번째 칸 확인
+            if (android.text.TextUtils.isEmpty(binding.tvSceneryThird.getText().toString())) {
+                binding.tvSceneryThird.setText(distanceValue);
+                binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
+                binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK); // change black
+                binding.tvDistance.setText("");
+                showToast("세번째 측정 값이 입력되었습니다.");
+                return;
+            }
+
+            // 4. 네 번째 칸 확인
+            if (android.text.TextUtils.isEmpty(binding.tvSceneryFourth.getText().toString())) {
+                binding.tvSceneryFourth.setText(distanceValue);
+                binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
+                binding.mcAutoBtn.setCardBackgroundColor(color); // change black
+                binding.tvDistance.setText("");
+                showToast("네번째 측정 값이 입력되었습니다.");
+                return;
+            }
+
+            // 모두 채워진 경우
+            showToast("모든 측정 값이 이미 입력되었습니다.");
+            binding.mtMeasureComplite.setBackgroundColor(color);
+            return;
         });
 
+        Log.e("khj", "측정 상태 - 관경 >>  : " + binding.tvDistance.getText().toString());
+        Log.e("khj", "입력 후 상태 - 01 >>> : " + binding.tvSceneryFirst.getText().toString());
+        Log.e("khj", "입력 후  상태 - 02 >>> : " + binding.tvScenerySecond.getText().toString());
+        Log.e("khj", "입력 후  상태 - 03 >>> : " + binding.tvSceneryThird.getText().toString());
+        Log.e("khj", "입력 후  상태 - 04 >>> : " + binding.tvSceneryFourth.getText().toString());
         binding.mcPicture.setOnClickListener(view -> openExternalApp());
 
-        /* SDK 전역 초기화 (캐시테이터 초기화) */
-//        binding.mcResetButton.setOnClickListener(view -> reset());
-
-        /* TextView reset */
-        binding.mcResetButton.setOnClickListener(view -> resetMeasureData());
-
-        // backButton
-        binding.mcBackButton.setOnClickListener(view -> handleBackButtonClick());
-
         // MeasureResultButton
-        binding.mcMeasureResult.setOnClickListener(view -> saveMeasureData());
+        binding.mcMeasureResult.setOnClickListener(view -> measureInputData());
+
+
+        binding.mcMeasureResult.setOnClickListener(view -> { saveMeasureData(); });
 
         return binding.getRoot();
     }
 
     private void saveMeasureData() {
-        // 1. 화면의 입력값/측정 값 수집
-        String manholType = binding.spinnerManholeCount.getSelectedItem().toString();
-        String distance = binding.tvDistance.getText().toString().trim();
-        String pipMaterial = binding.etPipMaterial.getText().toString().trim();
+//        SurveyDiameterData data = (SurveyDiameterData) getArguments().getSerializable("surveyData");
+//
+//        if (data != null) {
+//            // 1. Room DB 저장
+//            new Thread(() -> {
+//                AppDatabase db = AppDatabase.getDatabase(requireContext());
+//                SurveyDiameterEntity entity = new SurveyDiameterEntity(
+//                        data.getManholType(),
+//                        data.getDistance(),
+//                        data.getPipeMaterial()
+//                );
+//                db.surveyDiameterDao().insert(entity);
+//                Log.e("DB", "저장 완료 : " + entity.toString());
+//            }).start();
+//        }
+//
+//        // 2. 다음 화면으로 이동 (Bundle 전달)
+////        Bundle bundle = new Bundle();
+////
+////        bundle.putSerializable("surveyData", data);
+//
+////        NavController navController = Navigation.findNavController(requireView());
+////        navController.popBackStack(R.id.fragmentSaveDialog, false);
+////        navController.navigate(R.id.fragmentSaveComplite, bundle);
+    }
+
+    private void measureInputData() {
+        /**
+         * 1. 화면의 입력값/측정 값 수집
+         * 2. 엑셀 다운로드를 대비하기 위한 필요한 데이터 확인 -
+         *  - 도엽번호
+         *  - 맨홀타입
+         *  - 1번 재질, 관경, 평면, 심도
+         *  - 2번 재질, 관경, 평면, 심도
+         *  - 3번 재질, 관경, 평면, 심도
+         *  - 4번 재질, 관경, 평면, 심도
+         */
+
+        /**
+         * variableName(Kor) : 도엽 번호 / 맨홀 타입(갯수)
+         * variableName : tv_piping_number / spinner_manhole_count
+         */
+        String mapNumber = binding.tvPipingNumber.getText().toString().trim(); // 도엽 번호
+        String manholType = binding.spinnerManholeCount.getSelectedItem().toString(); // 맨홀 타입(갯수)
+
+        /**
+         * variableName(Kor) : 관경
+         * variableName : tv_scenery_first / Second / Third / Fourth
+         */
+        String tvSceneryFirst = binding.tvSceneryFirst.getText().toString().trim(); // 1번 재질
+        String tvScenerySecond = binding.tvScenerySecond.getText().toString().trim(); // 2번 재질
+        String tvSceneryThird = binding.tvSceneryThird.getText().toString().trim(); // 3번 재질
+        String tvSceneryFourth = binding.tvSceneryFourth.getText().toString().trim(); // 4번 재질
+        Log.e("Disto", "tvSceneryFirst : " + tvSceneryFirst + "tvScenerySecond : " + tvScenerySecond
+                + "tvSceneryThird : " + tvSceneryThird + "tvSceneryFourth : " + tvSceneryFourth);
+
+        /**
+         * variableName(Kor) : 재질
+         * variableName : et_pip_material_first / Second / Third / Fourth
+         */
+        String pipMaterialFirst = binding.etPipMaterialFirst.getText().toString().trim(); // 1번 재질
+        String pipMaterialSecond = binding.etPipMaterialSecond.getText().toString().trim(); // 2번 재질
+        String pipMaterialThird = binding.etPipMaterialThird.getText().toString().trim(); // 3번 재질
+        String pipMaterialFourth = binding.etPipMaterialFourth.getText().toString().trim(); // 4번 재질
+        Log.e("Disto", "pipMaterialFirst : " + pipMaterialFirst + "pipMaterialSecond : " + pipMaterialSecond
+                                + "pipMaterialThird : " + pipMaterialThird + "pipMaterialFourth : " + pipMaterialFourth);
 
         // 2. 유효성 검사
-        if (distance.isEmpty() || pipMaterial.isEmpty()) {
-            showToast("모든 값을 입력 해야 합니다.");
-            return;
-        }
+//        if (mapNumber.isEmpty() || manholType.isEmpty()
+//            || tvSceneryFirst.isEmpty() || tvScenerySecond.isEmpty() || tvSceneryThird.isEmpty() || tvSceneryFourth.isEmpty()
+//            || pipMaterialFirst.isEmpty() || pipMaterialSecond.isEmpty() || pipMaterialThird.isEmpty() || pipMaterialFourth.isEmpty()) {
+//            showToast("모든 값을 입력 해야 합니다.");
+//            return;
+//        }
 
         // 3. 데이터 객체 생성
-        SurveyDiameterData data = new SurveyDiameterData(manholType, distance, pipMaterial);
+//        String mapNumber, String manholType, String distance, String pipeMaterial, String plane, String depth
+        SurveyDiameterData data = new SurveyDiameterData(mapNumber, manholType,
+                tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth,
+                pipMaterialFirst, pipMaterialSecond, pipMaterialThird, pipMaterialFourth);
 
         // 4. 로그로 확인
         Log.e(TAG, "저장 데이터 : " + data.toString());
 
         // 5. 다음 화면으로 전달
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("surveyData", data);
-        NavController navController = Navigation.findNavController(requireView());
-        navController.navigate(R.id.fragmentSaveDialog, bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("surveyData", data);
+//        NavController navController = Navigation.findNavController(requireView());
+//        navController.navigate(R.id.fragmentSaveDialog, bundle);
     }
 
     private void handleBackButtonClick() {
@@ -171,13 +301,6 @@ public class SurveyDiameterFragment extends Fragment
 
         navController.popBackStack();
         Log.e("khj", "backStack");
-    }
-
-    private void resetMeasureData() {
-        binding.tvDistance.setText("");
-        binding.etPipMaterial.setText("");
-        binding.spinnerManholeCount.setSelection(0);
-        showToast("초기화 되었습니다.");
     }
 
     private void openExternalApp() {
@@ -290,12 +413,16 @@ public class SurveyDiameterFragment extends Fragment
 
         // UI 초기화
         if (binding != null) {
+            int color = android.graphics.Color.parseColor("#E9ECEF");
 //            binding.tvRealtimeDistance.setText("");
 //            binding.tvRealtimeAngle.setText("");
 //            binding.tvMaxDistance.setText("");
             binding.tvDistance.setText("");
 //            binding.tvMaxAngle.setText("");
             binding.btnSurvey.setText("측정 정지");
+            binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK); // change black
+            binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
+
         }
 
         // 1초 간격 측정 태스크
@@ -320,6 +447,7 @@ public class SurveyDiameterFragment extends Fragment
 
         if (binding != null) {
             binding.btnSurvey.setText(getString(com.terra.terradisto.R.string.survey_diameter));
+            binding.mtMeasureResultFix.setBackgroundColor(Color.BLACK); // change black
         }
         if (showToast) showToast("측정을 중지했습니다.");
     }

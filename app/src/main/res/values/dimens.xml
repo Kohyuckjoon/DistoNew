@@ -7,7 +7,10 @@
     <dimen name="text_view_title_size_b">35sp</dimen>
 
     <!-- 거리 / 각도 / 최대값 -->
-    <dimen name="distance_text_width">100dp</dimen> <!--input Box-->
+    <dimen name="distance_text_width">170dp</dimen> <!--input Box-->
+    <dimen name="measurement_number">80dp</dimen> <!--input Box-->
+    <dimen name="number">50dp</dimen> <!--input Box-->
+    <dimen name="measure_text_title">18dp</dimen> <!--input Box-->
     <dimen name="text_view_title_size_small">20sp</dimen>
     <dimen name="text_view_title_size_small_new">13sp</dimen>
     <dimen name="btn_auto_text_size">20sp</dimen>
@@ -23,6 +26,7 @@
 
     <!-- 데이터 삭제 -->
     <dimen name="measurement_data_list_width">130dp</dimen> <!--button-->
+    <dimen name="measurement_data_list_width_medium">90dp</dimen> <!--button-->
     <dimen name="measurement_data_list_height">28dp</dimen> <!--button-->
 
     <!-- text title (current)-->
