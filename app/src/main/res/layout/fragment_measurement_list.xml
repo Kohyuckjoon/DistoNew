@@ -23,8 +23,30 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mc_delete_button"
+            android:layout_width="@dimen/measurement_data_export_width"
+            android:layout_height="@dimen/measurement_data_export_height"
+            app:strokeWidth="0dp"
+            app:cardCornerRadius="50dp"
+            app:cardBackgroundColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewResults"
+            app:layout_constraintTop_toTopOf="@+id/tvSectionTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSectionTitle">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text="내 보 내 기"
+                android:textSize="@dimen/text_view_title_size_small"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/white">
+            </com.google.android.material.textview.MaterialTextView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- 디바이스 리스트 -->
         <androidx.recyclerview.widget.RecyclerView
@@ -36,7 +58,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSectionTitle"
-            tools:listitem="@layout/item_list_result" />
+            tools:listitem="@layout/item_list_result"
+            android:layout_marginTop="10dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

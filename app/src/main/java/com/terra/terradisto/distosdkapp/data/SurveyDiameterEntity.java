@@ -19,20 +19,29 @@ public class SurveyDiameterEntity {
     private String tvSceneryThird;  // 3번 관경
     private String tvSceneryFourth; // 4번 관경
 
+    // === 수기 입력값 (Scenery) 데이터 필드 (4개) ===
+    private String etInputFirst;  // 1번 관경
+    private String etInputSecond; // 2번 관경
+    private String etInputThird;  // 3번 관경
+    private String etInputFourth; // 4번 관경
+
     // === 재질 (Pipe Material) 데이터 필드 (4개) ===
     private String etPipMaterialFirst; // 1번 재질
     private String etPipMaterialSecond; // 2번 재질
     private String etPipMaterialThird;  // 3번 재질
     private String etPipMaterialFourth; // 4번 재질
 
-    // [수정된 부분]: Room에서 id를 자동 생성하므로, id 필드를 제외한 생성자 정의
-    public SurveyDiameterEntity(String mapNumber, String manholType, String tvSceneryFirst, String tvScenerySecond, String tvSceneryThird, String tvSceneryFourth, String etPipMaterialFirst, String etPipMaterialSecond, String etPipMaterialThird, String etPipMaterialFourth) {
+    public SurveyDiameterEntity(String mapNumber, String manholType, String tvSceneryFirst, String tvScenerySecond, String tvSceneryThird, String tvSceneryFourth, String etInputFirst, String etInputSecond, String etInputThird, String etInputFourth, String etPipMaterialFirst, String etPipMaterialSecond, String etPipMaterialThird, String etPipMaterialFourth) {
         this.mapNumber = mapNumber;
         this.manholType = manholType;
         this.tvSceneryFirst = tvSceneryFirst;
         this.tvScenerySecond = tvScenerySecond;
         this.tvSceneryThird = tvSceneryThird;
         this.tvSceneryFourth = tvSceneryFourth;
+        this.etInputFirst = etInputFirst;
+        this.etInputSecond = etInputSecond;
+        this.etInputThird = etInputThird;
+        this.etInputFourth = etInputFourth;
         this.etPipMaterialFirst = etPipMaterialFirst;
         this.etPipMaterialSecond = etPipMaterialSecond;
         this.etPipMaterialThird = etPipMaterialThird;
@@ -95,6 +104,38 @@ public class SurveyDiameterEntity {
         this.tvSceneryFourth = tvSceneryFourth;
     }
 
+    public String getEtInputFirst() {
+        return etInputFirst;
+    }
+
+    public void setEtInputFirst(String etInputFirst) {
+        this.etInputFirst = etInputFirst;
+    }
+
+    public String getEtInputSecond() {
+        return etInputSecond;
+    }
+
+    public void setEtInputSecond(String etInputSecond) {
+        this.etInputSecond = etInputSecond;
+    }
+
+    public String getEtInputThird() {
+        return etInputThird;
+    }
+
+    public void setEtInputThird(String etInputThird) {
+        this.etInputThird = etInputThird;
+    }
+
+    public String getEtInputFourth() {
+        return etInputFourth;
+    }
+
+    public void setEtInputFourth(String etInputFourth) {
+        this.etInputFourth = etInputFourth;
+    }
+
     public String getEtPipMaterialFirst() {
         return etPipMaterialFirst;
     }
@@ -125,5 +166,25 @@ public class SurveyDiameterEntity {
 
     public void setEtPipMaterialFourth(String etPipMaterialFourth) {
         this.etPipMaterialFourth = etPipMaterialFourth;
+    }
+
+    @Override
+    public String toString() {
+        return "SurveyDiameterEntity{" +
+                "mapNumber='" + mapNumber + '\'' +
+                ", manholType='" + manholType + '\'' +
+                ", tvSceneryFirst='" + tvSceneryFirst + '\'' +
+                ", tvScenerySecond='" + tvScenerySecond + '\'' +
+                ", tvSceneryThird='" + tvSceneryThird + '\'' +
+                ", tvSceneryFourth='" + tvSceneryFourth + '\'' +
+                ", etInputFirst='" + etInputFirst + '\'' +
+                ", etInputSecond='" + etInputSecond + '\'' +
+                ", etInputThird='" + etInputThird + '\'' +
+                ", etInputFourth='" + etInputFourth + '\'' +
+                ", etPipMaterialFirst='" + etPipMaterialFirst + '\'' +
+                ", etPipMaterialSecond='" + etPipMaterialSecond + '\'' +
+                ", etPipMaterialThird='" + etPipMaterialThird + '\'' +
+                ", etPipMaterialFourth='" + etPipMaterialFourth + '\'' +
+                '}';
     }
 }

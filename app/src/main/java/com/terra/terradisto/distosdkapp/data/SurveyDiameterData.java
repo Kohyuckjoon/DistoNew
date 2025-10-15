@@ -92,7 +92,17 @@ public class SurveyDiameterData implements Serializable {
     // 관경 (1~4)
     public String getTvSceneryFirst() { return tvSceneryFirst; }
     public void setTvSceneryFirst(String tvSceneryFirst) { this.tvSceneryFirst = tvSceneryFirst; }
-    // (이하 Second, Third, Fourth 게터/세터 생략)
+
+    public String getTvScenerySecond() { return tvScenerySecond; }
+    public void setTvScenerySecond(String tvScenerySecond) { this.tvScenerySecond = tvScenerySecond; }
+
+    public String getTvSceneryThird() { return tvSceneryThird; }
+
+    public void setTvSceneryThird(String tvSceneryThird) { this.tvSceneryThird = tvSceneryThird; }
+
+    public String getTvSceneryFourth() { return tvSceneryFourth; }
+
+    public void setTvSceneryFourth(String tvSceneryFourth) { this.tvSceneryFourth = tvSceneryFourth; }
 
     // 재질 (1~4)
     public String getEtPipMaterialFirst() { return etPipMaterialFirst; }

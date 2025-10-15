@@ -220,6 +220,12 @@ public class SurveyDiameterFragment extends Fragment
         String tvSceneryThird = binding.tvSceneryThird.getText().toString().trim();
         String tvSceneryFourth = binding.tvSceneryFourth.getText().toString().trim();
 
+        // 수기 입력값 (Pipe Material)
+        String etInputFirst = binding.etInputFirst.getText().toString().trim();
+        String etInputSecond = binding.etInputSecond.getText().toString().trim();
+        String etInputThird = binding.etInputThird.getText().toString().trim();
+        String etInputFourth = binding.etInputFourth.getText().toString().trim();
+
         // 재질 (Pipe Material)
         String pipMaterialFirst = binding.etPipMaterialFirst.getText().toString().trim();
         String pipMaterialSecond = binding.etPipMaterialSecond.getText().toString().trim();
@@ -242,6 +248,7 @@ public class SurveyDiameterFragment extends Fragment
         SurveyDiameterEntity entity = new SurveyDiameterEntity(
                 mapNumber, manholType,
                 tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth,
+                etInputFirst, etInputSecond, etInputThird, etInputFourth,
                 pipMaterialFirst, pipMaterialSecond, pipMaterialThird, pipMaterialFourth
         );
 

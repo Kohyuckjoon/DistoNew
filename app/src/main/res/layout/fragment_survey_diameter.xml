@@ -263,7 +263,7 @@
                         app:strokeWidth="0dp">
 
                         <EditText
-                            android:id="@+id/et_input_01"
+                            android:id="@+id/et_input_first"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -368,7 +368,7 @@
                         app:strokeWidth="0dp">
 
                         <EditText
-                            android:id="@+id/tv_input_02"
+                            android:id="@+id/et_input_second"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -472,7 +472,7 @@
                         app:strokeWidth="0dp">
 
                         <EditText
-                            android:id="@+id/tv_input_03"
+                            android:id="@+id/et_input_third"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -577,7 +577,7 @@
                         app:strokeWidth="0dp">
 
                         <EditText
-                            android:id="@+id/tv_input_04"
+                            android:id="@+id/et_input_fourth"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"

@@ -17,8 +17,14 @@ public interface SurveyDiameterDao {
     @Query("SELECT * FROM survey_diameter ORDER BY id DESC")
     List<SurveyDiameterEntity> getAll();
 
-    @Query("SELECT id, manholType, tvSceneryFirst, etPipMaterialFirst FROM survey_diameter ORDER BY id DESC")
+//    @Query("SELECT id, manholType, tvSceneryFirst, etPipMaterialFirst FROM survey_diameter ORDER BY id DESC")
+//    List<SurveyResult> getAllResults();
+
+    @Query("SELECT * FROM survey_diameter ORDER BY id DESC")
     List<SurveyResult> getAllResults();
+
+    @Query("SELECT id, mapNumber, manholType, tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth FROM survey_diameter ORDER BY id DESC")
+    List<SurveyResult> getAllResultData();
 
     @Query("DELETE FROM survey_diameter WHERE id = :itemId")
     void deleteById(int itemId);

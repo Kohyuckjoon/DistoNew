@@ -25,6 +25,8 @@
     <dimen name="project_select_button">70dp</dimen> <!--button-->
 
     <!-- 데이터 삭제 -->
+    <dimen name="measurement_data_export_width">180dp</dimen> <!--button-->
+    <dimen name="measurement_data_export_height">30dp</dimen> <!--button-->
     <dimen name="measurement_data_list_width">130dp</dimen> <!--button-->
     <dimen name="measurement_data_list_width_medium">90dp</dimen> <!--button-->
     <dimen name="measurement_data_list_height">28dp</dimen> <!--button-->
