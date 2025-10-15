@@ -92,8 +92,9 @@
 > - Room DB에 저장되어 있는 데이터 중에 선택적으로 삭제하는 기능이 추가되어 있습니다.
 > - 내보내기 기능은 xlsx 파일로 내보내질 예정이며 추후 구현 예정으로 되어 있습니다.
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
-<img src="https://github.com/user-attachments/assets/3e194266-cb6a-4fe9-8b5c-3e699c3dec12" width="300" />
+<img src="https://github.com/user-attachments/assets/55b18264-1bd5-4773-85d9-366e2a9c42e5" width="300" />
 <img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
+
 
 ---
 
