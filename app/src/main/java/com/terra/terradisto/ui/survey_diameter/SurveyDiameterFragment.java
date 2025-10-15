@@ -37,6 +37,8 @@ import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
 import com.terra.terradisto.distosdkapp.device.YetiDeviceController;
 import com.terra.terradisto.ui.popup.SaveDialogFragment;
 
+import java.util.concurrent.Executors;
+
 import ch.leica.sdk.ErrorHandling.ErrorObject;
 
 public class SurveyDiameterFragment extends Fragment
@@ -205,30 +207,73 @@ public class SurveyDiameterFragment extends Fragment
     }
 
     private void saveMeasureData() {
-//        SurveyDiameterData data = (SurveyDiameterData) getArguments().getSerializable("surveyData");
-//
-//        if (data != null) {
-//            // 1. Room DB 저장
-//            new Thread(() -> {
-//                AppDatabase db = AppDatabase.getDatabase(requireContext());
-//                SurveyDiameterEntity entity = new SurveyDiameterEntity(
-//                        data.getManholType(),
-//                        data.getDistance(),
-//                        data.getPipeMaterial()
-//                );
-//                db.surveyDiameterDao().insert(entity);
-//                Log.e("DB", "저장 완료 : " + entity.toString());
-//            }).start();
-//        }
-//
-//        // 2. 다음 화면으로 이동 (Bundle 전달)
-////        Bundle bundle = new Bundle();
-////
-////        bundle.putSerializable("surveyData", data);
-//
-////        NavController navController = Navigation.findNavController(requireView());
-////        navController.popBackStack(R.id.fragmentSaveDialog, false);
-////        navController.navigate(R.id.fragmentSaveComplite, bundle);
+
+        // 1. 화면의 입력값/측정 값 수집 (measureInputData()에서 가져옴)
+
+        // 도엽 번호 / 맨홀 타입(갯수)
+        String mapNumber = binding.tvPipingNumber.getText().toString().trim(); // 도엽 번호
+        String manholType = binding.spinnerManholeCount.getSelectedItem().toString(); // 맨홀 타입(갯수)
+
+        // 관경 (Scenery)
+        String tvSceneryFirst = binding.tvSceneryFirst.getText().toString().trim();
+        String tvScenerySecond = binding.tvScenerySecond.getText().toString().trim();
+        String tvSceneryThird = binding.tvSceneryThird.getText().toString().trim();
+        String tvSceneryFourth = binding.tvSceneryFourth.getText().toString().trim();
+
+        // 재질 (Pipe Material)
+        String pipMaterialFirst = binding.etPipMaterialFirst.getText().toString().trim();
+        String pipMaterialSecond = binding.etPipMaterialSecond.getText().toString().trim();
+        String pipMaterialThird = binding.etPipMaterialThird.getText().toString().trim();
+        String pipMaterialFourth = binding.etPipMaterialFourth.getText().toString().trim();
+
+        // 2. 유효성 검사 (필요한 경우 관경/재질 필드까지 검사 로직 추가)
+        if (mapNumber.isEmpty() || manholType.isEmpty()) {
+            showToast("도엽 번호와 맨홀 타입은 필수 입력 사항입니다.");
+            return;
+        }
+
+        // [삭제]: Bundle 관련 로직은 제거 (다음 화면으로 전달하지 않으므로)
+        /*
+        SurveyDiameterData data = (SurveyDiameterData) getArguments().getSerializable("surveyData");
+        if (data != null) { ... }
+        */
+
+        // 3. SurveyDiameterEntity 객체 생성 (10개 필드 모두 사용)
+        SurveyDiameterEntity entity = new SurveyDiameterEntity(
+                mapNumber, manholType,
+                tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth,
+                pipMaterialFirst, pipMaterialSecond, pipMaterialThird, pipMaterialFourth
+        );
+
+        // 4. 로그로 확인
+        Log.e(TAG, "저장 데이터 (Entity) : " + entity.getMapNumber() + " / " + entity.getManholType());
+
+        // 5. Room DB에 저장 (비동기 처리)
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                // Fragment이므로 requireContext() 사용
+                AppDatabase db = AppDatabase.getDatabase(requireContext());
+                db.surveyDiameterDao().insert(entity);
+
+                Log.e(TAG, "Room DB에 데이터 저장 완료 : ID=" + entity.getId());
+
+                // UI 피드백을 위한 메인 스레드 전환
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        showToast("측정 데이터가 저장되었습니다. ✅");
+                        // 저장 후 필요하다면 입력 필드 초기화 로직 추가
+                    });
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Room DB 저장 실패", e);
+
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        showToast("데이터 저장에 실패했습니다. ❌");
+                    });
+                }
+            }
+        });
     }
 
     private void measureInputData() {
@@ -270,30 +315,14 @@ public class SurveyDiameterFragment extends Fragment
         String pipMaterialThird = binding.etPipMaterialThird.getText().toString().trim(); // 3번 재질
         String pipMaterialFourth = binding.etPipMaterialFourth.getText().toString().trim(); // 4번 재질
         Log.e("Disto", "pipMaterialFirst : " + pipMaterialFirst + "pipMaterialSecond : " + pipMaterialSecond
-                                + "pipMaterialThird : " + pipMaterialThird + "pipMaterialFourth : " + pipMaterialFourth);
+                + "pipMaterialThird : " + pipMaterialThird + "pipMaterialFourth : " + pipMaterialFourth);
 
         // 2. 유효성 검사
-//        if (mapNumber.isEmpty() || manholType.isEmpty()
-//            || tvSceneryFirst.isEmpty() || tvScenerySecond.isEmpty() || tvSceneryThird.isEmpty() || tvSceneryFourth.isEmpty()
-//            || pipMaterialFirst.isEmpty() || pipMaterialSecond.isEmpty() || pipMaterialThird.isEmpty() || pipMaterialFourth.isEmpty()) {
-//            showToast("모든 값을 입력 해야 합니다.");
-//            return;
-//        }
+        if (mapNumber.isEmpty() || manholType.isEmpty()) {
+            showToast("도엽 번호와 맨홀 타입은 필수 입력 사항입니다.");
+            return;
+        }
 
-        // 3. 데이터 객체 생성
-//        String mapNumber, String manholType, String distance, String pipeMaterial, String plane, String depth
-        SurveyDiameterData data = new SurveyDiameterData(mapNumber, manholType,
-                tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth,
-                pipMaterialFirst, pipMaterialSecond, pipMaterialThird, pipMaterialFourth);
-
-        // 4. 로그로 확인
-        Log.e(TAG, "저장 데이터 : " + data.toString());
-
-        // 5. 다음 화면으로 전달
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("surveyData", data);
-//        NavController navController = Navigation.findNavController(requireView());
-//        navController.navigate(R.id.fragmentSaveDialog, bundle);
     }
 
     private void handleBackButtonClick() {

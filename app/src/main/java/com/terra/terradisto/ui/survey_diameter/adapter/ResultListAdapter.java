@@ -79,10 +79,10 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
 
 //        public void bind(SurveyResult item) {
         public void bind(final SurveyResult item, final OnItemDeleteListener listener) {
-            mtMeasurementName.setText("" + item.id + "번 측정 값");
-            mtManholType.setText("맨홀 타입 : " + item.manholType);
-            mtDistance.setText("관 경 : " + item.distance + " m");
-            mtPipMaterial.setText("관 재질 : " + item.pipMaterial);
+//            mtMeasurementName.setText("" + item.mapNumber + "번 측정 값");
+//            mtManholType.setText("맨홀 타입 : " + item.manholType);
+//            mtDistance.setText("관 경 : " + item.tvSceneryFirst + " m");
+//            mtPipMaterial.setText("관 재질 : " + item.pipMaterial);
 
             mcDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -71,10 +71,10 @@ public class SaveDialogFragment extends Fragment {
     private void saveMeasureData() {
         SurveyDiameterData data = (SurveyDiameterData) getArguments().getSerializable("surveyData");
 
-        if (data != null) {
-            // 1. Room DB 저장
-            new Thread(() -> {
-                AppDatabase db = AppDatabase.getDatabase(requireContext());
+//        if (data != null) {
+//            // 1. Room DB 저장
+//            new Thread(() -> {
+//                AppDatabase db = AppDatabase.getDatabase(requireContext());
 //                SurveyDiameterEntity entity = new SurveyDiameterEntity(
 //                        data.getManholType(),
 //                        data.getDistance(),
@@ -82,8 +82,8 @@ public class SaveDialogFragment extends Fragment {
 //                );
 //                db.surveyDiameterDao().insert(entity);
 //                Log.e("DB", "저장 완료 : " + entity.toString());
-            }).start();
-        }
+//            }).start();
+//        }
 
         // 2. 다음 화면으로 이동 (Bundle 전달)
         Bundle bundle = new Bundle();

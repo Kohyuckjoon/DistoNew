@@ -65,7 +65,7 @@
                         app:cardCornerRadius="10dp"
                         app:strokeWidth="0dp">
 
-                        <TextView
+                        <EditText
                             android:id="@+id/tv_piping_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
