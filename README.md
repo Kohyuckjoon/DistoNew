@@ -66,15 +66,13 @@
 > - **뒤로가기:** 이전 화면으로 이동  
 > - **측정 결과 확인:** Fragment Popup에 표시 및 저장  
 > - **저장 방식:** Room DB  
-
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/de41862e-b258-498e-a943-7cc51b91ca52" width="300" />
 <img src="https://github.com/user-attachments/assets/0836e973-d67a-4edf-9293-1a1a3c11cfc5" width="300" />
 
----
-
 ## 💾 측정 저장을 위한 최종 확인
 ## ✅ 측정 저장 완료
+
 > - 측정 데이터 저장을 위해서 최종 확인이 진행되는 화면입니다.
 > - 도엽번호와 배관 갯수, 측정 진행한 관경, 수기 입력 값과 재질을 입력할 수 있습니다.
 > - 관경 측정 버튼 클릭 시 Disto 장비에서 관경 측정이 진행됩니다. 측정이 된 최대값이 관경 측정 값과 측정값 확정 사이에 Input Box에 자동으로 입력이 되게 됩니다.
@@ -83,6 +81,15 @@
 > - 저장 방식 : Room DB
 
 <img src="https://github.com/user-attachments/assets/c829e689-3db4-483a-a565-38d9adf5a913" width="300" />
+
+
+
+---
+
+## 💾 측정 저장을 위한 최종 확인
+## ✅ 측정 저장 완료
+
+
 
 ---
 
