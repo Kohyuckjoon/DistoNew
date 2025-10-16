@@ -199,11 +199,47 @@ public class SurveyDiameterFragment extends Fragment
 
         // MeasureResultButton
         binding.mcMeasureResult.setOnClickListener(view -> measureInputData());
-
-
         binding.mcMeasureResult.setOnClickListener(view -> { saveMeasureData(); });
 
+        // 숫자 눌렀을 경우
+        binding.mcNumberFirst.setOnClickListener(view -> { dataReplcaDataFirst(); });
+        binding.mcNumberSecond.setOnClickListener(view -> { dataReplcaDataSecond(); });
+        binding.mcNumberThird.setOnClickListener(view -> { dataReplcaDataThird(); });
+        binding.mcNumberFourth.setOnClickListener(view -> { dataReplcaDataFourth(); });
+
         return binding.getRoot();
+    }
+
+    private void dataReplcaDataFirst() {
+        String distanceValue = binding.tvDistance.getText().toString();
+
+        if (!android.text.TextUtils.isEmpty(binding.tvSceneryFirst.getText().toString())) {
+            binding.tvSceneryFirst.setText(distanceValue);
+        }
+    }
+
+    private void dataReplcaDataSecond() {
+        String distanceValue = binding.tvDistance.getText().toString();
+
+        if (!android.text.TextUtils.isEmpty(binding.tvScenerySecond.getText().toString())) {
+            binding.tvScenerySecond.setText(distanceValue);
+        }
+    }
+
+    private void dataReplcaDataThird() {
+        String distanceValue = binding.tvDistance.getText().toString();
+
+        if (!android.text.TextUtils.isEmpty(binding.tvSceneryThird.getText().toString())) {
+            binding.tvSceneryThird.setText(distanceValue);
+        }
+    }
+
+    private void dataReplcaDataFourth() {
+        String distanceValue = binding.tvDistance.getText().toString();
+
+        if (!android.text.TextUtils.isEmpty(binding.tvSceneryFourth.getText().toString())) {
+            binding.tvSceneryFourth.setText(distanceValue);
+        }
     }
 
     private void saveMeasureData() {

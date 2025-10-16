@@ -205,7 +205,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/mc_number_01"
+                        android:id="@+id/mc_number_first"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -215,7 +215,7 @@
                         app:strokeWidth="0dp">
 
                         <TextView
-                            android:id="@+id/tv_number_01"
+                            android:id="@+id/tv_number_first"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -308,7 +308,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/mc_number_02"
+                        android:id="@+id/mc_number_second"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -318,7 +318,7 @@
                         app:strokeWidth="0dp">
 
                         <TextView
-                            android:id="@+id/tv_number_02"
+                            android:id="@+id/tv_number_second"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -412,7 +412,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/mc_number_03"
+                        android:id="@+id/mc_number_third"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -422,7 +422,7 @@
                         app:strokeWidth="0dp">
 
                         <TextView
-                            android:id="@+id/tv_number_03"
+                            android:id="@+id/tv_number_third"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -512,12 +512,11 @@
                     android:id="@+id/ll_measurement_04"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/mc_number_04"
+                        android:id="@+id/mc_number_fourth"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -527,7 +526,7 @@
                         app:strokeWidth="0dp">
 
                         <TextView
-                            android:id="@+id/tv_number_04"
+                            android:id="@+id/tv_number_fourth"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -714,6 +713,7 @@
                 app:layout_constraintTop_toTopOf="@+id/mc_picture_title"
                 app:layout_constraintEnd_toEndOf="@+id/cl_info">
 
+                <!-- 카메라 화면 실시간으로 보이게 하기 -->
                 <!--            <TextView-->
                 <!--                android:id="@+id/tv_picture"-->
                 <!--                android:layout_width="match_parent"-->
@@ -781,21 +781,9 @@
                     android:textSize="@dimen/text_view_title_size_small_new"
                     android:textStyle="bold" />
             </com.google.android.material.card.MaterialCardView>
-
-            <Spinner
-                android:id="@+id/q1w2e3er4r"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/manhole_type"
-                tools:listitem="manhole_type" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
-
-
+        <!-- 이동식 버튼 -->
         <!--    <com.google.android.material.card.MaterialCardView-->
         <!--        android:id="@+id/mc_auto_btn"-->
         <!--        android:layout_width="0dp"-->

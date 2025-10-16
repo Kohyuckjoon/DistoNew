@@ -69,7 +69,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         private final MaterialCardView mcDeleteButton;
 
         public TextView mapNumber;        // 도엽 번호
-        public String manholType;       // 맨홀 타입 (1개, 2개, 3개, 4개)
+        public TextView manholType;       // 맨홀 타입 (1개, 2개, 3개, 4개)
 
         // === 관경 (Scenery) 데이터 필드 (4개) ===
         private TextView tvSceneryFirst;  // 1번 관경
@@ -93,6 +93,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         public ResultViewHolder(View itemView) {
             super(itemView);
             mapNumber = itemView.findViewById(R.id.tv_sheet_number);
+            manholType = itemView.findViewById(R.id.tv_manhol_type);
             tvSceneryFirst = itemView.findViewById(R.id.tv_scenery_first);
             tvScenerySecond = itemView.findViewById(R.id.tv_scenery_second);
             tvSceneryThird = itemView.findViewById(R.id.tv_scenery_third);
@@ -112,6 +113,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
 
         public void bind(final SurveyResult item, final OnItemDeleteListener listener) {
             mapNumber.setText("도엽 번호 : " + item.getMapNumber());
+            manholType.setText("맨홀 타입 : " + item.getManholType());
             tvSceneryFirst.setText(item.getTvSceneryFirst());
             tvScenerySecond.setText(item.getTvScenerySecond());
             tvSceneryThird.setText(item.getTvSceneryThird());
@@ -128,6 +130,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             etPipMaterialFourth.setText(item.getEtPipMaterialFourth());
 
             Log.e("Disto_도엽 번호", "item.getMapNumber() : " + item.getTvSceneryFirst());
+            Log.e("Disto_도엽 번호", "item.getManholType() : " + item.getManholType());
 
             Log.e("Disto_측정 관경", "item.getTvSceneryFirst() : " + item.getTvSceneryFirst()
                                     + " item.getTvScenerySecond() : " + item.getTvScenerySecond()

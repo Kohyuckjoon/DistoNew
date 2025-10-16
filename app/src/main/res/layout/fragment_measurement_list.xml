@@ -40,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="내 보 내 기"
-                android:textSize="@dimen/text_view_title_size_small"
+                android:text="내보내기"
+                android:textSize="@dimen/text_view_title_size_small_new"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/white">
