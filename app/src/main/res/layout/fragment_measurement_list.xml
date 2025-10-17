@@ -26,7 +26,7 @@
             android:layout_marginTop="16dp" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mc_delete_button"
+            android:id="@+id/mc_export_button"
             android:layout_width="@dimen/measurement_data_export_width"
             android:layout_height="@dimen/measurement_data_export_height"
             app:strokeWidth="0dp"

@@ -17,6 +17,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+//    packagingOptions {
+//        // POI 라이브러리 버전 변경에 따른 충돌 해결 옵션 업데이트
+//        pickFirst 'META-INF/versions/9/module-info.class'
+//        pickFirst 'org/apache/xmlbeans/xml/stream/XMLStreamReader.class'
+//        pickFirst 'org/apache/commons/collections4/ArrayUtils.class'
+//        pickFirst 'org/xml.sax.helpers.DefaultHandler'
+//        // SAX 파서 충돌 해결을 위한 추가 설정
+//        pickFirst 'org/apache/xmlbeans/xml/stream/events/ChangeType.class'
+//        pickFirst 'org/apache.xmlbeans/xml/stream/events/EndElement.class'
+//        pickFirst 'org/apache/xmlbeans/xml/stream/events/StartElement.class'
+//    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -61,4 +73,17 @@ dependencies {
     // Room + Kotlin 코루틴(혹시 Kotlin 코드도 함께 쓰는 경우)
     implementation "androidx.room:room-ktx:2.6.1"
 
+    // 1. POI Core 및 OOXML (버전 4.1.2로 통일)
+    implementation 'org.apache.poi:poi:4.1.2'
+    implementation 'org.apache.poi:poi-ooxml:4.1.2'
+
+    // 2. OOXML 지원에 필수적인 XML 스키마 및 엔진 (버전 4.1.2와 호환되는 것으로 통일)
+    implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2'
+    implementation 'org.apache.xmlbeans:xmlbeans:3.1.0'
+
+    // 3. Android에서 누락된 Java XML 스트림 API 추가 (XMLStreamReader 오류 해결)
+    implementation 'javax.xml.stream:stax-api:1.0-2'
+
+    // 4. (선택적) 일부 POI 기능에 필요하며 안정성을 높임
+    implementation 'com.github.virtuald:curvesapi:1.06'
 }

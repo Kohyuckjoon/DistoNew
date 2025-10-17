@@ -1,5 +1,6 @@
 package com.terra.terradisto;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,14 +13,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.terra.terradisto.databinding.FragmentMeasurementListBinding;
 import com.terra.terradisto.distosdkapp.data.AppDatabase;
 import com.terra.terradisto.distosdkapp.data.SurveyDiameterDao;
+import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
+import com.terra.terradisto.distosdkapp.utilities.ExcelExportHelper;
 import com.terra.terradisto.ui.survey_diameter.adapter.ResultListAdapter;
 import com.terra.terradisto.ui.survey_diameter.model.SurveyResult;
 
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -55,7 +61,64 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
         return binding.getRoot();
     }
 
-    // 삭제 버튼 클릭 시 호출되는 메서드 구현
+    private String getResString(int resId) {
+        if (isAdded() && getResources() != null) {
+            return getResources().getString(resId);
+        }
+        return "알 수 없는 메시지";
+    }
+
+    //내보내기 버튼
+    void makeFile() {
+        // 엑셀 내보내기 작업은 시간이 걸리므로 백그라운드 스레드에서 실행
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                String filePath = null;
+
+                try {
+                    // 1. Room DB -> Select * from survey_diameter
+                    List<SurveyResult> surveyDataList = surveyDiameterDao.getAllResults();
+
+                    Log.e("Disto", "surveyDataList >>>> " + surveyDataList);
+                    // 2. 엑셀 파일 생성 헬퍼 호출
+                    if (surveyDataList != null && !surveyDataList.isEmpty()) {
+                        filePath = ExcelExportHelper.makeSurveyExcel(requireContext(), surveyDataList);
+                        Log.e("MAKEFILE", "DB 조회 또는 엑셀 생성 실패 : " + filePath);
+                    }
+                } catch (Exception e) {
+                    Log.e("MAKEFILE", "DB 조회 또는 엑셀 생성 실패", e);
+                    filePath = null;
+                }
+
+                final String finalFilePath = filePath;
+
+                // 3. UI 업데이트(메인 스레드에서 실행)
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (finalFilePath != null) {
+                                new AlertDialog.Builder(requireContext())
+                                        .setTitle(getResString(R.string.msg_output_file))
+                                        .setMessage(getResString(R.string.save_path) + "\n" + finalFilePath)
+                                        .setPositiveButton(getResString(R.string.msg_ok), (dialog, which) -> dialog.dismiss())
+                                        .show();
+                            } else {
+                                new AlertDialog.Builder(requireContext())
+                                        .setTitle("내보내기 실패")
+                                        .setMessage("엑셀 파일 생성에 실패했거나 데이터가 없습니다.")
+                                        .setPositiveButton(getResString(R.string.msg_ok), (dialog, which) -> dialog.dismiss())
+                                        .show();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    // 삭제 버튼
     @Override
     public void onDeleteClick(SurveyResult resultToDelete, int position) {
         // Room DB 삭제는 메인 스레드에서 실행할 수 없으므로 백그라운드 스레드에서 처리
@@ -106,7 +169,10 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
         binding.recyclerViewResults.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerViewResults.setAdapter(adapter);
 
-        // 4. 데이터 로드
+        // 4. "내보내기" 버튼 리스너(xlsx)
+        binding.mcExportButton.setOnClickListener(v -> makeFile());
+
+        // 5. 데이터 로드
         loadResultsFromDb();
     }
 

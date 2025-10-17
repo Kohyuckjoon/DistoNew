@@ -9,6 +9,9 @@
     <string name="survey_diameter">관경 측정</string>
     <string name="searched_device">검색된 장치</string>
     <string name="measurement_list">측정 데이터</string>
+    <string name="msg_output_file">파일 내보내기 성공</string>
+    <string name="save_path">저장된 경로 : </string>
+    <string name="msg_ok">확인</string>
 
     <string name="select_device_to_connect">Select Device to Connect</string>
     <string name="start_search">Start Search</string>
