@@ -53,11 +53,17 @@ public class ExcelExportHelper {
                 return null;
             }
 
-            final int START_ROW_INDEX = 6;      // 0-based index for Excel Row 7
-            final int COL_MATERIAL = 5;         // Column F (재질)
+            final int START_ROW_INDEX = 7;      // 0-based index for Excel Row 7
+
+            // 도엽 번호 : mapNumber
+            final int START_ROW_INDEX_MAP = 2;        // 0-based index for Excel Row 12
+            final int COL_MAPNUMBER = 12;    // 도엽번호
+
+            // 컬럼 데이터
             final int COL_DIAMETER = 6;         // Column G (심도)
-            final int COL_FLAT = 7;             // Column H (평면)
-            final int COL_DEPTH = 8;            // Column I (심도)
+            final int COL_MATERIAL = 7;         // Column H (재질)
+            final int COL_FLAT = 8;             // Column I (평면)
+            final int COL_DEPTH = 9;            // Column J (심도)
 
             // 2. 각 SurveyResult에 대해 시트를 생성, data mapping
             for (int i = 0; i < surveyDataList.size(); i++) {
@@ -91,6 +97,18 @@ public class ExcelExportHelper {
                         data.getTvSceneryFourth()
                 };
 
+                // 도엽 번호
+                Row mapNumberRow = sheet.getRow(START_ROW_INDEX_MAP);
+                if (mapNumberRow == null) {
+                    mapNumberRow = sheet.createRow(START_ROW_INDEX_MAP);
+                }
+                Cell cellMapNumber = mapNumberRow.getCell(COL_MAPNUMBER);
+                if (cellMapNumber == null) {
+                    cellMapNumber = mapNumberRow.createCell(COL_MAPNUMBER);
+                }
+                cellMapNumber.setCellValue(
+                        (data.getMapNumber() != null) ? "도엽 번호 : " + data.getMapNumber() : "");
+
                 // 3. 4개의 파이프 데이터 셋을 4개 행에 Mapping (Excel Row 7, 8, 9, 10)
                 for (int rowOffset = 0; rowOffset < 4; rowOffset++) {
                     int currentRowIndex = START_ROW_INDEX + rowOffset;
@@ -112,13 +130,20 @@ public class ExcelExportHelper {
                     }
                     cellDiameter.setCellValue(diameters[rowOffset]);
 
-                    // [주황색 셀] 검측결과(B) - 평면(H), 심도(I)는 공백("") 처리
+                    /**
+                     * 검측결과(B) - 평면(I), 심도(J)는 공백("") 처리
+                     * column I : 평면
+                     */
                     Cell cellFlat = row.getCell(COL_FLAT);
                     if (cellFlat == null) {
                         cellFlat = row.createCell(COL_FLAT);
                     }
                     cellFlat.setCellValue("");
 
+                    /**
+                     * 검측결과(B) - 평면(H), 심도(I)는 공백("") 처리
+                     * column J : 평면
+                     */
                     Cell cellDepth = row.getCell(COL_DEPTH);
                     if (cellDepth == null) {
                         cellDepth = row.createCell(COL_DEPTH);
