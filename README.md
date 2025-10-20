@@ -67,7 +67,7 @@
 > - **측정 결과 확인:** Fragment Popup에 표시 및 저장  
 > - **저장 방식:** Room DB  
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
-<img src="https://github.com/user-attachments/assets/c829e689-3db4-483a-a565-38d9adf5a913" width="300" />
+<img src="https://github.com/user-attachments/assets/bd828c95-e1ff-42df-b41c-8c87f8a18d2d" width="300" />
 <img src="https://github.com/user-attachments/assets/0836e973-d67a-4edf-9293-1a1a3c11cfc5" width="300" />
 
 ## 💾 측정 저장을 위한 최종 확인
