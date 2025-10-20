@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/measurement_list"
-        android:name="com.terra.terradisto.MeasurementListFragment"
+        android:name="com.terra.terradisto.ui.surveylist.MeasurementListFragment"
         android:label="@string/Disto_Connect"
         tools:layout="@layout/fragment_measurement_list" />
 

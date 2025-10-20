@@ -1,4 +1,4 @@
-package com.terra.terradisto;
+package com.terra.terradisto.ui.surveylist;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -13,19 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.google.android.material.textview.MaterialTextView;
+import com.terra.terradisto.R;
 import com.terra.terradisto.databinding.FragmentMeasurementListBinding;
 import com.terra.terradisto.distosdkapp.data.AppDatabase;
 import com.terra.terradisto.distosdkapp.data.SurveyDiameterDao;
-import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
 import com.terra.terradisto.distosdkapp.utilities.ExcelExportHelper;
 import com.terra.terradisto.ui.survey_diameter.adapter.ResultListAdapter;
 import com.terra.terradisto.ui.survey_diameter.model.SurveyResult;
 
-import java.io.FileOutputStream;
 import java.util.List;
 import java.util.concurrent.Executors;
 
