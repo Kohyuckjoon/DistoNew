@@ -93,10 +93,8 @@
 <img src="https://github.com/user-attachments/assets/55b18264-1bd5-4773-85d9-366e2a9c42e5" width="300" />
 <img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
 
-> - 엑셀 내보내기 기능이 완료 알림
+> - 엑셀 내보내기 완료 알림 및 엑셀 파일 확인
 <img src="https://github.com/user-attachments/assets/670f22da-5b55-46cf-a0f5-e63918f3f8b3" width="300" />
-
-> - 엑셀 내보내기 기능이 완료된 화면
 <img src="https://github.com/user-attachments/assets/c156f967-ef1f-44cc-9f59-38b632506e65" width="300" />
 
 
