@@ -6,10 +6,15 @@
 ---
 
 ## 📅 세부 사항
-- **프로젝트 기간:** 2025.09.15 ~ 2025.10.31  
+- **프로젝트 기간:** 2025.09.15 ~ 2025.10.24
 - **기획 & 디자인:** 2025.09.16 ~ 2025.09.26
-- **코드 구현:** 2025.09.29 ~ 2025.10.09
+- **코드 구현:** 2025.09.29 ~ 2025.10.24
 - **테스트 및 미비 사항 동작 구현:** 2025.10.09 ~ 
+- ** 주 기능 :
+-  1) Disto D5 기기와 BLE 통신을 통해서 측정된 데이터 값을 받아와서(SDK 활용) 화면에 표시
+   2) 화면에 표시된 값을 Room DB에 저장(insert table)
+   3) 저장된 값을 앱 화면에서 확인(select table)
+   4) 저장된 값을 내보내기 기능을 통해 엑셀 파일로 추출
 
 ---
 
@@ -67,7 +72,7 @@
 > - **측정 결과 확인:** Fragment Popup에 표시 및 저장  
 > - **저장 방식:** Room DB  
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
-<img src="https://github.com/user-attachments/assets/c829e689-3db4-483a-a565-38d9adf5a913" width="300" />
+<img src="https://github.com/user-attachments/assets/bd828c95-e1ff-42df-b41c-8c87f8a18d2d" width="300" />
 <img src="https://github.com/user-attachments/assets/0836e973-d67a-4edf-9293-1a1a3c11cfc5" width="300" />
 
 ## 💾 측정 저장을 위한 최종 확인
@@ -82,25 +87,21 @@
 
 <img src="https://github.com/user-attachments/assets/c829e689-3db4-483a-a565-38d9adf5a913" width="300" />
 
-
-
----
-
-## 💾 측정 저장을 위한 최종 확인
-## ✅ 측정 저장 완료
-
-
-
 ---
 
 ## 📂 저장된 데이터 리스트 확인하기
 > - 저장된 데이터는 아래 화면에서 확인할 수 있습니다.
 > - RecyclerView를 사용하여 Room DB에 저장되어 있는 데이터들을 불러와서 저장된 데이터들을 확인할 수 있습니다.
 > - Room DB에 저장되어 있는 데이터 중에 선택적으로 삭제하는 기능이 추가되어 있습니다.
-> - 내보내기 기능은 xlsx 파일로 내보내질 예정이며 추후 구현 예정으로 되어 있습니다.
+> - 내보내기 기능은 xls 파일로 추출되어 기기의 로컬 디렉토리에서 확인이 가능합니다.
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/55b18264-1bd5-4773-85d9-366e2a9c42e5" width="300" />
 <img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
+
+> - 엑셀 내보내기 완료 알림 및 엑셀 파일 확인
+<img src="https://github.com/user-attachments/assets/670f22da-5b55-46cf-a0f5-e63918f3f8b3" width="300" />
+<img src="https://github.com/user-attachments/assets/c156f967-ef1f-44cc-9f59-38b632506e65" width="300" />
+
 
 
 ---
