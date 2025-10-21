@@ -1,4 +1,4 @@
-package com.terra.terradisto;
+package com.terra.terradisto.distosdkapp;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

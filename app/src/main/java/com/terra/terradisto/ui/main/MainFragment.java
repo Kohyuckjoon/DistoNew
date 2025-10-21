@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.terra.terradisto.R;
-import com.terra.terradisto.SharedViewModel;
+import com.terra.terradisto.distosdkapp.SharedViewModel;
 import com.terra.terradisto.databinding.FragmentMainBinding;
 
 public class MainFragment extends Fragment {

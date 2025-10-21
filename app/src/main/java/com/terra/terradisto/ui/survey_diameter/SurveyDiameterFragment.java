@@ -1,7 +1,5 @@
 package com.terra.terradisto.ui.survey_diameter;
 
-import static ch.leica.sdk.LeicaSdk.reset;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -11,7 +9,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -23,8 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.terra.terradisto.R;
-import com.terra.terradisto.SharedViewModel;
+import com.terra.terradisto.distosdkapp.SharedViewModel;
 import com.terra.terradisto.databinding.FragmentSurveyDiameterBinding;
 
 // Leica SDK / 앱 내부 클래스들
@@ -34,10 +30,8 @@ import ch.leica.sdk.Devices.Device;
 import com.terra.terradisto.distosdkapp.clipboard.Clipboard;
 import com.terra.terradisto.distosdkapp.clipboard.InformationActivityData;
 import com.terra.terradisto.distosdkapp.data.AppDatabase;
-import com.terra.terradisto.distosdkapp.data.SurveyDiameterData;
 import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
 import com.terra.terradisto.distosdkapp.device.YetiDeviceController;
-import com.terra.terradisto.ui.popup.SaveDialogFragment;
 
 import java.util.concurrent.Executors;
 

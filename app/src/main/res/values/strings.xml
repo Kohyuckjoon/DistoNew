@@ -10,6 +10,10 @@
     <string name="searched_device">검색된 장치</string>
     <string name="measurement_list">측정 데이터</string>
     <string name="msg_output_file">파일 내보내기 성공</string>
+    <string name="msg_delete">데이터 삭제</string>
+    <string name="mag_yse">예</string>
+    <string name="mag_no">아니요</string>
+    <string name="msg_delete_alert">해당 데이터를 정말 삭제하시겠습니까?</string>
     <string name="save_path">저장된 경로 : </string>
     <string name="msg_ok">확인</string>
 

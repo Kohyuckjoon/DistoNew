@@ -124,7 +124,25 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
     // 삭제 버튼
     @Override
     public void onDeleteClick(SurveyResult resultToDelete, int position) {
-        // Room DB 삭제는 메인 스레드에서 실행할 수 없으므로 백그라운드 스레드에서 처리
+        // 1. AlertDialog 생성 및 표시
+        new AlertDialog.Builder(requireContext())
+            .setTitle(getResString(R.string.msg_delete))
+            .setMessage(getResString(R.string.msg_delete_alert))
+                .setPositiveButton(getResString(R.string.mag_yse), (dialog, which) -> {
+                    performDelete(resultToDelete, position);
+                })
+                .setNegativeButton(getResString(R.string.mag_no), ((dialog, which) -> {
+                    dialog.dismiss();
+                })).show();
+    }
+
+    /**
+     * @param resultToDelete
+     * @param position
+     * Room DB 삭제는 메인 스레드에서 실행할 수 없으므로 백그라운드 스레드에서 처리
+     */
+    private void performDelete (SurveyResult resultToDelete, int position) {
+
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
