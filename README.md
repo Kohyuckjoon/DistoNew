@@ -78,8 +78,6 @@
 > - **배관 타입:** Spinner 사용  
 > - **관경:** 장비에서 측정된 데이터를 실시간 표시  
 > - **Picture:** 카메라 앱 실행 및 촬영 (관 재질 촬영 목적)  
-> - **초기화:** 모든 데이터 값 초기화  
-> - **뒤로가기:** 이전 화면으로 이동  
 > - **측정 결과 확인:** Fragment Popup에 표시 및 저장  
 > - **저장 방식:** Room DB  
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
