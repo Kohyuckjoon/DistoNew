@@ -60,8 +60,8 @@ public class ExcelExportHelper {
             final int COL_MAPNUMBER = 12;    // 도엽번호
 
             // 컬럼 데이터
-            final int COL_DIAMETER = 6;         // Column G (심도)
-            final int COL_MATERIAL = 7;         // Column H (재질)
+            final int COL_MATERIAL = 6;         // Column G (관경)
+            final int COL_DIAMETER = 7;         // Column H (재질)
             final int COL_FLAT = 8;             // Column I (평면)
             final int COL_DEPTH = 9;            // Column J (심도)
 

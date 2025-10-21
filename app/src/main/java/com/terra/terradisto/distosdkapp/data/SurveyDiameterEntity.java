@@ -9,6 +9,8 @@ public class SurveyDiameterEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    public int projectId;
+
     // === 상위 데이터 필드 ===
     private String mapNumber;       // 도엽 번호
     private String manholType;      // 맨홀 타입 (1개, 2개, 3개, 4개)
@@ -31,7 +33,8 @@ public class SurveyDiameterEntity {
     private String etPipMaterialThird;  // 3번 재질
     private String etPipMaterialFourth; // 4번 재질
 
-    public SurveyDiameterEntity(String mapNumber, String manholType, String tvSceneryFirst, String tvScenerySecond, String tvSceneryThird, String tvSceneryFourth, String etInputFirst, String etInputSecond, String etInputThird, String etInputFourth, String etPipMaterialFirst, String etPipMaterialSecond, String etPipMaterialThird, String etPipMaterialFourth) {
+    public SurveyDiameterEntity(int projectId, String mapNumber, String manholType, String tvSceneryFirst, String tvScenerySecond, String tvSceneryThird, String tvSceneryFourth, String etInputFirst, String etInputSecond, String etInputThird, String etInputFourth, String etPipMaterialFirst, String etPipMaterialSecond, String etPipMaterialThird, String etPipMaterialFourth) {
+        this.projectId = projectId;
         this.mapNumber = mapNumber;
         this.manholType = manholType;
         this.tvSceneryFirst = tvSceneryFirst;

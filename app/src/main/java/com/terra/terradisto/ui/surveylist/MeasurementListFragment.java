@@ -36,6 +36,7 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
     private FragmentMeasurementListBinding binding;
     private ResultListAdapter adapter;
     private SurveyDiameterDao surveyDiameterDao;
+    private int currentProjectId = -1;
 
     public MeasurementListFragment() { }
 
@@ -48,6 +49,11 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Argument에서 프로젝트 ID전달 받기
+        if (getArguments() != null) {
+            currentProjectId = getArguments().getInt("PROJECT_ID", -1);
+        }
     }
 
     @Nullable
@@ -174,8 +180,23 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
     }
 
     private void loadResultsFromDb() {
+
+        final int projectIdToFilter = currentProjectId;
+
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<SurveyResult> resultList = surveyDiameterDao.getAllResults();
+//            List<SurveyResult> resultList = surveyDiameterDao.getAllResults();
+
+            // 💡 1. DB 조회 결과를 저장할 변수를 final로 선언합니다.
+            final List<SurveyResult> resultList;
+
+            // 💡 2. if/else 로직을 통해 변수에 단 한 번만 값을 할당합니다.
+            if (currentProjectId != -1) {
+                // 특정 프로젝트 ID로 조회하여 resultList에 할당 (단 한 번 할당)
+                resultList = surveyDiameterDao.getResultsByProjectId(projectIdToFilter);
+            } else {
+                // ID가 없으면 모든 프로젝트 조회 (단 한 번 할당)
+                resultList = surveyDiameterDao.getAllResults();
+            }
 
             if (isAdded()) {
                 requireActivity().runOnUiThread(() -> {

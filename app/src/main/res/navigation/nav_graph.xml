@@ -82,6 +82,10 @@
         android:id="@+id/projectList"
         android:name="com.terra.terradisto.ui.project.ProjectListFragment"
         android:label="프로젝트 목록"
-        tools:layout="@layout/fragment_project_list"/>
+        tools:layout="@layout/fragment_project_list">
+        <action
+            android:id="@+id/action_projectList_to_mainFragment"
+            app:destination="@+id/mainFragment"/>
+    </fragment>
 
 </navigation>

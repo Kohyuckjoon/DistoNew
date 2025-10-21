@@ -17,6 +17,14 @@ public interface SurveyDiameterDao {
     @Query("SELECT * FROM survey_diameter ORDER BY id DESC")
     List<SurveyDiameterEntity> getAll();
 
+    // 특정 프로젝트의 모든 결과를 조회하는 메서드 추가
+    @Query("SELECT * FROM survey_diameter WHERE projectId = :projectId ORDER BY id DESC")
+    List<SurveyResult> getResultsByProjectId(int projectId);
+
+    // 특정 프로젝트의 간략 정보를 조회하는 메서드 추가 (필요시)
+    @Query("SELECT id, mapNumber, manholType, tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth FROM survey_diameter WHERE projectId = :projectId ORDER BY id DESC")
+    List<SurveyResult> getResultDataByProjectId(int projectId);
+
 //    @Query("SELECT id, manholType, tvSceneryFirst, etPipMaterialFirst FROM survey_diameter ORDER BY id DESC")
 //    List<SurveyResult> getAllResults();
 

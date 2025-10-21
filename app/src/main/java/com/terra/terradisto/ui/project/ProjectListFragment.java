@@ -5,9 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,7 @@ import java.util.concurrent.Executors;
  * Use the {@link ProjectListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectListFragment extends Fragment {
+public class ProjectListFragment extends Fragment implements ProjectListAdapter.OnProjectSelectListener{
 
     private FragmentProjectListBinding binding;
     private ProjectListAdapter adapter;
@@ -52,7 +54,7 @@ public class ProjectListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProjectListBinding.inflate(inflater, container, false);
 
-        adapter = new ProjectListAdapter(null);
+        adapter = new ProjectListAdapter(null, this);
         binding.rcProjectList.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rcProjectList.setAdapter(adapter);
 
@@ -78,5 +80,19 @@ public class ProjectListFragment extends Fragment {
                 }
             });
         });
+    }
+
+    @Override
+    public void onProjectSelected(ProjectCreate project) {
+        int selectedProjectId = project.id;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("PROJECT_ID", selectedProjectId);
+
+        try {
+            NavHostFragment.findNavController(this).navigate(R.id.action_projectList_to_mainFragment, bundle);
+        } catch (Exception e) {
+            Log.e("Disto", "Navigation 오류: Project ID 전달 실패", e);
+        }
     }
 }

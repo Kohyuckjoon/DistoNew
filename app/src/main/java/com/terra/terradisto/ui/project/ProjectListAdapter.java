@@ -15,6 +15,16 @@ import java.util.List;
 public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.ViewHolder> {
 
     private List<ProjectCreate> projectList;
+    private OnProjectSelectListener listener;
+
+    public ProjectListAdapter(List<ProjectCreate> projectList, OnProjectSelectListener listener) {
+        this.projectList = projectList;
+        this.listener = listener;
+    }
+
+    public interface OnProjectSelectListener {
+        void onProjectSelected(ProjectCreate project);
+    }
 
     public ProjectListAdapter(List<ProjectCreate> projectList) {
         this.projectList = projectList;
@@ -33,6 +43,12 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         ProjectCreate project = projectList.get(position);
         holder.tvProjectName.setText(project.name);
         holder.tvProjectLocation.setText(project.location);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onProjectSelected(project);
+            }
+        });
     }
 
     @Override

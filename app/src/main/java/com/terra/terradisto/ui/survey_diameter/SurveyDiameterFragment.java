@@ -19,10 +19,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.terra.terradisto.R;
+import com.terra.terradisto.SharedViewModel;
 import com.terra.terradisto.databinding.FragmentSurveyDiameterBinding;
 
 // Leica SDK / 앱 내부 클래스들
@@ -47,6 +49,8 @@ public class SurveyDiameterFragment extends Fragment
     private static final String TAG = "SurveyDiameterFragment";
 
     private FragmentSurveyDiameterBinding binding;
+    private SharedViewModel sharedViewModel;
+//    private int currentProjectId = -1;
 
     // 컨트롤러
     private YetiDeviceController yetiController;
@@ -72,6 +76,8 @@ public class SurveyDiameterFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         yetiController = new YetiDeviceController(
                 requireContext().getApplicationContext(),
@@ -198,7 +204,7 @@ public class SurveyDiameterFragment extends Fragment
         binding.mcPicture.setOnClickListener(view -> openExternalApp());
 
         // MeasureResultButton
-        binding.mcMeasureResult.setOnClickListener(view -> measureInputData());
+//        binding.mcMeasureResult.setOnClickListener(view -> measureInputData());
         binding.mcMeasureResult.setOnClickListener(view -> { saveMeasureData(); });
 
         // 숫자 눌렀을 경우
@@ -244,7 +250,16 @@ public class SurveyDiameterFragment extends Fragment
 
     private void saveMeasureData() {
 
-        // 1. 화면의 입력값/측정 값 수집 (measureInputData()에서 가져옴)
+        // 1. SharedViewModel에서 현재 프로젝트 ID를 가져옵니다. (가장 먼저)
+        int currentProjectId = sharedViewModel.getSelectedProjectId().getValue() != null ?
+                sharedViewModel.getSelectedProjectId().getValue() : -1;
+
+        if (currentProjectId == -1) {
+            showToast("🚨 먼저 프로젝트 목록 화면에서 프로젝트를 선택하세요!");
+            return;
+        }
+
+        // 2. 화면의 입출력값/측정 값 수집(순서 변경)
 
         // 도엽 번호 / 맨홀 타입(갯수)
         String mapNumber = binding.tvPipingNumber.getText().toString().trim(); // 도엽 번호
@@ -268,11 +283,20 @@ public class SurveyDiameterFragment extends Fragment
         String pipMaterialThird = binding.etPipMaterialThird.getText().toString().trim();
         String pipMaterialFourth = binding.etPipMaterialFourth.getText().toString().trim();
 
-        // 2. 유효성 검사 (필요한 경우 관경/재질 필드까지 검사 로직 추가)
+        // 3. 유효성 검사 (필요한 경우 관경/재질 필드까지 검사 로직 추가)
         if (mapNumber.isEmpty() || manholType.isEmpty()) {
             showToast("도엽 번호와 맨홀 타입은 필수 입력 사항입니다.");
             return;
         }
+
+        // 4. SurveyDiameterEntity 객체 생성
+        SurveyDiameterEntity entity = new SurveyDiameterEntity(
+                currentProjectId,
+                mapNumber, manholType,
+                tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth,
+                etInputFirst, etInputSecond, etInputThird, etInputFourth,
+                pipMaterialFirst, pipMaterialSecond, pipMaterialThird, pipMaterialFourth
+        );
 
         // [삭제]: Bundle 관련 로직은 제거 (다음 화면으로 전달하지 않으므로)
         /*
@@ -280,18 +304,11 @@ public class SurveyDiameterFragment extends Fragment
         if (data != null) { ... }
         */
 
-        // 3. SurveyDiameterEntity 객체 생성 (10개 필드 모두 사용)
-        SurveyDiameterEntity entity = new SurveyDiameterEntity(
-                mapNumber, manholType,
-                tvSceneryFirst, tvScenerySecond, tvSceneryThird, tvSceneryFourth,
-                etInputFirst, etInputSecond, etInputThird, etInputFourth,
-                pipMaterialFirst, pipMaterialSecond, pipMaterialThird, pipMaterialFourth
-        );
 
-        // 4. 로그로 확인
-        Log.e(TAG, "저장 데이터 (Entity) : " + entity.getMapNumber() + " / " + entity.getManholType());
+        // 5. 로그로 확인
+        Log.e(TAG, "저장 데이터 (Project ID / Entity) : " + currentProjectId + " / " + entity.getMapNumber());
 
-        // 5. Room DB에 저장 (비동기 처리)
+        // 6. Room DB에 저장 (비동기 처리)
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
                 // Fragment이므로 requireContext() 사용
@@ -312,7 +329,7 @@ public class SurveyDiameterFragment extends Fragment
 
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        showToast("데이터 저장에 실패했습니다. ❌");
+                        showToast("데이터 저장에 실패했습니다.");
                     });
                 }
             }
