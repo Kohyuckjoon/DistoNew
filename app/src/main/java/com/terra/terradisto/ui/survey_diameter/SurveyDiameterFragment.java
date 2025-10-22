@@ -30,6 +30,7 @@ import ch.leica.sdk.Devices.Device;
 import com.terra.terradisto.distosdkapp.clipboard.Clipboard;
 import com.terra.terradisto.distosdkapp.clipboard.InformationActivityData;
 import com.terra.terradisto.distosdkapp.data.AppDatabase;
+import com.terra.terradisto.distosdkapp.data.SurveyDiameterDao;
 import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
 import com.terra.terradisto.distosdkapp.device.YetiDeviceController;
 
@@ -307,7 +308,22 @@ public class SurveyDiameterFragment extends Fragment
             try {
                 // Fragment이므로 requireContext() 사용
                 AppDatabase db = AppDatabase.getDatabase(requireContext());
+                SurveyDiameterDao dao = db.surveyDiameterDao();     // 맨홀번호 중복값 체크
+
+                Log.e("khj", "count >>> " + dao);
+                int count = dao.countExistingMapNumber(currentProjectId, mapNumber);
+                Log.e("khj", "count >>> " + count);
+                if (count > 0) {
+                    requireActivity().runOnUiThread(() -> {
+                        showToast("이미 존재하는 맨홀번호 입니다.");
+                    });
+                    return;
+                }
+
                 db.surveyDiameterDao().insert(entity);
+
+
+
 
                 Log.e(TAG, "Room DB에 데이터 저장 완료 : ID=" + entity.getId());
 
@@ -315,7 +331,48 @@ public class SurveyDiameterFragment extends Fragment
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
                         showToast("측정 데이터가 저장되었습니다. ✅");
-                        // 저장 후 필요하다면 입력 필드 초기화 로직 추가
+
+                        String input = binding.tvPipingNumber.getText().toString().trim();
+                        Log.e("khj", "test_01 >>> " + input);
+                        binding.tvPipingNumber.setText(input + 1);
+
+                        // 문자열에서 숫자 부분만 추출 (정규식 사용)
+                        String perfix = input.replaceAll("\\d+$", ""); // 숫자가 아닌 앞 부분
+                        String numberPart = input.replaceAll("^\\D+", "");
+
+                        if (!numberPart.isEmpty()) {
+                            try {
+                                int number = Integer.parseInt(numberPart);
+                                number++; // 숫자 + 1
+                                String newText = perfix + number;
+                                binding.tvPipingNumber.setText(newText);
+                            } catch (NumberFormatException e) {
+                                // 숫자 변환 시, 원래 텍스트는 유지
+                                binding.tvPipingNumber.setText(input);
+                            }
+                        } else {
+                            // 숫자가 포함되지 않은 경우, 단순히 "_1" 추가
+                            binding.tvPipingNumber.setText(input + "_1");
+                        }
+
+                        // 저장 완료 후 모든 필드 초기화
+                        binding.tvSceneryFirst.setText("");
+                        binding.tvScenerySecond.setText("");
+                        binding.tvSceneryThird.setText("");
+                        binding.tvSceneryFourth.setText("");
+
+                        binding.etInputFirst.setText("");
+                        binding.etInputSecond.setText("");
+                        binding.etInputThird.setText("");
+                        binding.etInputFourth.setText("");
+
+                        binding.etPipMaterialFirst.setText("");
+                        binding.etPipMaterialSecond.setText("");
+                        binding.etPipMaterialThird.setText("");
+                        binding.etPipMaterialFourth.setText("");
+
+                        // 필요하다면 Spinner도 초기화
+                        binding.spinnerManholeCount.setSelection(0);
                     });
                 }
             } catch (Exception e) {

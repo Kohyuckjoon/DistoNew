@@ -44,14 +44,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/tv_manhol_type"
+                            android:id="@+id/tv_sheet_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="7dp"
                             android:background="@android:color/transparent"
                             android:paddingStart="2dp"
                             android:paddingEnd="2dp"
-                            android:text="맨홀 타입 : "
+                            android:text="맨홀 번호 : "
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +59,7 @@
                         </TextView>
 
                         <TextView
-                            android:id="@+id/tv_sheet_number"
+                            android:id="@+id/tv_manhol_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="7dp"
@@ -67,10 +67,10 @@
                             android:gravity="center_vertical"
                             android:paddingStart="2dp"
                             android:paddingEnd="2dp"
-                            android:text="도엽 번호 : "
+                            android:text="배관 수 : "
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_manhol_type"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_sheet_number"
                             tools:ignore="RtlSymmetry">
                         </TextView>
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -140,12 +140,12 @@
                             android:id="@+id/tv_scenery"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="7dp"
+                            android:layout_margin="5dp"
                             android:background="@android:color/transparent"
                             android:gravity="center"
-                            android:paddingEnd="15dp"
+                            android:paddingEnd="5dp"
                             android:letterSpacing="-0.09"
-                            android:text="측정 관경"
+                            android:text="측정 관경(m)"
                             tools:ignore="RtlSymmetry">
                         </TextView>
                     </com.google.android.material.card.MaterialCardView>

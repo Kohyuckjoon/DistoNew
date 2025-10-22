@@ -84,10 +84,12 @@ public class ProjectListFragment extends Fragment implements ProjectListAdapter.
 
     @Override
     public void onProjectSelected(ProjectCreate project) {
-        int selectedProjectId = project.id;
+        int selectedProjectId = project.id;        // 프로젝트 id
+        String selectedProjectName = project.name; // 프로젝트 Name
 
         Bundle bundle = new Bundle();
         bundle.putInt("PROJECT_ID", selectedProjectId);
+        bundle.putString("PROJECT_NAME", selectedProjectName);
 
         try {
             NavHostFragment.findNavController(this).navigate(R.id.action_projectList_to_mainFragment, bundle);

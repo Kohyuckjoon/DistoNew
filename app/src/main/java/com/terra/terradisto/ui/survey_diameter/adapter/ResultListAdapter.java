@@ -112,8 +112,10 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         }
 
         public void bind(final SurveyResult item, final OnItemDeleteListener listener) {
-            mapNumber.setText("도엽 번호 : " + item.getMapNumber());
-            manholType.setText("맨홀 타입 : " + item.getManholType());
+//            mapNumber.setText("도엽 번호 : " + item.getMapNumber());
+//            manholType.setText("맨홀 타입 : " + item.getManholType());
+            mapNumber.setText("맨홀 번호 : " + item.getMapNumber());
+            manholType.setText("배관 수 : " + item.getManholType());
             tvSceneryFirst.setText(item.getTvSceneryFirst());
             tvScenerySecond.setText(item.getTvScenerySecond());
             tvSceneryThird.setText(item.getTvSceneryThird());

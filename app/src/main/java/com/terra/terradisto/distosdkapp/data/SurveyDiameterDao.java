@@ -36,4 +36,7 @@ public interface SurveyDiameterDao {
 
     @Query("DELETE FROM survey_diameter WHERE id = :itemId")
     void deleteById(int itemId);
+
+    @Query("SELECT * FROM survey_diameter WHERE projectId = :projectId AND mapNumber = :mapNumber")
+    int countExistingMapNumber(int projectId, String mapNumber);
 }

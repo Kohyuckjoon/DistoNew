@@ -27,14 +27,50 @@ public class MainFragment extends Fragment {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
+    // LiveData를 통해 View를 업데이트 하는 메서드를 추가
+    private void setUpObservers() {
+        sharedViewModel.getSelectedProjectName().observe(getViewLifecycleOwner(), projectName -> {
+            if (binding == null) return; // (NullPointerException 방지)
+
+            if (projectName != null && !projectName.isEmpty()) {
+                binding.mcProjectStatus.setText("선택된 프로젝트 : " + projectName);
+            } else {
+                // 선택된 프로젝트가 없을 경우(SharedViewModel의 초기값 null/empty인 경우)
+                binding.mcProjectStatus.setText("프로젝트를 선택해주세요");
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentMainBinding.inflate(inflater, container, false);
 
+        // LiveData 확인
+        setUpObservers();
+
+        // Bundle 처리 : 프로젝트 ID와 이름 받기
         Bundle bundle = getArguments();
         if (bundle != null) {
-            int selectedProjectId = bundle.getInt("PROJECT_ID", -1);
+            int selectedProjectId = bundle.getInt("PROJECT_ID", -1); // 프로젝트 ID 수신
+            String selectedProjectName = bundle.getString("PROJECT_NAME"); // 프로젝트 Name 수신
+
+            if (selectedProjectName != null || selectedProjectId != -1) {
+                sharedViewModel.setSeletedProjectName(selectedProjectName);
+                showToast(selectedProjectName + " 프로젝트가 선택되었습니다.");
+            } else {
+                // 이름이 Bundle로 넘어오지 않은 경우(예외)
+                sharedViewModel.setSeletedProjectName("프로젝트를 선택해주세요.");
+            }
+
+            // ID와 이름을 사용했으니 Bundle을 제거
+            setArguments(null);
+
+            // 초기 로드 시에 LiveData의 현재 값이 null/empty인 경우 기본 텍스트를 설정
+            String currentProjectName = sharedViewModel.getSelectedProjectName().getValue();
+            if (currentProjectName == null || currentProjectName.isEmpty()) {
+                binding.mcProjectStatus.setText("프로젝트를 선택해주세요.");
+            }
 
             if (selectedProjectId != -1) {
                 // 프로젝트 ID를 SharedViewModel에 저장
@@ -98,5 +134,10 @@ public class MainFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void showToast(String msg) {
+        if (!isAdded()) return;
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }
