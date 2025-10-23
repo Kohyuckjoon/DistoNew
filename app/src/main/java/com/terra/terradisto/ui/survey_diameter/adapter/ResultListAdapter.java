@@ -18,7 +18,10 @@ import com.terra.terradisto.distosdkapp.data.SurveyDiameterData;
 import com.terra.terradisto.distosdkapp.data.SurveyDiameterEntity;
 import com.terra.terradisto.ui.survey_diameter.model.SurveyResult;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.ResultViewHolder> {
 
@@ -66,8 +69,8 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
 
     static class ResultViewHolder extends RecyclerView.ViewHolder {
 
+        private final DecimalFormat df;
         private final MaterialCardView mcDeleteButton;
-
         public TextView mapNumber;        // 도엽 번호
         public TextView manholType;       // 맨홀 타입 (1개, 2개, 3개, 4개)
 
@@ -92,6 +95,10 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         @SuppressLint("WrongViewCast")
         public ResultViewHolder(View itemView) {
             super(itemView);
+
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            this.df = new DecimalFormat("0.000", symbols);
+
             mapNumber = itemView.findViewById(R.id.tv_sheet_number);
             manholType = itemView.findViewById(R.id.tv_manhol_type);
             tvSceneryFirst = itemView.findViewById(R.id.tv_scenery_first);
@@ -111,20 +118,36 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             etPipMaterialFourth = itemView.findViewById(R.id.et_pip_material_fourth);
         }
 
+        private String formatValue(String value) {
+            if (value == null || value.trim().isEmpty()) {
+                return "0.000"; // 값이 비어있다면 기본 0.000 표기
+            }
+
+            String cleanedValue = value.trim().replace("m", "");
+
+            try {
+                double number = Double.parseDouble(cleanedValue);
+                return df.format(number);
+            } catch (NumberFormatException e) {
+                Log.w("ResultListAdapter", "NumberFormatException for value : " + value);
+                return value; //원본 값 그대로 표시
+            }
+        }
+
         public void bind(final SurveyResult item, final OnItemDeleteListener listener) {
 //            mapNumber.setText("도엽 번호 : " + item.getMapNumber());
 //            manholType.setText("맨홀 타입 : " + item.getManholType());
             mapNumber.setText("맨홀 번호 : " + item.getMapNumber());
             manholType.setText("배관 수 : " + item.getManholType());
-            tvSceneryFirst.setText(item.getTvSceneryFirst());
-            tvScenerySecond.setText(item.getTvScenerySecond());
-            tvSceneryThird.setText(item.getTvSceneryThird());
-            tvSceneryFourth.setText(item.getTvSceneryFourth());
+            tvSceneryFirst.setText(formatValue(item.getTvSceneryFirst()));
+            tvScenerySecond.setText(formatValue(item.getTvScenerySecond()));
+            tvSceneryThird.setText(formatValue(item.getTvSceneryThird()));
+            tvSceneryFourth.setText(formatValue(item.getTvSceneryFourth()));
 
-            tvInputFirst.setText(item.getEtInputFirst());
-            tvInputsecond.setText(item.getEtInputSecond());
-            tvInputthird.setText(item.getEtInputThird());
-            tvInputfourth.setText(item.getEtInputFourth());
+            tvInputFirst.setText(formatValue(item.getEtInputFirst()));
+            tvInputsecond.setText(formatValue(item.getEtInputSecond()));
+            tvInputthird.setText(formatValue(item.getEtInputThird()));
+            tvInputfourth.setText(formatValue(item.getEtInputFourth()));
 
             etPipMaterialFirst.setText(item.getEtPipMaterialFirst());
             etPipMaterialSecond.setText(item.getEtPipMaterialSecond());
