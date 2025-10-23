@@ -155,7 +155,10 @@ public class ExcelExportHelper {
             String sFileName = "Disto_Survey_Report_" + System.currentTimeMillis() + ".xls"; // 출력 파일 .xls로 변경
 
             // 4.파일 저장 로직
-            File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            final String CUSTOM_SUBDIR = "DistoReports";
+
+            File directory = new File(downloadDir, CUSTOM_SUBDIR);
 
             if (directory == null) {
                 directory = context.getFilesDir();

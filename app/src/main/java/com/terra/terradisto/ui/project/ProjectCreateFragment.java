@@ -1,23 +1,17 @@
 package com.terra.terradisto.ui.project;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.terra.terradisto.distosdkapp.SharedViewModel;
 import com.terra.terradisto.distosdkapp.data.AppDatabase;
 import com.terra.terradisto.databinding.FragmentProjectCreateBinding;
 import com.terra.terradisto.distosdkapp.data.ProjectCreate;
-import com.terra.terradisto.distosdkapp.data.ProjectDao;
-import com.terra.terradisto.distosdkapp.data.SurveyDiameterDao;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -47,8 +41,6 @@ public class ProjectCreateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProjectCreateBinding.inflate(inflater, container, false);
 
-        // currentProjectId는 sharedViewModel 초기화 이후에 접근해야 합니다.
-        // 이 코드는 onCreate에서 sharedViewModel이 초기화되었으므로 안전합니다.
         int currentProjectId = sharedViewModel.getSelectedProjectId().getValue() != null ?
                 sharedViewModel.getSelectedProjectId().getValue() : -1;
         Log.e("khj", "test ----> " + currentProjectId);
