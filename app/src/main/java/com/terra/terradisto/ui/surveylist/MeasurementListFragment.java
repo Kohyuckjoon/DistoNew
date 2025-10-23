@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.terra.terradisto.R;
@@ -31,7 +33,9 @@ import java.util.concurrent.Executors;
  * Use the {@link MeasurementListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MeasurementListFragment extends Fragment implements ResultListAdapter.OnItemDeleteListener {
+public class MeasurementListFragment extends Fragment implements
+        ResultListAdapter.OnItemDeleteListener,
+        ResultListAdapter.OnItemEditListener {
 
     private FragmentMeasurementListBinding binding;
     private ResultListAdapter adapter;
@@ -121,19 +125,87 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
         });
     }
 
-    // 삭제 버튼
+    // 삭제 버튼 리스너 처리
     @Override
     public void onDeleteClick(SurveyResult resultToDelete, int position) {
         // 1. AlertDialog 생성 및 표시
         new AlertDialog.Builder(requireContext())
-            .setTitle(getResString(R.string.msg_delete))
-            .setMessage(getResString(R.string.msg_delete_alert))
+                .setTitle(getResString(R.string.msg_delete))
+                .setMessage(getResString(R.string.msg_delete_alert))
                 .setPositiveButton(getResString(R.string.mag_yse), (dialog, which) -> {
                     performDelete(resultToDelete, position);
                 })
                 .setNegativeButton(getResString(R.string.mag_no), ((dialog, which) -> {
                     dialog.dismiss();
                 })).show();
+    }
+
+    // 수정 버튼 리스너 처리
+    @Override
+    public void onEditClick(SurveyResult resultToEdit, int position) {
+        // 어댑터에서 클릭 이벤트가 발생하면 다이얼로그를 표시하여 값을 입력받습니다.
+        showEditDialog(resultToEdit, position);
+    }
+
+    // 수정 입력 다이얼로그 표시 메서드
+    private void showEditDialog(SurveyResult resultToEdit, int position) {
+        final EditText input = new EditText(requireContext());
+        // 현재 값을 기본값으로 표시합니다.
+        input.setText(resultToEdit.getEtInputFirst());
+        // 입력 타입을 숫자/소수점으로 설정합니다.
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("수기 입력값 수정 (1번 관로)")
+                .setMessage("새로운 값을 입력하고 저장하세요:")
+                .setView(input)
+                .setPositiveButton(getResString(R.string.msg_ok), (dialog, which) -> {
+                    String newValue = input.getText().toString().trim();
+                    if (!newValue.isEmpty()) {
+                        // DB 업데이트 로직 실행
+                        performEdit(resultToEdit.id, newValue, position);
+                    } else {
+                        Toast.makeText(getContext(), "수정 값이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(getResString(R.string.mag_no), (dialog, which) -> dialog.cancel())
+                .show();
+    }
+
+    /**
+     * @param id 수정할 항목의 ID
+     * @param newValue 새로운 입력 값 (EtInputFirst)
+     * @param position RecyclerView 위치
+     * Room DB 수정은 메인 스레드에서 실행할 수 없으므로 백그라운드 스레드에서 처리
+     */
+    private void performEdit(int id, String newValue, int position) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                // DB에서 해당 ID의 '1번 수기 입력 데이터' 필드만 업데이트
+                // (DAO에 updateInputFirst(int id, String newValue) 메서드가 정의되어 있어야 함)
+                surveyDiameterDao.updateInputFirst(id, newValue);
+
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        // 1. Adapter 데이터 모델 업데이트 (Adapter 목록에 있는 객체의 값을 직접 수정)
+                        SurveyResult updatedItem = adapter.getResults().get(position);
+                        updatedItem.setEtInputFirst(newValue); // SurveyResult 모델에 setEtInputFirst()가 필요함
+
+                        // 2. UI 갱신 (해당 항목만 갱신하여 깜빡임 최소화)
+                        adapter.notifyItemChanged(position);
+
+                        Toast.makeText(getContext(), id + "번 데이터가 성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("DB_UPDATE", "데이터 수정 오류: " + e.getMessage());
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "데이터 수정 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+                }
+            }
+        });
     }
 
     /**
@@ -156,7 +228,7 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
                             @Override
                             public void run() {
                                 // 1. 리스트에서 항목 제거 및 애니메이션 처리
-                                List<SurveyResult> currentList = adapter.getResults(); // 💡 이제 getResults() 호출 가능
+                                List<SurveyResult> currentList = adapter.getResults(); // getResults() 호출 가능
                                 if (currentList != null && position != RecyclerView.NO_POSITION) {
                                     currentList.remove(position);
                                     adapter.notifyItemRemoved(position);
@@ -184,7 +256,8 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
 
         // 2. Adapter 초기화 및 리스너 연결
         adapter = new ResultListAdapter();
-        adapter.setOnItemDeleteListener(this); // 💡 리스너 연결
+        adapter.setOnItemDeleteListener(this);
+        adapter.setOnItemEditListener(this); // 수정 리스너 연결
 
         // 3. RecyclerView 설정
         binding.recyclerViewResults.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -204,10 +277,10 @@ public class MeasurementListFragment extends Fragment implements ResultListAdapt
         Executors.newSingleThreadExecutor().execute(() -> {
 //            List<SurveyResult> resultList = surveyDiameterDao.getAllResults();
 
-            // 💡 1. DB 조회 결과를 저장할 변수를 final로 선언합니다.
+            // 1. DB 조회 결과를 저장할 변수를 final로 선언합니다.
             final List<SurveyResult> resultList;
 
-            // 💡 2. if/else 로직을 통해 변수에 단 한 번만 값을 할당합니다.
+            // 2. if/else 로직을 통해 변수에 단 한 번만 값을 할당합니다.
             if (currentProjectId != -1) {
                 // 특정 프로젝트 ID로 조회하여 resultList에 할당 (단 한 번 할당)
                 resultList = surveyDiameterDao.getResultsByProjectId(projectIdToFilter);

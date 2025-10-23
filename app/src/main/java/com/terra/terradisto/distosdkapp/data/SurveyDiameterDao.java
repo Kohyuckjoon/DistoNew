@@ -39,4 +39,7 @@ public interface SurveyDiameterDao {
 
     @Query("SELECT * FROM survey_diameter WHERE projectId = :projectId AND mapNumber = :mapNumber")
     int countExistingMapNumber(int projectId, String mapNumber);
+
+    @Query("UPDATE survey_diameter SET etInputFirst = :newValue WHERE id = :id")
+    void updateInputFirst(int id, String newValue);
 }

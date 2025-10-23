@@ -31,11 +31,22 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     }
     private OnItemDeleteListener deleteListener;
 
+    public interface OnItemEditListener {
+        void onEditClick(SurveyResult resultToEdit, int position);
+    }
+
+    // 1. 수정 버튼 클릭 이벤트를 위한 인터페이스 정의 (추가)
+    private OnItemEditListener editListener;
+
     private List<SurveyResult> results;
     private List<SurveyDiameterData> resultData;
 
     public void setOnItemDeleteListener(OnItemDeleteListener listener) {
         this.deleteListener = listener;
+    }
+
+    public void setOnItemEditListener(OnItemEditListener listener) {
+        this.editListener = listener;
     }
 
     public void setResults(List<SurveyResult> results) {
@@ -59,7 +70,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
         SurveyResult item = results.get(position);
-        holder.bind(item, deleteListener);
+        holder.bind(item, deleteListener, editListener);
     }
 
     @Override
@@ -71,6 +82,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
 
         private final DecimalFormat df;
         private final MaterialCardView mcDeleteButton;
+        private final MaterialCardView mcInputFirst;
         public TextView mapNumber;        // 도엽 번호
         public TextView manholType;       // 맨홀 타입 (1개, 2개, 3개, 4개)
 
@@ -112,6 +124,8 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             tvInputthird = itemView.findViewById(R.id.tv_input_third);
             tvInputfourth = itemView.findViewById(R.id.tv_input_fourth);
 
+            mcInputFirst = itemView.findViewById(R.id.mc_input_01);
+
             etPipMaterialFirst = itemView.findViewById(R.id.et_pip_material_first);
             etPipMaterialSecond = itemView.findViewById(R.id.et_pip_material_second);
             etPipMaterialThird = itemView.findViewById(R.id.et_pip_material_third);
@@ -134,7 +148,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             }
         }
 
-        public void bind(final SurveyResult item, final OnItemDeleteListener listener) {
+        public void bind(final SurveyResult item, final OnItemDeleteListener listener, final OnItemEditListener editListener) {
 //            mapNumber.setText("도엽 번호 : " + item.getMapNumber());
 //            manholType.setText("맨홀 타입 : " + item.getManholType());
             mapNumber.setText("맨홀 번호 : " + item.getMapNumber());
@@ -177,6 +191,15 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
                 public void onClick(View view) {
                     if (listener != null) {
                         listener.onDeleteClick(item, getAdapterPosition());
+                    }
+                }
+            });
+
+            mcInputFirst.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (editListener != null) {
+                        editListener.onEditClick(item, getAdapterPosition());
                     }
                 }
             });
