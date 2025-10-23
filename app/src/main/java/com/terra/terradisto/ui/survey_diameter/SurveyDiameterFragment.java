@@ -19,7 +19,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.terra.terradisto.R;
 import com.terra.terradisto.distosdkapp.SharedViewModel;
 import com.terra.terradisto.databinding.FragmentSurveyDiameterBinding;
 
@@ -201,6 +203,7 @@ public class SurveyDiameterFragment extends Fragment
         // MeasureResultButton
 //        binding.mcMeasureResult.setOnClickListener(view -> measureInputData());
         binding.mcMeasureResult.setOnClickListener(view -> { saveMeasureData(); });
+        binding.mcMeasureComplite.setOnClickListener(view -> { surveyDiameterComplete(); });
 
         // 숫자 눌렀을 경우
         binding.mcNumberFirst.setOnClickListener(view -> { dataReplcaDataFirst(); });
@@ -209,6 +212,10 @@ public class SurveyDiameterFragment extends Fragment
         binding.mcNumberFourth.setOnClickListener(view -> { dataReplcaDataFourth(); });
 
         return binding.getRoot();
+    }
+
+    private void surveyDiameterComplete() {
+        NavHostFragment.findNavController(this).navigate(R.id.surveyDiameterComplite);
     }
 
     private void dataReplcaDataFirst() {

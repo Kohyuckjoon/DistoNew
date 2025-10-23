@@ -7,7 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.survey_diameter.SurveyDiameterFragment">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -790,7 +789,7 @@
                 android:id="@+id/mc_measure_complite"
                 android:layout_width="@dimen/measurement_data_list_width_medium"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#E9ECEF"
+                app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="10dp"
                 app:strokeWidth="0dp"
                 android:layout_marginStart="5dp"

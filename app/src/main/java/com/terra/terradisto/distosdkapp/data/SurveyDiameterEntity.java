@@ -1,9 +1,20 @@
 package com.terra.terradisto.distosdkapp.data;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "survey_diameter")
+@Entity(
+        tableName = "survey_diameter",
+        indices = {@Index(value = {"projectId"})},
+        foreignKeys = @ForeignKey(
+                entity = ProjectCreate.class,
+                parentColumns = "id",
+                childColumns = "projectId",
+                onDelete = ForeignKey.CASCADE
+        )
+)
 public class SurveyDiameterEntity {
 
     @PrimaryKey(autoGenerate = true)

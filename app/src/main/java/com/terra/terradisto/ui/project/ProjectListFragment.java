@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.terra.terradisto.R;
 import com.terra.terradisto.databinding.FragmentProjectListBinding;
@@ -33,6 +34,7 @@ public class ProjectListFragment extends Fragment implements ProjectListAdapter.
     private FragmentProjectListBinding binding;
     private ProjectListAdapter adapter;
 
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public ProjectListFragment() {
         // Required empty public constructor
@@ -64,12 +66,13 @@ public class ProjectListFragment extends Fragment implements ProjectListAdapter.
     }
 
     private void loadProjectsFromDB() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             AppDatabase db = AppDatabase.getDatabase(requireContext());
             List<ProjectCreate> projects = db.projectDao().getAllProjects();
 
             requireActivity().runOnUiThread(() -> {
+                if (binding == null) return; // 안전 가드 추가
                 if (projects == null || projects.isEmpty()) {
                     binding.mcNoData.setVisibility(View.VISIBLE);
                     binding.rcProjectList.setVisibility(View.GONE);
@@ -96,5 +99,31 @@ public class ProjectListFragment extends Fragment implements ProjectListAdapter.
         } catch (Exception e) {
             Log.e("Disto", "Navigation 오류: Project ID 전달 실패", e);
         }
+    }
+
+    @Override
+    public void onProjectDeleted(ProjectCreate project) {
+        if (!isAdded()) return;
+
+        executorService.execute(() -> {
+            try {
+                AppDatabase db = AppDatabase.getDatabase(requireContext());
+                db.projectDao().delete(project);
+
+                requireActivity().runOnUiThread(() -> {
+                    showToast(project.name + " 프로젝트가 선택되었습니다.");
+                    loadProjectsFromDB();
+                });
+            } catch (Exception e) {
+                requireActivity().runOnUiThread(() -> {
+                    showToast("프로젝트 삭제에 실패했습니다.");
+                });
+            }
+        });
+    }
+
+    private void showToast(String msg) {
+        if (!isAdded()) return;
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

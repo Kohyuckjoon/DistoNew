@@ -46,8 +46,15 @@
         tools:layout="@layout/fragment_survey_diameter">
 
         <action
-            android:id="@+id/fragmentSaveDialog"
-            app:destination="@+id/fragmentSaveDialog" />
+            android:id="@+id/surveyDiameterComplite"
+            app:destination="@+id/mainFragment"
+
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"/>
+
+<!--        <action-->
+<!--            android:id="@+id/fragmentSaveDialog"-->
+<!--            app:destination="@+id/fragmentSaveDialog" />-->
     </fragment>
 
     <fragment

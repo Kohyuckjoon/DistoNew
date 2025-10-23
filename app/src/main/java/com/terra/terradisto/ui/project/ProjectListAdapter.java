@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.terra.terradisto.R;
 import com.terra.terradisto.distosdkapp.data.ProjectCreate;
 import java.util.List;
@@ -23,7 +24,8 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     }
 
     public interface OnProjectSelectListener {
-        void onProjectSelected(ProjectCreate project);
+        void onProjectSelected(ProjectCreate project);  // 프로젝트 선택
+        void onProjectDeleted(ProjectCreate project);   // 프로젝트 삭제
     }
 
     public ProjectListAdapter(List<ProjectCreate> projectList) {
@@ -44,9 +46,24 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         holder.tvProjectName.setText(project.name);
         holder.tvProjectLocation.setText(project.location);
 
-        holder.itemView.setOnClickListener(v -> {
+        // 아이템을 눌렀을때에는 상세 페이지로 갈 수 있도록
+//        holder.itemView.setOnClickListener(v -> {
+//            if (listener != null) {
+//                listener.onProjectSelected(project);
+//            }
+//        });
+
+        // 프로젝트 선택
+        holder.mcSelectButton.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onProjectSelected(project);
+            }
+        });
+
+        // 프로젝트 삭제
+        holder.mcDeleteButton.setOnClickListener(v -> {
+            if(listener != null) {
+                listener.onProjectDeleted(project);
             }
         });
     }
@@ -63,11 +80,14 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvProjectName, tvProjectLocation;
+        MaterialCardView mcSelectButton, mcDeleteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvProjectName = itemView.findViewById(R.id.mc_project_name);
             tvProjectLocation = itemView.findViewById(R.id.mc_number);
+            mcSelectButton = itemView.findViewById(R.id.mc_select_button);
+            mcDeleteButton = itemView.findViewById(R.id.mc_delete_button);
         }
     }
 }
