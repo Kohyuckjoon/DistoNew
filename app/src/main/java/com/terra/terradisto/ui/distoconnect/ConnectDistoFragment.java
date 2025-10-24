@@ -462,7 +462,7 @@ public class ConnectDistoFragment extends Fragment
 
         // 또는 탭 전환/콜백 등으로 SurveyDiameter로 이동
         Log.i(TAG, "Device connected. Ready to use in other fragments.");
-        currentDevice = null;
+//        currentDevice = null;
     }
 
 

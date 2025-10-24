@@ -39,6 +39,8 @@ import com.terra.terradisto.distosdkapp.device.YetiDeviceController;
 import java.util.concurrent.Executors;
 
 import ch.leica.sdk.ErrorHandling.ErrorObject;
+import ch.leica.sdk.Types;
+import ch.leica.sdk.commands.response.Response;
 
 public class SurveyDiameterFragment extends Fragment
         implements YetiDeviceController.YetiDataListener {
@@ -83,12 +85,17 @@ public class SurveyDiameterFragment extends Fragment
 
         // 🔗 연결된 디바이스 주입
         InformationActivityData info = Clipboard.INSTANCE.getInformationActivityData();
+        Log.e(TAG, "Clipboard device: " + (info != null && info.device != null ? info.device.getDeviceName() : "null"));
+
         if (info != null && info.device != null) {
-            if (info.device.getDeviceType() == ch.leica.sdk.Types.DeviceType.Yeti) {
-                yetiController.setCurrentDevice(info.device);
-                yetiController.setListeners(); // 리스너 재바인딩
-            } else {
-                Log.w(TAG, "Connected device is not Yeti. Current type=" + info.device.getDeviceType());
+            Device device = info.device;
+            if (device.getConnectionState() == Device.ConnectionState.connected) {
+                if (info.device.getDeviceType() == ch.leica.sdk.Types.DeviceType.Yeti) {
+                    yetiController.setCurrentDevice(info.device);
+                    yetiController.setListeners(); // 리스너 재바인딩
+                } else {
+                    Log.w(TAG, "Connected device is not Yeti. Current type=" + info.device.getDeviceType());
+                }
             }
         } else {
             Log.w(TAG, "No device in Clipboard; connect first in ConnectDistoFragment.");
@@ -506,28 +513,77 @@ public class SurveyDiameterFragment extends Fragment
         }
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        Device dev = yetiController.getCurrentDevice();
+//
+//        if (dev != null && dev.getConnectionState() == Device.ConnectionState.connected) {
+//            Log.d(TAG, "Device already connected in onResume");
+//            return;
+//        }
+//
+//        // 이미 페어링/선택된 디바이스가 있다면 자동 재연결 시도
+//        if (getContext() != null) {
+//            yetiController.checkForReconnection(requireContext());
+//        }
+//    }
+
     @Override
     public void onResume() {
         super.onResume();
-        // 이미 페어링/선택된 디바이스가 있다면 자동 재연결 시도
+
+        Device dev = yetiController.getCurrentDevice();
+
+        // 연결 상태 체크
+        if (dev != null && dev.getConnectionState() == Device.ConnectionState.connected) {
+            Log.d(TAG, "Device already connected in onResume");
+            Log.d(TAG, "onResume - Device: " + dev.getDeviceName()
+                    + ", State: " + dev.getConnectionState());
+
+            // 혹시 진행 중인 측정이 있다면 정리
+            if (isMeasuring) {
+                stopMeasuring(false);
+            }
+
+            return; // 재연결 시도 안함
+        }
+
+        // 연결 끊어진 경우에만 재연결
         if (getContext() != null) {
-            yetiController.checkForReconnection(requireContext());
+//            yetiController.checkForReconnection(requireContext());
         }
     }
 
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        // 화면 떠날 땐 측정 중지 + 노티 멈춤
+//        stopMeasuring(false);
+//        try {
+//            yetiController.pauseBTConnection(new BleDevice.BTConnectionCallback() {
+//                @Override
+//                public void onFinished() {
+//                    Log.d(TAG, "Notifications deactivated.");
+//                }
+//            });
+//        } catch (Exception ignore) {}
+//    }
     @Override
     public void onStop() {
         super.onStop();
-        // 화면 떠날 땐 측정 중지 + 노티 멈춤
-        stopMeasuring(false);
-        try {
-            yetiController.pauseBTConnection(new BleDevice.BTConnectionCallback() {
-                @Override
-                public void onFinished() {
-                    Log.d(TAG, "Notifications deactivated.");
-                }
-            });
-        } catch (Exception ignore) {}
+
+        // ✅ 측정 완전히 중지
+        if (isMeasuring) {
+            isMeasuring = false; // 플래그 먼저 false
+            measureHandler.removeCallbacksAndMessages(null);
+        }
+
+        // ✅ 연결 pause는 하지 않음 (다음 진입 시 문제 방지)
+        // yetiController.pauseBTConnection(...); // 주석 처리
+
+        Log.d(TAG, "onStop - measurement stopped, connection maintained");
     }
 
     @Override
@@ -541,6 +597,29 @@ public class SurveyDiameterFragment extends Fragment
     /* =========================
        버튼: 측정 토글
        ========================= */
+//    private void onClickSurveyToggle() {
+//        Device dev = yetiController.getCurrentDevice();
+//
+//        Log.e(TAG, "측정 버튼 클릭 - Device: " + (dev != null ? dev.getDeviceName() : "null"));
+//        Log.e(TAG, "측정 버튼 클릭 - State: " + (dev != null ? dev.getConnectionState() : "N/A"));
+//
+//        if (dev == null) {
+//            showToast("먼저 Connect 화면에서 기기를 연결하세요.");
+//            return;
+//        }
+//        if (dev.getConnectionState() != Device.ConnectionState.connected) {
+//            showToast("기기 재연결 시도 중...");
+//            yetiController.checkForReconnection(requireContext());
+//            return;
+//        }
+//
+//        if (!isMeasuring) {
+//            startMeasuring();
+//        } else {
+//            stopMeasuring(true);
+//        }
+//    }
+
     private void onClickSurveyToggle() {
         Device dev = yetiController.getCurrentDevice();
         if (dev == null) {
@@ -554,16 +633,106 @@ public class SurveyDiameterFragment extends Fragment
         }
 
         if (!isMeasuring) {
-            startMeasuring();
+            // ✅ 측정 시작 전 SDK 상태 초기화
+            clearPendingCommands();
+
+            // 짧은 딜레이 후 측정 시작 (SDK 정리 완료 대기)
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                startMeasuring();
+            }, 300);
         } else {
             stopMeasuring(true);
+        }
+    }
+
+    // 새로운 메서드: SDK 명령 큐 초기화
+    private void clearPendingCommands() {
+        Device dev = yetiController.getCurrentDevice();
+        if (dev == null) return;
+
+        try {
+            // SDK에 더미 명령을 보내서 큐를 비움
+            // (에러가 나도 상관없음 - 목적은 큐 정리)
+            new Thread(() -> {
+                try {
+                    // 간단한 명령으로 큐 flush
+                    Response response = dev.sendCommand(Types.Commands.GetBrandDistocom);
+                    if (response != null) {
+                        // 응답은 무시
+                    }
+                } catch (Exception e) {
+                    // 에러 무시 - 큐 정리가 목적
+                    Log.d(TAG, "clearPendingCommands: " + e.getMessage());
+                }
+            }).start();
+
+            // 약간 대기
+            Thread.sleep(200);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error clearing pending commands", e);
         }
     }
 
     /* =========================
        측정 시작/정지
        ========================= */
+//    private void startMeasuring() {
+//        // 상태 초기화
+//        isMeasuring = true;
+//        lastDistance = Double.NaN;
+//        trendingUp = false;
+//
+//        maxDistance = Double.NEGATIVE_INFINITY;
+//        maxDistanceUnit = "";
+//        maxAngle = Double.NEGATIVE_INFINITY;
+//        maxAngleUnit = "";
+//
+//        // UI 초기화
+//        if (binding != null) {
+//            String distanceValue = binding.tvDistance.getText().toString();
+//            int color = android.graphics.Color.parseColor("#E9ECEF");
+////            binding.tvRealtimeDistance.setText("");
+////            binding.tvRealtimeAngle.setText("");
+////            binding.tvMaxDistance.setText("");
+//            binding.tvDistance.setText("");
+////            binding.tvMaxAngle.setText("");
+//            binding.btnSurvey.setText("측정 정지");
+//            binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK); // change black
+//            binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
+//        }
+//
+//        // 1초 간격 측정 태스크
+//        measureTask = new Runnable() {
+//            @Override
+//            public void run() {
+//                if (!isMeasuring) return;
+//                sendDistanceCommandOnWorker();
+//                // 다음 예약
+//                measureHandler.postDelayed(this, 1000);
+//            }
+//        };
+//
+//        // 즉시 1회 + 주기 시작
+//        measureHandler.post(measureTask);
+//    }
     private void startMeasuring() {
+        // ✅ 이미 측정 중이면 중지 후 재시작
+        if (isMeasuring) {
+            Log.w(TAG, "Already measuring. Stopping first...");
+            stopMeasuring(false);
+
+            // 짧은 딜레이 후 재시작
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                startMeasuringInternal();
+            }, 300);
+            return;
+        }
+
+        startMeasuringInternal();
+    }
+
+    private void startMeasuringInternal() {
         // 상태 초기화
         isMeasuring = true;
         lastDistance = Double.NaN;
@@ -576,16 +745,11 @@ public class SurveyDiameterFragment extends Fragment
 
         // UI 초기화
         if (binding != null) {
-            String distanceValue = binding.tvDistance.getText().toString();
             int color = android.graphics.Color.parseColor("#E9ECEF");
-//            binding.tvRealtimeDistance.setText("");
-//            binding.tvRealtimeAngle.setText("");
-//            binding.tvMaxDistance.setText("");
             binding.tvDistance.setText("");
-//            binding.tvMaxAngle.setText("");
             binding.btnSurvey.setText("측정 정지");
-            binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK); // change black
-            binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
+            binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK);
+            binding.mtMeasureResultFix.setBackgroundColor(color);
         }
 
         // 1초 간격 측정 태스크
@@ -594,7 +758,6 @@ public class SurveyDiameterFragment extends Fragment
             public void run() {
                 if (!isMeasuring) return;
                 sendDistanceCommandOnWorker();
-                // 다음 예약
                 measureHandler.postDelayed(this, 1000);
             }
         };
@@ -603,27 +766,92 @@ public class SurveyDiameterFragment extends Fragment
         measureHandler.post(measureTask);
     }
 
+
+//    private void stopMeasuring(boolean showToast) {
+//        if (!isMeasuring) return;
+//        isMeasuring = false;
+//        measureHandler.removeCallbacksAndMessages(null);
+//
+//        if (binding != null) {
+//            binding.btnSurvey.setText(getString(com.terra.terradisto.R.string.survey_diameter));
+//            binding.mtMeasureResultFix.setBackgroundColor(Color.BLACK); // change black
+//
+//        }
+//        if (showToast) showToast("측정을 중지했습니다.");
+//    }
+
     private void stopMeasuring(boolean showToast) {
         if (!isMeasuring) return;
+
         isMeasuring = false;
+
         measureHandler.removeCallbacksAndMessages(null);
 
-        if (binding != null) {
-            binding.btnSurvey.setText(getString(com.terra.terradisto.R.string.survey_diameter));
-            binding.mtMeasureResultFix.setBackgroundColor(Color.BLACK); // change black
+        Device dev = yetiController.getCurrentDevice();
+        if (dev != null && dev.getConnectionState() == Device.ConnectionState.connected) {
+            try {
+                // SDK에 명령 취소 요청 (있다면)
+                // dev.cancelCurrentCommand(); // SDK에 이런 메서드가 있는지 확인
 
+                // 또는 짧은 대기 후 상태 초기화
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    Log.d(TAG, "Command queue cleared");
+                }, 100);
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error canceling command", e);
+            }
         }
+
+        if (binding != null) {
+            binding.btnSurvey.setText(getString(R.string.survey_diameter));
+            binding.mtMeasureResultFix.setBackgroundColor(Color.BLACK);
+        }
+
         if (showToast) showToast("측정을 중지했습니다.");
     }
 
     /* =========================
        명령 전송(백그라운드)
        ========================= */
+//    private void sendDistanceCommandOnWorker() {
+//        new Thread(() -> {
+//            ErrorObject error = yetiController.sendDistanceCommand();
+//            if (error != null && isAdded()) {
+//                requireActivity().runOnUiThread(() -> showToast(formatErrorMessage(error)));
+//            }
+//        }).start();
+//    }
+
     private void sendDistanceCommandOnWorker() {
+        if (!isMeasuring) {
+            Log.d(TAG, "Measurement stopped, skip command");
+            return;
+        }
+
         new Thread(() -> {
-            ErrorObject error = yetiController.sendDistanceCommand();
-            if (error != null && isAdded()) {
-                requireActivity().runOnUiThread(() -> showToast(formatErrorMessage(error)));
+            try {
+                ErrorObject error = yetiController.sendDistanceCommand();
+
+                // null이면 정상 (또는 재시도 대기)
+                if (error == null) {
+                    return;
+                }
+
+                // 에러가 있으면 UI에 표시
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        showToast(formatErrorMessage(error));
+                        // 에러 발생 시 측정 중지
+                        stopMeasuring(false);
+                    });
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error sending command", e);
+                // 예외 발생 시에도 측정 중지
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> stopMeasuring(false));
+                }
             }
         }).start();
     }

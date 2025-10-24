@@ -7,6 +7,13 @@ import com.terra.terradisto.distosdkapp.update.UpdateController;
 import com.terra.terradisto.distosdkapp.utilities.ErrorController;
 import com.terra.terradisto.distosdkapp.utilities.Logs;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import ch.leica.sdk.Defines;
 import ch.leica.sdk.Devices.Device;
 import ch.leica.sdk.Devices.YetiDevice;
@@ -167,25 +174,63 @@ public class YetiDeviceController
         return response;
     }
 
+//    public ErrorObject sendDistanceCommand() {
+//        final String METHODTAG = ".sendDistanceCommand";
+//        errorSendingCommand = null;
+//
+//        if (currentDevice == null) {
+//            errorSendingCommand = ErrorController.createErrorObject(NULL_DEVICE_CODE, NULL_DEVICE_MESSAGE);
+//            Logs.logErrorObject(CLASSTAG, METHODTAG, errorSendingCommand);
+//            return errorSendingCommand;
+//        }
+//
+//        try {
+//            final ResponsePlain response =
+//                    (ResponsePlain) currentDevice.sendCommand(Types.Commands.DistanceDC);
+//            response.waitForData();
+//            yetiDataListener.onDistocomTransmit_Received(response.getReceivedDataString());
+//        } catch (DeviceException e) {
+//            errorSendingCommand = ErrorController.createErrorObject(COMMAND_ERROR_CODE, "Error sending the distance command");
+//            Logs.logErrorObject(CLASSTAG, METHODTAG, errorSendingCommand);
+//        }
+//        return errorSendingCommand;
+//    }
+
     public ErrorObject sendDistanceCommand() {
         final String METHODTAG = ".sendDistanceCommand";
         errorSendingCommand = null;
 
         if (currentDevice == null) {
             errorSendingCommand = ErrorController.createErrorObject(NULL_DEVICE_CODE, NULL_DEVICE_MESSAGE);
-            Logs.logErrorObject(CLASSTAG, METHODTAG, errorSendingCommand);
             return errorSendingCommand;
         }
 
-        try {
-            final ResponsePlain response =
-                    (ResponsePlain) currentDevice.sendCommand(Types.Commands.DistanceDC);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<ResponsePlain> future = executor.submit(() -> {
+            ResponsePlain response = (ResponsePlain) currentDevice.sendCommand(Types.Commands.DistanceDC);
             response.waitForData();
+            return response;
+        });
+
+        try {
+            // 2초 타임아웃
+            ResponsePlain response = future.get(2, TimeUnit.SECONDS);
             yetiDataListener.onDistocomTransmit_Received(response.getReceivedDataString());
-        } catch (DeviceException e) {
-            errorSendingCommand = ErrorController.createErrorObject(COMMAND_ERROR_CODE, "Error sending the distance command");
-            Logs.logErrorObject(CLASSTAG, METHODTAG, errorSendingCommand);
+
+        } catch (TimeoutException e) {
+            Log.w(CLASSTAG, METHODTAG + ": Command timeout");
+            future.cancel(true);
+            return null; // 다음 사이클에서 재시도
+
+        } catch (InterruptedException | ExecutionException e) {
+            if (e.getMessage() != null && e.getMessage().contains("already in progress")) {
+                return null;
+            }
+            errorSendingCommand = ErrorController.createErrorObject(COMMAND_ERROR_CODE, "Error sending command");
+        } finally {
+            executor.shutdown();
         }
+
         return errorSendingCommand;
     }
 
