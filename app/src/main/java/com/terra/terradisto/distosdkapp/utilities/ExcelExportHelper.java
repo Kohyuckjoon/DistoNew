@@ -78,7 +78,8 @@ public class ExcelExportHelper {
                 }
 
                 // Sheet Name : mapNumber
-                String sheetName = data.mapNumber + (i + 1);
+//                String sheetName = data.mapNumber + (i + 1);
+                String sheetName = data.mapNumber;
                 workbook.setSheetName(i, sheetName);
 
                 Log.e(TAG, sheetName + " 시트에 데이터 맵핑 시작. (ID : " + data.getId() + ")");
