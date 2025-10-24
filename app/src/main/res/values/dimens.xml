@@ -30,10 +30,14 @@
     <dimen name="measurement_data_list_width">120dp</dimen> <!--button-->
     <dimen name="measurement_data_list_width_medium">90dp</dimen> <!--button-->
     <dimen name="measurement_data_list_height">24dp</dimen> <!--button-->
+    <dimen name="measurement_distance">150dp</dimen> <!--button-->
 
     <!-- text title (current)-->
     <dimen name="text_view_title_size_s">20sp</dimen>
     <dimen name="btn_gps_location">14sp</dimen>
+
+    <!-- camera -->
+    <dimen name="camera_link">270dp</dimen>
 
     <!-- Bluetooth List -->
     <dimen name="blue_tooth_list_title">20sp</dimen>

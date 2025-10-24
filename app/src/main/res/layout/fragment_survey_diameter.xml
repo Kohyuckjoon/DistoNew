@@ -691,7 +691,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mc_distance"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/measurement_distance"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -700,7 +700,8 @@
                 app:strokeWidth="0dp"
                 app:layout_constraintStart_toEndOf="@+id/mc_auto_btn"
                 app:layout_constraintTop_toTopOf="@+id/mc_auto_btn"
-                app:layout_constraintBottom_toBottomOf="@+id/mc_auto_btn">
+                app:layout_constraintBottom_toBottomOf="@+id/mc_auto_btn"
+                app:layout_constraintEnd_toStartOf="@+id/mc_measure_result_fix">
 
                 <TextView
                     android:id="@+id/tv_distance"
@@ -769,7 +770,7 @@
                 app:cardCornerRadius="10dp"
                 app:strokeWidth="0dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="80dp"
                 app:layout_constraintEnd_toStartOf="@+id/mc_measure_complite"
                 app:layout_constraintTop_toBottomOf="@+id/mc_picture">
 
@@ -793,9 +794,8 @@
                 app:cardCornerRadius="10dp"
                 app:strokeWidth="0dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/mc_picture"
-                app:layout_constraintTop_toBottomOf="@+id/mc_picture">
+                app:layout_constraintTop_toTopOf="@+id/mc_measure_result">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/mt_measure_complite"

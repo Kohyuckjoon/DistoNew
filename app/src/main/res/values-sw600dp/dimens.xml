@@ -27,6 +27,11 @@
     <dimen name="measurement_data_export_height">27dp</dimen> <!--button-->
     <dimen name="measurement_data_list_width">140dp</dimen> <!--button-->
     <dimen name="measurement_data_list_height">28dp</dimen> <!--button-->
+    <dimen name="measurement_data_list_width_medium">120dp</dimen> <!--button-->
+    <dimen name="measurement_distance">250dp</dimen> <!--button-->
+
+    <!-- camera -->
+    <dimen name="camera_link">350dp</dimen>
 
     <!-- GPS text title (current)-->
     <dimen name="text_view_title_size_s">25sp</dimen>
