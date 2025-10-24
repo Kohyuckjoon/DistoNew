@@ -42,4 +42,13 @@ public interface SurveyDiameterDao {
 
     @Query("UPDATE survey_diameter SET etInputFirst = :newValue WHERE id = :id")
     void updateInputFirst(int id, String newValue);
+
+    @Query("UPDATE survey_diameter SET etInputSecond = :newValue WHERE id = :id")
+    void updateInputSecond(int id, String newValue);
+
+    @Query("UPDATE survey_diameter SET etInputThird = :newValue WHERE id = :id")
+    void updateInputThird(int id, String newValue);
+
+    @Query("UPDATE survey_diameter SET etInputFourth = :newValue WHERE id = :id")
+    void updateInputFourth(int id, String newValue);
 }

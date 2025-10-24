@@ -35,7 +35,15 @@ import java.util.concurrent.Executors;
  */
 public class MeasurementListFragment extends Fragment implements
         ResultListAdapter.OnItemDeleteListener,
-        ResultListAdapter.OnItemEditListener {
+        ResultListAdapter.OnItemEditListener,
+        ResultListAdapter.OnItemEditSecondListener,
+        ResultListAdapter.OnItemEditThirdListener,
+        ResultListAdapter.OnItemEditFourthListener{
+
+    private static final String FIELD_1 = "1";
+    private static final String FIELD_2 = "2";
+    private static final String FIELD_3 = "3";
+    private static final String FIELD_4 = "4";
 
     private FragmentMeasurementListBinding binding;
     private ResultListAdapter adapter;
@@ -140,30 +148,71 @@ public class MeasurementListFragment extends Fragment implements
                 })).show();
     }
 
-    // 수정 버튼 리스너 처리
     @Override
     public void onEditClick(SurveyResult resultToEdit, int position) {
-        // 어댑터에서 클릭 이벤트가 발생하면 다이얼로그를 표시하여 값을 입력받습니다.
-        showEditDialog(resultToEdit, position);
+        showEditDialog(resultToEdit, position, FIELD_1);
+    }
+
+    // 💡 2번 관로 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickSecond(SurveyResult resultToEdit, int position) {
+        showEditDialog(resultToEdit, position, FIELD_2);
+    }
+
+    // 💡 3번 관로 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickThird(SurveyResult resultToEdit, int position) {
+        showEditDialog(resultToEdit, position, FIELD_3);
+    }
+
+    // 💡 4번 관로 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickFourth(SurveyResult resultToEdit, int position) {
+        showEditDialog(resultToEdit, position, FIELD_4);
     }
 
     // 수정 입력 다이얼로그 표시 메서드
-    private void showEditDialog(SurveyResult resultToEdit, int position) {
+    private void showEditDialog(SurveyResult resultToEdit, int position, String fieldIdentifier) {
         final EditText input = new EditText(requireContext());
+        String currentTitle = "";
+        String currentValue = "";
+
+        // 💡 필드 식별자에 따라 제목 및 현재 값 설정
+        switch (fieldIdentifier) {
+            case FIELD_1:
+                currentTitle = "수기 입력값 수정 (1번 관로)";
+                currentValue = resultToEdit.getEtInputFirst();
+                break;
+            case FIELD_2:
+                currentTitle = "수기 입력값 수정 (2번 관로)";
+                currentValue = resultToEdit.getEtInputSecond(); // SurveyResult에 getEtInputSecond()가 필요
+                break;
+            case FIELD_3:
+                currentTitle = "수기 입력값 수정 (3번 관로)";
+                currentValue = resultToEdit.getEtInputThird(); // SurveyResult에 getEtInputThird()가 필요
+                break;
+            case FIELD_4:
+                currentTitle = "수기 입력값 수정 (4번 관로)";
+                currentValue = resultToEdit.getEtInputFourth(); // SurveyResult에 getEtInputFourth()가 필요
+                break;
+        }
+
         // 현재 값을 기본값으로 표시합니다.
-        input.setText(resultToEdit.getEtInputFirst());
+//        input.setText(resultToEdit.getEtInputFirst());
+        input.setText(currentValue);
+
         // 입력 타입을 숫자/소수점으로 설정합니다.
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         new AlertDialog.Builder(requireContext())
-                .setTitle("수기 입력값 수정 (1번 관로)")
+                .setTitle(currentTitle)
                 .setMessage("새로운 값을 입력하고 저장하세요:")
                 .setView(input)
                 .setPositiveButton(getResString(R.string.msg_ok), (dialog, which) -> {
                     String newValue = input.getText().toString().trim();
                     if (!newValue.isEmpty()) {
                         // DB 업데이트 로직 실행
-                        performEdit(resultToEdit.id, newValue, position);
+                        performEdit(resultToEdit.id, newValue, position, fieldIdentifier);
                     } else {
                         Toast.makeText(getContext(), "수정 값이 비어있습니다.", Toast.LENGTH_SHORT).show();
                     }
@@ -178,18 +227,49 @@ public class MeasurementListFragment extends Fragment implements
      * @param position RecyclerView 위치
      * Room DB 수정은 메인 스레드에서 실행할 수 없으므로 백그라운드 스레드에서 처리
      */
-    private void performEdit(int id, String newValue, int position) {
+    private void performEdit(int id, String newValue, int position, String fieldIdentifier) {
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
+                // 💡 필드 식별자에 따라 호출할 DAO 메서드를 분기
+                switch (fieldIdentifier) {
+                    case FIELD_1:
+                        surveyDiameterDao.updateInputFirst(id, newValue);
+                        break;
+                    case FIELD_2:
+                        surveyDiameterDao.updateInputSecond(id, newValue);
+                        break;
+                    case FIELD_3:
+                        surveyDiameterDao.updateInputThird(id, newValue);
+                        break;
+                    case FIELD_4:
+                        surveyDiameterDao.updateInputFourth(id, newValue);
+                        break;
+                }
+
                 // DB에서 해당 ID의 '1번 수기 입력 데이터' 필드만 업데이트
                 // (DAO에 updateInputFirst(int id, String newValue) 메서드가 정의되어 있어야 함)
-                surveyDiameterDao.updateInputFirst(id, newValue);
+//                surveyDiameterDao.updateInputFirst(id, newValue);
 
                 if (isAdded()) {
                     requireActivity().runOnUiThread(() -> {
                         // 1. Adapter 데이터 모델 업데이트 (Adapter 목록에 있는 객체의 값을 직접 수정)
                         SurveyResult updatedItem = adapter.getResults().get(position);
-                        updatedItem.setEtInputFirst(newValue); // SurveyResult 모델에 setEtInputFirst()가 필요함
+//                        updatedItem.setEtInputFirst(newValue); // SurveyResult 모델에 setEtInputFirst()가 필요함
+
+                        switch (fieldIdentifier) {
+                            case FIELD_1:
+                                updatedItem.setEtInputFirst(newValue);
+                                break;
+                            case FIELD_2:
+                                updatedItem.setEtInputSecond(newValue); // SurveyResult에 setEtInputSecond()가 필요
+                                break;
+                            case FIELD_3:
+                                updatedItem.setEtInputThird(newValue); // SurveyResult에 setEtInputThird()가 필요
+                                break;
+                            case FIELD_4:
+                                updatedItem.setEtInputFourth(newValue); // SurveyResult에 setEtInputFourth()가 필요
+                                break;
+                        }
 
                         // 2. UI 갱신 (해당 항목만 갱신하여 깜빡임 최소화)
                         adapter.notifyItemChanged(position);
@@ -257,7 +337,10 @@ public class MeasurementListFragment extends Fragment implements
         // 2. Adapter 초기화 및 리스너 연결
         adapter = new ResultListAdapter();
         adapter.setOnItemDeleteListener(this);
-        adapter.setOnItemEditListener(this); // 수정 리스너 연결
+        adapter.setOnItemEditListener(this);        // 1번 수정 리스너 연결
+        adapter.setOnItemEditSecondListener(this);  // 2번 수정 리스너 연결
+        adapter.setOnItemEditThirdListener(this);   // 3번 수정 리스너 연결
+        adapter.setOnItemEditFourthListener(this);  // 4번 수정 리스너 연결
 
         // 3. RecyclerView 설정
         binding.recyclerViewResults.setLayoutManager(new LinearLayoutManager(requireContext()));

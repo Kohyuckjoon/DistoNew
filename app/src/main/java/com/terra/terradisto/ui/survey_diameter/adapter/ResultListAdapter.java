@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.ResultViewHolder> {
 
-    // 1. 삭제 버튼 클릭 이벤트를 위한 인터페이스 정의
+    // 1번 삭제 버튼 클릭 이벤트를 위한 인터페이스 정의
     public interface OnItemDeleteListener {
         void onDeleteClick(SurveyResult resultToDelete, int position);
     }
@@ -35,8 +35,27 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         void onEditClick(SurveyResult resultToEdit, int position);
     }
 
-    // 1. 수정 버튼 클릭 이벤트를 위한 인터페이스 정의 (추가)
+    // 2번 관로 수정 리스너
+    public interface OnItemEditSecondListener {
+        void onEditClickSecond(SurveyResult resultToEdit, int position);
+    }
+
+    // 3번 관로 수정 리스너
+    public interface OnItemEditThirdListener {
+        void onEditClickThird(SurveyResult resultToEdit, int position);
+    }
+
+    // 4번 관로 수정 리스너
+    public interface OnItemEditFourthListener {
+        void onEditClickFourth(SurveyResult resultToEdit, int position);
+    }
+
+    // 수정 버튼 클릭 이벤트를 위한 인터페이스 정의
     private OnItemEditListener editListener;
+    private OnItemEditSecondListener editSecondListener;
+    private OnItemEditThirdListener editThirdListener;
+    private OnItemEditFourthListener editFourthListener;
+
 
     private List<SurveyResult> results;
     private List<SurveyDiameterData> resultData;
@@ -48,6 +67,9 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     public void setOnItemEditListener(OnItemEditListener listener) {
         this.editListener = listener;
     }
+    public void setOnItemEditSecondListener(OnItemEditSecondListener listener) { this.editSecondListener = listener; }
+    public void setOnItemEditThirdListener(OnItemEditThirdListener listener) { this.editThirdListener = listener; }
+    public void setOnItemEditFourthListener(OnItemEditFourthListener listener) { this.editFourthListener = listener; }
 
     public void setResults(List<SurveyResult> results) {
         this.results = results;
@@ -70,7 +92,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
         SurveyResult item = results.get(position);
-        holder.bind(item, deleteListener, editListener);
+        holder.bind(item, deleteListener, editListener, editSecondListener, editThirdListener, editFourthListener);
     }
 
     @Override
@@ -83,6 +105,10 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         private final DecimalFormat df;
         private final MaterialCardView mcDeleteButton;
         private final MaterialCardView mcInputFirst;
+        private final MaterialCardView mcInputSecond;
+        private final MaterialCardView mcInputThird;
+        private final MaterialCardView mcInputFourth;
+
         public TextView mapNumber;        // 도엽 번호
         public TextView manholType;       // 맨홀 타입 (1개, 2개, 3개, 4개)
 
@@ -125,6 +151,9 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             tvInputfourth = itemView.findViewById(R.id.tv_input_fourth);
 
             mcInputFirst = itemView.findViewById(R.id.mc_input_01);
+            mcInputSecond = itemView.findViewById(R.id.mc_input_02);
+            mcInputThird = itemView.findViewById(R.id.mc_input_03);
+            mcInputFourth = itemView.findViewById(R.id.mc_input_04);
 
             etPipMaterialFirst = itemView.findViewById(R.id.et_pip_material_first);
             etPipMaterialSecond = itemView.findViewById(R.id.et_pip_material_second);
@@ -148,11 +177,18 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             }
         }
 
-        public void bind(final SurveyResult item, final OnItemDeleteListener listener, final OnItemEditListener editListener) {
+        public void bind(final SurveyResult item,
+                         final OnItemDeleteListener listener,
+                         final OnItemEditListener editListener,
+                         final OnItemEditSecondListener editSecondListener,
+                         final OnItemEditThirdListener editThirdListener,
+                         final OnItemEditFourthListener editFourthListener) {
 //            mapNumber.setText("도엽 번호 : " + item.getMapNumber());
 //            manholType.setText("맨홀 타입 : " + item.getManholType());
+
             mapNumber.setText("맨홀 번호 : " + item.getMapNumber());
             manholType.setText("배관 수 : " + item.getManholType());
+
             tvSceneryFirst.setText(formatValue(item.getTvSceneryFirst()));
             tvScenerySecond.setText(formatValue(item.getTvScenerySecond()));
             tvSceneryThird.setText(formatValue(item.getTvSceneryThird()));
@@ -172,19 +208,19 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             Log.e("Disto_도엽 번호", "item.getManholType() : " + item.getManholType());
 
             Log.e("Disto_측정 관경", "item.getTvSceneryFirst() : " + item.getTvSceneryFirst()
-                                    + " item.getTvScenerySecond() : " + item.getTvScenerySecond()
-                                    + " item.getTvSceneryThird() : " + item.getTvSceneryThird()
-                                    + " item.getTvSceneryFourth() : " + item.getTvSceneryFourth());
+                    + " item.getTvScenerySecond() : " + item.getTvScenerySecond()
+                    + " item.getTvSceneryThird() : " + item.getTvSceneryThird()
+                    + " item.getTvSceneryFourth() : " + item.getTvSceneryFourth());
 
             Log.e("Disto_입력", "item.getTvInputFirst() : " + item.getEtInputFirst()
-                                    + " item.getTvInputsecond() : " + item.getEtInputSecond()
-                                    + " item.getTvInputthird() : " + item.getEtInputThird()
-                                    + " item.getTvInputfourth() : " + item.getEtInputFourth());
+                    + " item.getTvInputsecond() : " + item.getEtInputSecond()
+                    + " item.getTvInputthird() : " + item.getEtInputThird()
+                    + " item.getTvInputfourth() : " + item.getEtInputFourth());
 
             Log.e("Disto_재질", "item.getEtPipMaterialFirst() : " + item.getEtPipMaterialFirst()
-                                    + " item.getEtPipMaterialSecond() : " + item.getEtPipMaterialSecond()
-                                    + " item.getEtPipMaterialThird() : " + item.getEtPipMaterialThird()
-                                    + " item.getEtPipMaterialFourth() : " + item.getEtPipMaterialFourth());
+                    + " item.getEtPipMaterialSecond() : " + item.getEtPipMaterialSecond()
+                    + " item.getEtPipMaterialThird() : " + item.getEtPipMaterialThird()
+                    + " item.getEtPipMaterialFourth() : " + item.getEtPipMaterialFourth());
 
             mcDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -200,6 +236,36 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
                 public void onClick(View v) {
                     if (editListener != null) {
                         editListener.onEditClick(item, getAdapterPosition());
+                    }
+                }
+            });
+
+            mcInputSecond.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (editSecondListener != null) {
+//                        editListener.onEditClick(item, getAdapterPosition());
+                        editSecondListener.onEditClickSecond(item, getAdapterPosition());
+                    }
+                }
+            });
+
+            mcInputThird.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (editThirdListener != null) {
+//                        editListener.onEditClick(item, getAdapterPosition());
+                        editThirdListener.onEditClickThird(item, getAdapterPosition());
+                    }
+                }
+            });
+
+            mcInputFourth.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (editFourthListener != null) {
+//                        editListener.onEditClick(item, getAdapterPosition());
+                        editFourthListener.onEditClickFourth(item, getAdapterPosition());
                     }
                 }
             });
