@@ -221,6 +221,10 @@ public class SurveyDiameterFragment extends Fragment
     private void dataReplcaDataFirst() {
         String distanceValue = binding.tvDistance.getText().toString();
 
+        if (android.text.TextUtils.isEmpty(binding.tvSceneryFirst.getText().toString())) {
+            binding.tvSceneryFirst.setText(distanceValue);
+        }
+
         if (!android.text.TextUtils.isEmpty(binding.tvSceneryFirst.getText().toString())) {
             binding.tvSceneryFirst.setText(distanceValue);
         }
@@ -228,6 +232,10 @@ public class SurveyDiameterFragment extends Fragment
 
     private void dataReplcaDataSecond() {
         String distanceValue = binding.tvDistance.getText().toString();
+
+        if (android.text.TextUtils.isEmpty(binding.tvScenerySecond.getText().toString())) {
+            binding.tvScenerySecond.setText(distanceValue);
+        }
 
         if (!android.text.TextUtils.isEmpty(binding.tvScenerySecond.getText().toString())) {
             binding.tvScenerySecond.setText(distanceValue);
@@ -237,6 +245,10 @@ public class SurveyDiameterFragment extends Fragment
     private void dataReplcaDataThird() {
         String distanceValue = binding.tvDistance.getText().toString();
 
+        if (android.text.TextUtils.isEmpty(binding.tvSceneryThird.getText().toString())) {
+            binding.tvSceneryThird.setText(distanceValue);
+        }
+
         if (!android.text.TextUtils.isEmpty(binding.tvSceneryThird.getText().toString())) {
             binding.tvSceneryThird.setText(distanceValue);
         }
@@ -244,6 +256,10 @@ public class SurveyDiameterFragment extends Fragment
 
     private void dataReplcaDataFourth() {
         String distanceValue = binding.tvDistance.getText().toString();
+
+        if (android.text.TextUtils.isEmpty(binding.tvSceneryFourth.getText().toString())) {
+            binding.tvSceneryFourth.setText(distanceValue);
+        }
 
         if (!android.text.TextUtils.isEmpty(binding.tvSceneryFourth.getText().toString())) {
             binding.tvSceneryFourth.setText(distanceValue);
@@ -560,6 +576,7 @@ public class SurveyDiameterFragment extends Fragment
 
         // UI 초기화
         if (binding != null) {
+            String distanceValue = binding.tvDistance.getText().toString();
             int color = android.graphics.Color.parseColor("#E9ECEF");
 //            binding.tvRealtimeDistance.setText("");
 //            binding.tvRealtimeAngle.setText("");
@@ -569,7 +586,6 @@ public class SurveyDiameterFragment extends Fragment
             binding.btnSurvey.setText("측정 정지");
             binding.mcAutoBtn.setCardBackgroundColor(Color.BLACK); // change black
             binding.mtMeasureResultFix.setBackgroundColor(color); // change gray
-
         }
 
         // 1초 간격 측정 태스크
@@ -595,6 +611,7 @@ public class SurveyDiameterFragment extends Fragment
         if (binding != null) {
             binding.btnSurvey.setText(getString(com.terra.terradisto.R.string.survey_diameter));
             binding.mtMeasureResultFix.setBackgroundColor(Color.BLACK); // change black
+
         }
         if (showToast) showToast("측정을 중지했습니다.");
     }
