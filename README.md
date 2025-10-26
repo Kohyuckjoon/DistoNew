@@ -48,7 +48,6 @@
 <p>
   <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
   <img src="https://github.com/user-attachments/assets/2fa94094-3ff0-4ca3-9f03-e85e8f3d3b65" width="300" />
-  <img src="https://github.com/user-attachments/assets/67f06e75-cdd3-4a41-b34f-d98cbf6e71b7" width="300" />
   <img src="https://github.com/user-attachments/assets/ed86b665-9e95-49b2-9bcc-ea389ea4e715" width="300" />
 </p>
 
