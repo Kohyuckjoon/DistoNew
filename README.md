@@ -84,8 +84,6 @@
 <img src="https://github.com/user-attachments/assets/8a9daa76-4c79-490f-9bde-11c47c30e0e3" width="300" />
 <img src="https://github.com/user-attachments/assets/0836e973-d67a-4edf-9293-1a1a3c11cfc5" width="300" />
 
-![Screenshot_20251027_170859_TerraDisto](https://github.com/user-attachments/assets/8a9daa76-4c79-490f-9bde-11c47c30e0e3)
-
 
 ## 💾 측정 저장을 위한 최종 확인
 ## ✅ 측정 저장 완료
