@@ -173,8 +173,8 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
 
         private String formatValue(String value) {
             if (value == null || value.trim().isEmpty()) {
-//                return "0.000"; // 값이 비어있다면 기본 0.000 표기
-                return ""; // 값이 비어있다면 기본 0.000 표기
+                return "0.000"; // 값이 비어있다면 기본 0.000 표기
+//                return ""; // 값이 비어있다면 기본 0.000 표기
             }
 
             String cleanedValue = value.trim().replace("m", "");
