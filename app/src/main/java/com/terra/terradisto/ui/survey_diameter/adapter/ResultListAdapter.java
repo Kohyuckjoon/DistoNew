@@ -130,6 +130,11 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         private TextView etPipMaterialThird;  // 3번 재질
         private TextView etPipMaterialFourth; // 4번 재질
 
+        private final View llMeasurement01;
+        private final View llMeasurement02;
+        private final View llMeasurement03;
+        private final View llMeasurement04;
+
         @SuppressLint("WrongViewCast")
         public ResultViewHolder(View itemView) {
             super(itemView);
@@ -159,11 +164,17 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             etPipMaterialSecond = itemView.findViewById(R.id.et_pip_material_second);
             etPipMaterialThird = itemView.findViewById(R.id.et_pip_material_third);
             etPipMaterialFourth = itemView.findViewById(R.id.et_pip_material_fourth);
+
+            llMeasurement01 = itemView.findViewById(R.id.ll_measurement_01);
+            llMeasurement02 = itemView.findViewById(R.id.ll_measurement_02);
+            llMeasurement03 = itemView.findViewById(R.id.ll_measurement_03);
+            llMeasurement04 = itemView.findViewById(R.id.ll_measurement_04);
         }
 
         private String formatValue(String value) {
             if (value == null || value.trim().isEmpty()) {
-                return "0.000"; // 값이 비어있다면 기본 0.000 표기
+//                return "0.000"; // 값이 비어있다면 기본 0.000 표기
+                return ""; // 값이 비어있다면 기본 0.000 표기
             }
 
             String cleanedValue = value.trim().replace("m", "");
@@ -177,6 +188,26 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             }
         }
 
+        private int extractManholeCount(String manholTypeString) {
+            if(manholTypeString == null || manholTypeString.trim().isEmpty()) return 1;
+
+            try {
+                // manholTypeString 사용
+                String numberString = manholTypeString.replaceAll("[^\\d]", "");
+
+                if (numberString.isEmpty()) {
+                    return 1;
+                }
+
+                int count = Integer.parseInt(numberString);
+                return Math.min(count, 4);
+            } catch (NumberFormatException e) {
+                // manholTypeString 사용
+                Log.e("ResultListAdapter", "맨홀 갯수 파싱 오류 : " + manholTypeString, e);
+                return 1;
+            }
+        }
+
         public void bind(final SurveyResult item,
                          final OnItemDeleteListener listener,
                          final OnItemEditListener editListener,
@@ -185,6 +216,8 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
                          final OnItemEditFourthListener editFourthListener) {
 //            mapNumber.setText("도엽 번호 : " + item.getMapNumber());
 //            manholType.setText("맨홀 타입 : " + item.getManholType());
+
+            int selectedCount = extractManholeCount(item.getManholType());
 
             mapNumber.setText("맨홀 번호 : " + item.getMapNumber());
             manholType.setText("배관 수 : " + item.getManholType());
@@ -203,6 +236,12 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
             etPipMaterialSecond.setText(item.getEtPipMaterialSecond());
             etPipMaterialThird.setText(item.getEtPipMaterialThird());
             etPipMaterialFourth.setText(item.getEtPipMaterialFourth());
+
+            llMeasurement01.setVisibility(View.VISIBLE);
+            llMeasurement02.setVisibility(selectedCount >= 2 ? View.VISIBLE : View.GONE);
+            llMeasurement03.setVisibility(selectedCount >= 3 ? View.VISIBLE : View.GONE);
+            llMeasurement04.setVisibility(selectedCount >= 4 ? View.VISIBLE : View.GONE);
+
 
             Log.e("Disto_도엽 번호", "item.getMapNumber() : " + item.getTvSceneryFirst());
             Log.e("Disto_도엽 번호", "item.getManholType() : " + item.getManholType());

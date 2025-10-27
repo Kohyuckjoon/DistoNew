@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -1010,6 +1012,76 @@ public class SurveyDiameterFragment extends Fragment
             return Double.parseDouble(normalized);
         } catch (Exception ignore) {
             return Double.NaN;
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        final LinearLayout[] measurementViews = new LinearLayout[] {
+                binding.llMeasurement01,
+                binding.llMeasurement02,
+                binding.llMeasurement03,
+                binding.llMeasurement04
+        };
+
+        binding.spinnerManholeCount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                int selectedCount = extractManholeCount(selectedItem);
+
+                updateMeasurementViewVisibility(measurementViews, selectedCount);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Nothing to do
+            }
+        });
+    }
+
+    private int extractManholeCount(String manholeTypeString) {
+        if (manholeTypeString == null) return 1;
+
+        try {
+            // 정규식 사용 + 숫자만 추출
+             String numberString = manholeTypeString.replaceAll("[^\\d]", "");
+             return Integer.parseInt(numberString);
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "맨홀 갯수 파싱 오류 : " + manholeTypeString, e);
+            return 1;
+        }
+    }
+
+    private void updateMeasurementViewVisibility(LinearLayout[] views, int count) {
+        for (int i = 0; i < views.length; i++) {
+            if ((i+1) <= count) {
+                views[i].setVisibility(View.VISIBLE);
+            } else {
+                views[i].setVisibility(View.GONE);
+                clearMeasurementData(i + 1);
+            }
+        }
+    }
+
+    private void clearMeasurementData(int countManhole) {
+        if (countManhole <= 4) {
+            binding.tvSceneryFourth.setText("");
+            binding.etInputFourth.setText("");
+            binding.etPipMaterialFourth.setText("");
+        }
+        if (countManhole <= 3) {
+            binding.tvSceneryThird.setText("");
+            binding.etInputThird.setText("");
+            binding.etPipMaterialThird.setText("");
+        }
+        if (countManhole <= 2) {
+            binding.tvScenerySecond.setText("");
+            binding.etInputSecond.setText("");
+            binding.etPipMaterialSecond.setText("");
         }
     }
 }
