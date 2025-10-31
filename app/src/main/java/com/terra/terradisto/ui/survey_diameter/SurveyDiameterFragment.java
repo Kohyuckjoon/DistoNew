@@ -1026,21 +1026,21 @@ public class SurveyDiameterFragment extends Fragment
                 binding.llMeasurement04
         };
 
-        binding.spinnerManholeCount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                int selectedCount = extractManholeCount(selectedItem);
-
-                updateMeasurementViewVisibility(measurementViews, selectedCount);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Nothing to do
-            }
-        });
+//        binding.spinnerManholeCount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                String selectedItem = parent.getItemAtPosition(position).toString();
+//                int selectedCount = extractManholeCount(selectedItem);
+//
+//                updateMeasurementViewVisibility(measurementViews, selectedCount);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // Nothing to do
+//            }
+//        });
     }
 
     private int extractManholeCount(String manholeTypeString) {
