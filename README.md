@@ -96,7 +96,7 @@
 > - 측정이 완료된 데이터는 저장 버튼을 통해서 Room DB에 저장이 진행됩니다.
 > - 저장 방식 : Room DB
 
-<img src="https://github.com/user-attachments/assets/c829e689-3db4-483a-a565-38d9adf5a913" width="300" />
+<img src="https://github.com/user-attachments/assets/c505b5bd-c1f8-479e-9297-3e05e74c1c68" width="300" />
 
 ---
 
