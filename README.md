@@ -60,7 +60,7 @@
 > - 아래 첨부된 이미지는 Room DB를 이용한 DB값과 실제 화면에 표시되고 있는 값이 동일하게 표시되고 있음을 보여줍니다.
 
 <img width="1280" height="720" alt="슬라이드1" src="https://github.com/user-attachments/assets/54fd13c1-4691-4535-9b01-bf1d5543e394" />
-<img width="1280" height="720" alt="슬라이드2" src="https://github.com/user-attachments/assets/8bf89d79-933b-42b8-8ce0-55c042314c1c" />
+<img width="1280" height="720" alt="슬라이드2" src="https://github.com/user-attachments/assets/9e2c2abb-69d3-47bc-ae0a-4a27e4ba342e" />
 
 
 
