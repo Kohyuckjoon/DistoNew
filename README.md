@@ -107,7 +107,7 @@
 > - 내보내기 기능은 xls 파일로 추출되어 기기의 로컬 디렉토리에서 확인이 가능합니다.
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
 <img src="https://github.com/user-attachments/assets/e55eb542-8cb8-4c15-819e-17c19c94d61c" width="300" />
-<img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
+<img src="https://github.com/user-attachments/assets/454a86be-5247-4009-84ae-22a30aa7fdea" width="300" />
 
 
 > - 엑셀 내보내기 완료 알림 및 엑셀 파일 확인
