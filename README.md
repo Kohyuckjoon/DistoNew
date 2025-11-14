@@ -6,9 +6,9 @@
 ---
 
 ## 📅 세부 사항
-- **프로젝트 기간:** 2025.09.15 ~ 2025.10.24
+- **프로젝트 기간:** 2025.09.15 ~ 2025.10.31
 - **기획 & 디자인:** 2025.09.16 ~ 2025.09.26
-- **코드 구현:** 2025.09.29 ~ 2025.10.24
+- **코드 구현:** 2025.09.29 ~ 2025.10.31
 - **테스트 및 미비 사항 동작 구현:** 2025.10.09 ~ 
 - ** 주 기능 :
 -  1) Disto D5 기기와 BLE 통신을 통해서 측정된 데이터 값을 받아와서(SDK 활용) 화면에 표시
@@ -43,7 +43,7 @@
 > - 프로젝트 선택하기 화면에서는 현재 생성되어있는 모든 프로젝트 목록들을 확인할 수 있습니다.
 > - 프로젝트 생성하기 화면에서 신규 추가된 내용들은 이곳에서 목록을 확인할 수 있습니다.
 > - 프로젝트 선택 시에는 선택된 프로젝트를 기반으로 저장되어 있는 데이터를 불러오거나 신규 측정 데이터를 추가할 수 있습니다.
-> - 현재로는 목록만 확인이 가능하지만, 프로젝트 선택 시 선택된 프로젝트에 저장되어있는 측정 데이터들을 볼 수 있도록 구현 예정입니다.
+> - 또한 생성된 프로젝트를 기반으로 프로젝트 삭제 기능과 프로젝트 선택 기능을 구현 하였습니다.
 
 <p>
   <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
@@ -59,8 +59,10 @@
 > - 앞서 설명한바와 같이 2번 프로젝트 선택시 1번 프로젝트에 대한 데이터는 표시되지 않습니다.
 > - 아래 첨부된 이미지는 Room DB를 이용한 DB값과 실제 화면에 표시되고 있는 값이 동일하게 표시되고 있음을 보여줍니다.
 
-<img width="1280" height="720" alt="슬라이드2" src="https://github.com/user-attachments/assets/34ef4019-7e81-4a34-81e4-530b64009182" />
-<img width="1280" height="720" alt="슬라이드3" src="https://github.com/user-attachments/assets/2d4441ad-4cbe-4c1e-8b14-61d2884dad5d" />
+<img width="1280" height="720" alt="슬라이드1" src="https://github.com/user-attachments/assets/54fd13c1-4691-4535-9b01-bf1d5543e394" />
+<img width="1280" height="720" alt="슬라이드2" src="https://github.com/user-attachments/assets/1f93f62b-0a96-4109-9020-3c2d6e5c6494" />
+
+
 
 ---
 
@@ -81,9 +83,8 @@
 > - **측정 결과 확인:** Fragment Popup에 표시 및 저장  
 > - **저장 방식:** Room DB  
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
-<img src="https://github.com/user-attachments/assets/8a9daa76-4c79-490f-9bde-11c47c30e0e3" width="300" />
+<img src="https://github.com/user-attachments/assets/8acce5f8-b243-411c-a0a3-e74c8eff7b8c" width="300" />
 <img src="https://github.com/user-attachments/assets/0836e973-d67a-4edf-9293-1a1a3c11cfc5" width="300" />
-
 
 ## 💾 측정 저장을 위한 최종 확인
 ## ✅ 측정 저장 완료
@@ -95,7 +96,7 @@
 > - 측정이 완료된 데이터는 저장 버튼을 통해서 Room DB에 저장이 진행됩니다.
 > - 저장 방식 : Room DB
 
-<img src="https://github.com/user-attachments/assets/c829e689-3db4-483a-a565-38d9adf5a913" width="300" />
+<img src="https://github.com/user-attachments/assets/c505b5bd-c1f8-479e-9297-3e05e74c1c68" width="300" />
 
 ---
 
@@ -105,12 +106,14 @@
 > - Room DB에 저장되어 있는 데이터 중에 선택적으로 삭제하는 기능이 추가되어 있습니다.
 > - 내보내기 기능은 xls 파일로 추출되어 기기의 로컬 디렉토리에서 확인이 가능합니다.
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
-<img src="https://github.com/user-attachments/assets/55b18264-1bd5-4773-85d9-366e2a9c42e5" width="300" />
-<img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
+<img src="https://github.com/user-attachments/assets/e55eb542-8cb8-4c15-819e-17c19c94d61c" width="300" />
+<img src="https://github.com/user-attachments/assets/454a86be-5247-4009-84ae-22a30aa7fdea" width="300" />
+
 
 > - 엑셀 내보내기 완료 알림 및 엑셀 파일 확인
-<img src="https://github.com/user-attachments/assets/670f22da-5b55-46cf-a0f5-e63918f3f8b3" width="300" />
-<img src="https://github.com/user-attachments/assets/c156f967-ef1f-44cc-9f59-38b632506e65" width="300" />
+<img src="https://github.com/user-attachments/assets/257805e1-7afc-4207-8b7e-f763499648ce" width="300" />
+<img src="https://github.com/user-attachments/assets/08a68a91-6ad3-4642-bd82-6f12e568baa0" width="300" />
+
 
 
 
