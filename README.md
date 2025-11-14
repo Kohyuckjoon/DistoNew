@@ -111,8 +111,9 @@
 
 
 > - 엑셀 내보내기 완료 알림 및 엑셀 파일 확인
-<img src="https://github.com/user-attachments/assets/670f22da-5b55-46cf-a0f5-e63918f3f8b3" width="300" />
-<img src="https://github.com/user-attachments/assets/c156f967-ef1f-44cc-9f59-38b632506e65" width="300" />
+<img src="https://github.com/user-attachments/assets/257805e1-7afc-4207-8b7e-f763499648ce" width="300" />
+<img src="https://github.com/user-attachments/assets/08a68a91-6ad3-4642-bd82-6f12e568baa0" width="300" />
+
 
 
 
