@@ -59,8 +59,8 @@
 > - 앞서 설명한바와 같이 2번 프로젝트 선택시 1번 프로젝트에 대한 데이터는 표시되지 않습니다.
 > - 아래 첨부된 이미지는 Room DB를 이용한 DB값과 실제 화면에 표시되고 있는 값이 동일하게 표시되고 있음을 보여줍니다.
 
-<img width="1280" height="720" alt="슬라이드2" src="https://github.com/user-attachments/assets/34ef4019-7e81-4a34-81e4-530b64009182" />
-<img width="1280" height="720" alt="슬라이드3" src="https://github.com/user-attachments/assets/2d4441ad-4cbe-4c1e-8b14-61d2884dad5d" />
+<img width="1280" height="720" alt="슬라이드3" src="https://github.com/user-attachments/assets/9fe2af61-137d-402f-9487-6313f9451791" />
+<img width="1280" height="720" alt="슬라이드3" src="https://github.com/user-attachments/assets/f9b9e585-b683-4449-b6ce-d0ad91c322b8" />
 
 ---
 
