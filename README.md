@@ -106,8 +106,9 @@
 > - Room DB에 저장되어 있는 데이터 중에 선택적으로 삭제하는 기능이 추가되어 있습니다.
 > - 내보내기 기능은 xls 파일로 추출되어 기기의 로컬 디렉토리에서 확인이 가능합니다.
 <img src="https://github.com/user-attachments/assets/2f7c51dd-59ed-48e9-a2ca-f9c50f55f732" width="300" />
-<img src="https://github.com/user-attachments/assets/55b18264-1bd5-4773-85d9-366e2a9c42e5" width="300" />
+<img src="https://github.com/user-attachments/assets/e55eb542-8cb8-4c15-819e-17c19c94d61c" width="300" />
 <img src="https://github.com/user-attachments/assets/504c1cb6-a026-4bb4-9ea0-2f1ac23f64cb" width="300" />
+
 
 > - 엑셀 내보내기 완료 알림 및 엑셀 파일 확인
 <img src="https://github.com/user-attachments/assets/670f22da-5b55-46cf-a0f5-e63918f3f8b3" width="300" />
