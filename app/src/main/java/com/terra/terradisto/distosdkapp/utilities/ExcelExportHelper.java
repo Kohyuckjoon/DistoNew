@@ -17,10 +17,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ExcelExportHelper {
     private static final String TAG = "ExcelExportHelper";
+
+    private static final DecimalFormat DECIMAL_FORMAT_3_PLACES = new DecimalFormat("0.000");
 
     /**
      * Room DB에서 조회한 측정 데이터를 엑셀 파일로 생성하고 저장
@@ -53,17 +56,19 @@ public class ExcelExportHelper {
                 return null;
             }
 
-            final int START_ROW_INDEX = 7;      // 0-based index for Excel Row 7
+            final int START_ROW_INDEX = 2;      // 0-based index for Excel Row 7
 
             // 도엽 번호 : mapNumber
-            final int START_ROW_INDEX_MAP = 2;        // 0-based index for Excel Row 12
-            final int COL_MAPNUMBER = 12;    // 도엽번호
+            final int START_ROW_INDEX_MAP = 0;        // 0-based index for Excel Row 12
+            final int COL_MAPNUMBER = 3;    // 도엽번호
 
             // 컬럼 데이터
-            final int COL_MATERIAL = 6;         // Column G (관경)
-            final int COL_DIAMETER = 7;         // Column H (재질)
-            final int COL_FLAT = 8;             // Column I (평면)
-            final int COL_DEPTH = 9;            // Column J (심도)
+            final int COL_MATERIAL = 1;         // Column G (관경)
+            final int COL_HEIGHT_RESULT = 2;         // Column H (높이)
+            final int COL_PIP_MATERIAL = 3;         // Column PipMaterial (재질)
+            final int COL_HEIGHT_INPUT = 4;         // Column H (비고)
+//            final int COL_FLAT = 8;             // Column I (평면)
+//            final int COL_DEPTH = 9;            // Column J (심도)
 
             // 2. 각 SurveyResult에 대해 시트를 생성, data mapping
             for (int i = 0; i < surveyDataList.size(); i++) {
@@ -84,19 +89,46 @@ public class ExcelExportHelper {
 
                 Log.e(TAG, sheetName + " 시트에 데이터 맵핑 시작. (ID : " + data.getId() + ")");
 
-                String[] materials = {
-                        data.getEtPipMaterialFirst(),
-                        data.getEtPipMaterialSecond(),
-                        data.getEtPipMaterialThird(),
-                        data.getEtPipMaterialFourth()
-                };
-
+                // 관경
                 String[] diameters = {
                         data.getTvSceneryFirst(),
                         data.getTvScenerySecond(),
                         data.getTvSceneryThird(),
-                        data.getTvSceneryFourth()
+                        data.getTvSceneryFourth(),
+                        data.getTvSceneryFifth(),
+                        data.getTvScenerySixth()
                 };
+
+                // 높이
+                String[] heights = {
+                        data.getTvInputFirst(),
+                        data.getTvInputSecond(),
+                        data.getTvInputThird(),
+                        data.getTvInputFourth(),
+                        data.getTvInputFourth(),
+                        data.getTvInputSixth()
+                };
+
+                // 재질
+                String[] materials = {
+                        data.getEtPipMaterialFirst(),
+                        data.getEtPipMaterialSecond(),
+                        data.getEtPipMaterialThird(),
+                        data.getEtPipMaterialFourth(),
+                        data.getEtPipMaterialFifth(),
+                        data.getEtPipMaterialSixth()
+                };
+
+                // 비고 (두께)
+                String[] thickness = {
+                        data.getThicknessFirst(),
+                        data.getThicknessSecond(),
+                        data.getThicknessThird(),
+                        data.getThicknessFourth(),
+                        data.getThicknessFifth(),
+                        data.getThicknessSixth()
+                };
+
 
                 // 도엽 번호
                 Row mapNumberRow = sheet.getRow(START_ROW_INDEX_MAP);
@@ -108,10 +140,10 @@ public class ExcelExportHelper {
                     cellMapNumber = mapNumberRow.createCell(COL_MAPNUMBER);
                 }
                 cellMapNumber.setCellValue(
-                        (data.getMapNumber() != null) ? "도엽 번호 : " + data.getMapNumber() : "");
+                        (data.getMapNumber() != null) ? "배관 번호 : " + data.getMapNumber() : "");
 
                 // 3. 4개의 파이프 데이터 셋을 4개 행에 Mapping (Excel Row 7, 8, 9, 10)
-                for (int rowOffset = 0; rowOffset < 4; rowOffset++) {
+                for (int rowOffset = 0; rowOffset < 6; rowOffset++) {
                     int currentRowIndex = START_ROW_INDEX + rowOffset;
                     Row row = sheet.getRow(currentRowIndex);
 
@@ -119,37 +151,95 @@ public class ExcelExportHelper {
                         row = sheet.createRow(currentRowIndex);
                     }
 
+                    String heightStr = heights[rowOffset];
+                    String thicknessStr = thickness[rowOffset];
+
+                    String formattedThicknessStr = thicknessStr;
+                    double thicknessDouble = 0.0;
+
+                    try {
+                        if (thicknessStr != null && !thicknessStr.isEmpty()) {
+                            thicknessDouble = Double.parseDouble(thicknessStr);
+                            formattedThicknessStr = DECIMAL_FORMAT_3_PLACES.format(thicknessDouble);
+                        }
+                    } catch (NumberFormatException e) {
+                        Log.e(TAG, "비고 값 NumberFormatException: " + thicknessStr, e);
+                        formattedThicknessStr = thicknessStr;
+                    }
+
+                    double finalHeightValue = 0.0;
+
+                    try {
+                        if (heightStr != null && !heightStr.isEmpty()) {
+                            finalHeightValue += Double.parseDouble(heightStr);
+                        }
+                    } catch (NumberFormatException e) {
+                        Log.e(TAG, "높이 값 NumberFormatException: " + heightStr, e);
+                    }
+
+                    try {
+                        if (thicknessStr != null && !thicknessStr.isEmpty()) {
+                            finalHeightValue += Double.parseDouble(thicknessStr);
+                        }
+                    } catch (NumberFormatException e) {
+                        Log.e(TAG, "비고 값 NumberFormatException: " + thicknessStr, e);
+                        // 변환 실패 시 0으로 유지
+                    }
+
+                    // 관경
                     Cell cellMaterial = row.getCell(COL_MATERIAL);
                     if (cellMaterial == null) {
                         cellMaterial = row.createCell(COL_MATERIAL);
                     }
-                    cellMaterial.setCellValue(materials[rowOffset]);
+                    cellMaterial.setCellValue(diameters[rowOffset]);
 
-                    Cell cellDiameter = row.getCell(COL_DIAMETER);
-                    if (cellDiameter == null) {
-                        cellDiameter = row.createCell(COL_DIAMETER);
+                    // 높이 값의 경우는 높이 + 두께 합산 값을 처리함
+                    Cell cellHeightResult = row.getCell(COL_HEIGHT_RESULT);
+                    if (cellHeightResult == null) {
+                        cellHeightResult = row.createCell(COL_HEIGHT_RESULT);
                     }
-                    cellDiameter.setCellValue(diameters[rowOffset]);
+                    if (finalHeightValue != 0.0) {
+//                        cellHeightResult.setCellValue(finalHeightValue);
+                        String formattedHeightStr = DECIMAL_FORMAT_3_PLACES.format(finalHeightValue);
+                        cellHeightResult.setCellValue(formattedHeightStr);
+                    } else {
+                        cellHeightResult.setCellValue(heights[rowOffset]);
+                    }
 
-                    /**
-                     * 검측결과(B) - 평면(I), 심도(J)는 공백("") 처리
-                     * column I : 평면
-                     */
-                    Cell cellFlat = row.getCell(COL_FLAT);
-                    if (cellFlat == null) {
-                        cellFlat = row.createCell(COL_FLAT);
+                    // 재질
+                    Cell cellPipMaterial = row.getCell(COL_PIP_MATERIAL);
+                    if (cellPipMaterial == null) {
+                        cellPipMaterial = row.createCell(COL_PIP_MATERIAL);
                     }
-                    cellFlat.setCellValue("");
+                    cellPipMaterial.setCellValue(materials[rowOffset]);
 
-                    /**
-                     * 검측결과(B) - 평면(H), 심도(I)는 공백("") 처리
-                     * column J : 평면
-                     */
-                    Cell cellDepth = row.getCell(COL_DEPTH);
-                    if (cellDepth == null) {
-                        cellDepth = row.createCell(COL_DEPTH);
+                    // 높이 input
+                    Cell cellHeightInput = row.getCell(COL_HEIGHT_INPUT);
+                    if (cellHeightInput == null) {
+                        cellHeightInput = row.createCell(COL_HEIGHT_INPUT);
                     }
-                    cellDepth.setCellValue("");
+//                    cellHeightInput.setCellValue(thickness[rowOffset]);
+                    cellHeightInput.setCellValue(formattedThicknessStr);
+
+//                    /**
+//                     * 검측결과(B) - 평면(I), 심도(J)는 공백("") 처리
+//                     * column I : 평면
+//                     */
+//                    Cell cellFlat = row.getCell(COL_FLAT);
+//                    if (cellFlat == null) {
+//                        cellFlat = row.createCell(COL_FLAT);
+//                    }
+//                    cellFlat.setCellValue("");
+//
+//                    /**
+//                     * 검측결과(B) - 평면(H), 심도(I)는 공백("") 처리
+//                     * column J : 평면
+//                     */
+//                    Cell cellDepth = row.getCell(COL_DEPTH);
+//                    if (cellDepth == null) {
+//                        cellDepth = row.createCell(COL_DEPTH);
+//                    }
+//                    cellDepth.setCellValue("");
                 }
             }
 
@@ -253,10 +343,10 @@ public class ExcelExportHelper {
                 row.createCell(col++).setCellValue(data.getEtPipMaterialFourth());
 
                 // 수기 입력치
-                row.createCell(col++).setCellValue(data.getEtInputFirst());
-                row.createCell(col++).setCellValue(data.getEtInputSecond());
-                row.createCell(col++).setCellValue(data.getEtInputThird());
-                row.createCell(col++).setCellValue(data.getEtInputFourth());
+//                row.createCell(col++).setCellValue(data.getEtInputFirst());
+//                row.createCell(col++).setCellValue(data.getEtInputSecond());
+//                row.createCell(col++).setCellValue(data.getEtInputThird());
+//                row.createCell(col++).setCellValue(data.getEtInputFourth());
             }
 
             // 3. 파일 저장 경로 설정 및 쓰기

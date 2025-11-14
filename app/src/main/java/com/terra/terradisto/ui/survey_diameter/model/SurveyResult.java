@@ -24,39 +24,23 @@ public class SurveyResult {
     private String etPipMaterialSixth; // 6번 재질
 
     // === 수기 입력치 (Input) 데이터 필드 (4개) ===
-    private String etInputFirst; // 1번 수기 입력
-    private String etInputSecond; // 2번 수기 입력
-    private String etInputThird;  // 3번 수기 입력
-    private String etInputFourth; // 4번 수기 입력
-    private String etInputFifth; // 5번 수기 입력
-    private String etInputSixth; // 6번 수기 입력
+    private String tvInputFirst; // 1번 수기 입력
+    private String tvInputSecond; // 2번 수기 입력
+    private String tvInputThird;  // 3번 수기 입력
+    private String tvInputFourth; // 4번 수기 입력
+    private String tvInputFifth; // 5번 수기 입력
+    private String tvInputSixth; // 6번 수기 입력
 
     // === 비고 입력치 (Note) 데이터 필드 (4개) ===
-    private String etNoteFirst; // 1번 비고 입력
-    private String etNoteSecond; // 2번 비고 입력
-    private String etNoteThird; // 3번 비고 입력
-    private String etNoteFourth; // 4번 비고 입력
-    private String etNoteFifth; // 5번 비고 입력
-    private String etNoteSixth; // 6번 비고 입력
+    private String thicknessFirst; // 1번 비고 입력
+    private String thicknessSecond; // 2번 비고 입력
+    private String thicknessThird; // 3번 비고 입력
+    private String thicknessFourth; // 4번 비고 입력
+    private String thicknessFifth; // 5번 비고 입력
+    private String thicknessSixth; // 6번 비고 입력
 
-//    public SurveyResult(String mapNumber, String manholType, String tvSceneryFirst, String tvScenerySecond, String tvSceneryThird, String tvSceneryFourth, String etPipMaterialFirst, String etPipMaterialSecond, String etPipMaterialThird, String etPipMaterialFourth, String etInputFirst, String etInputSecond, String etInputThird, String etInputFourth) {
-//        this.mapNumber = mapNumber;
-//        this.manholType = manholType;
-//        this.tvSceneryFirst = tvSceneryFirst;
-//        this.tvScenerySecond = tvScenerySecond;
-//        this.tvSceneryThird = tvSceneryThird;
-//        this.tvSceneryFourth = tvSceneryFourth;
-//        this.etPipMaterialFirst = etPipMaterialFirst;
-//        this.etPipMaterialSecond = etPipMaterialSecond;
-//        this.etPipMaterialThird = etPipMaterialThird;
-//        this.etPipMaterialFourth = etPipMaterialFourth;
-//        this.etInputFirst = etInputFirst;
-//        this.etInputSecond = etInputSecond;
-//        this.etInputThird = etInputThird;
-//        this.etInputFourth = etInputFourth;
-//    }
-
-    public SurveyResult(String mapNumber, String manholType, String tvSceneryFirst, String tvScenerySecond, String tvSceneryThird, String tvSceneryFourth, String tvSceneryFifth, String tvScenerySixth, String etPipMaterialFirst, String etPipMaterialSecond, String etPipMaterialThird, String etPipMaterialFourth, String etPipMaterialFifth, String etPipMaterialSixth, String etInputFirst, String etInputSecond, String etInputThird, String etInputFourth, String etInputFifth, String etInputSixth, String etNoteFirst, String etNoteSecond, String etNoteThird, String etNoteFourth, String etNoteFifth, String etNoteSixth) {
+    public SurveyResult(int id, String mapNumber, String manholType, String tvSceneryFirst, String tvScenerySecond, String tvSceneryThird, String tvSceneryFourth, String tvSceneryFifth, String tvScenerySixth, String etPipMaterialFirst, String etPipMaterialSecond, String etPipMaterialThird, String etPipMaterialFourth, String etPipMaterialFifth, String etPipMaterialSixth, String tvInputFirst, String tvInputSecond, String tvInputThird, String tvInputFourth, String tvInputFifth, String tvInputSixth, String thicknessFirst, String thicknessSecond, String thicknessThird, String thicknessFourth, String thicknessFifth, String thicknessSixth) {
+        this.id = id;
         this.mapNumber = mapNumber;
         this.manholType = manholType;
         this.tvSceneryFirst = tvSceneryFirst;
@@ -71,116 +55,18 @@ public class SurveyResult {
         this.etPipMaterialFourth = etPipMaterialFourth;
         this.etPipMaterialFifth = etPipMaterialFifth;
         this.etPipMaterialSixth = etPipMaterialSixth;
-        this.etInputFirst = etInputFirst;
-        this.etInputSecond = etInputSecond;
-        this.etInputThird = etInputThird;
-        this.etInputFourth = etInputFourth;
-        this.etInputFifth = etInputFifth;
-        this.etInputSixth = etInputSixth;
-        this.etNoteFirst = etNoteFirst;
-        this.etNoteSecond = etNoteSecond;
-        this.etNoteThird = etNoteThird;
-        this.etNoteFourth = etNoteFourth;
-        this.etNoteFifth = etNoteFifth;
-        this.etNoteSixth = etNoteSixth;
-    }
-
-    // Room 또는 Deserialization을 위해 기본 생성자 추가 권장
-    public SurveyResult() {
-    }
-
-    // -----------------------------------------------------------------
-    // Getter/Setter (Null-Safe 로직 적용)
-    // -----------------------------------------------------------------
-
-    @NonNull
-    public String getMapNumber() {
-        return mapNumber != null ? mapNumber : "";
-    }
-
-    public void setMapNumber(String mapNumber) {
-        this.mapNumber = mapNumber;
-    }
-
-    @NonNull
-    public String getManholType() {
-        return manholType != null ? manholType : "";
-    }
-
-    public void setManholType(String manholType) {
-        this.manholType = manholType;
-    }
-
-    @NonNull
-    public String getTvSceneryFirst() {
-        return tvSceneryFirst != null ? tvSceneryFirst : "";
-    }
-
-    public void setTvSceneryFirst(String tvSceneryFirst) {
-        this.tvSceneryFirst = tvSceneryFirst;
-    }
-
-    @NonNull
-    public String getTvScenerySecond() {
-        return tvScenerySecond != null ? tvScenerySecond : "";
-    }
-
-    public void setTvScenerySecond(String tvScenerySecond) {
-        this.tvScenerySecond = tvScenerySecond;
-    }
-
-    @NonNull
-    public String getTvSceneryThird() {
-        return tvSceneryThird != null ? tvSceneryThird : "";
-    }
-
-    public void setTvSceneryThird(String tvSceneryThird) {
-        this.tvSceneryThird = tvSceneryThird;
-    }
-
-    @NonNull
-    public String getTvSceneryFourth() {
-        return tvSceneryFourth != null ? tvSceneryFourth : "";
-    }
-
-    public void setTvSceneryFourth(String tvSceneryFourth) {
-        this.tvSceneryFourth = tvSceneryFourth;
-    }
-
-    @NonNull
-    public String getEtPipMaterialFirst() {
-        return etPipMaterialFirst != null ? etPipMaterialFirst : "";
-    }
-
-    public void setEtPipMaterialFirst(String etPipMaterialFirst) {
-        this.etPipMaterialFirst = etPipMaterialFirst;
-    }
-
-    @NonNull
-    public String getEtPipMaterialSecond() {
-        return etPipMaterialSecond != null ? etPipMaterialSecond : "";
-    }
-
-    public void setEtPipMaterialSecond(String etPipMaterialSecond) {
-        this.etPipMaterialSecond = etPipMaterialSecond;
-    }
-
-    @NonNull
-    public String getEtPipMaterialThird() {
-        return etPipMaterialThird != null ? etPipMaterialThird : "";
-    }
-
-    public void setEtPipMaterialThird(String etPipMaterialThird) {
-        this.etPipMaterialThird = etPipMaterialThird;
-    }
-
-    @NonNull
-    public String getEtPipMaterialFourth() {
-        return etPipMaterialFourth != null ? etPipMaterialFourth : "";
-    }
-
-    public void setEtPipMaterialFourth(String etPipMaterialFourth) {
-        this.etPipMaterialFourth = etPipMaterialFourth;
+        this.tvInputFirst = tvInputFirst;
+        this.tvInputSecond = tvInputSecond;
+        this.tvInputThird = tvInputThird;
+        this.tvInputFourth = tvInputFourth;
+        this.tvInputFifth = tvInputFifth;
+        this.tvInputSixth = tvInputSixth;
+        this.thicknessFirst = thicknessFirst;
+        this.thicknessSecond = thicknessSecond;
+        this.thicknessThird = thicknessThird;
+        this.thicknessFourth = thicknessFourth;
+        this.thicknessFifth = thicknessFifth;
+        this.thicknessSixth = thicknessSixth;
     }
 
     public int getId() {
@@ -191,36 +77,52 @@ public class SurveyResult {
         this.id = id;
     }
 
-    public String getEtInputFirst() {
-        return etInputFirst;
+    public String getMapNumber() {
+        return mapNumber;
     }
 
-    public void setEtInputFirst(String etInputFirst) {
-        this.etInputFirst = etInputFirst;
+    public void setMapNumber(String mapNumber) {
+        this.mapNumber = mapNumber;
     }
 
-    public String getEtInputSecond() {
-        return etInputSecond;
+    public String getManholType() {
+        return manholType;
     }
 
-    public void setEtInputSecond(String etInputSecond) {
-        this.etInputSecond = etInputSecond;
+    public void setManholType(String manholType) {
+        this.manholType = manholType;
     }
 
-    public String getEtInputThird() {
-        return etInputThird;
+    public String getTvSceneryFirst() {
+        return tvSceneryFirst;
     }
 
-    public void setEtInputThird(String etInputThird) {
-        this.etInputThird = etInputThird;
+    public void setTvSceneryFirst(String tvSceneryFirst) {
+        this.tvSceneryFirst = tvSceneryFirst;
     }
 
-    public String getEtInputFourth() {
-        return etInputFourth;
+    public String getTvScenerySecond() {
+        return tvScenerySecond;
     }
 
-    public void setEtInputFourth(String etInputFourth) {
-        this.etInputFourth = etInputFourth;
+    public void setTvScenerySecond(String tvScenerySecond) {
+        this.tvScenerySecond = tvScenerySecond;
+    }
+
+    public String getTvSceneryThird() {
+        return tvSceneryThird;
+    }
+
+    public void setTvSceneryThird(String tvSceneryThird) {
+        this.tvSceneryThird = tvSceneryThird;
+    }
+
+    public String getTvSceneryFourth() {
+        return tvSceneryFourth;
+    }
+
+    public void setTvSceneryFourth(String tvSceneryFourth) {
+        this.tvSceneryFourth = tvSceneryFourth;
     }
 
     public String getTvSceneryFifth() {
@@ -239,6 +141,38 @@ public class SurveyResult {
         this.tvScenerySixth = tvScenerySixth;
     }
 
+    public String getEtPipMaterialFirst() {
+        return etPipMaterialFirst;
+    }
+
+    public void setEtPipMaterialFirst(String etPipMaterialFirst) {
+        this.etPipMaterialFirst = etPipMaterialFirst;
+    }
+
+    public String getEtPipMaterialSecond() {
+        return etPipMaterialSecond;
+    }
+
+    public void setEtPipMaterialSecond(String etPipMaterialSecond) {
+        this.etPipMaterialSecond = etPipMaterialSecond;
+    }
+
+    public String getEtPipMaterialThird() {
+        return etPipMaterialThird;
+    }
+
+    public void setEtPipMaterialThird(String etPipMaterialThird) {
+        this.etPipMaterialThird = etPipMaterialThird;
+    }
+
+    public String getEtPipMaterialFourth() {
+        return etPipMaterialFourth;
+    }
+
+    public void setEtPipMaterialFourth(String etPipMaterialFourth) {
+        this.etPipMaterialFourth = etPipMaterialFourth;
+    }
+
     public String getEtPipMaterialFifth() {
         return etPipMaterialFifth;
     }
@@ -255,67 +189,132 @@ public class SurveyResult {
         this.etPipMaterialSixth = etPipMaterialSixth;
     }
 
-    public String getEtInputFifth() {
-        return etInputFifth;
+    public String getTvInputFirst() {
+        return tvInputFirst;
     }
 
-    public void setEtInputFifth(String etInputFifth) {
-        this.etInputFifth = etInputFifth;
+    public void setTvInputFirst(String tvInputFirst) {
+        this.tvInputFirst = tvInputFirst;
     }
 
-    public String getEtInputSixth() {
-        return etInputSixth;
+    public String getTvInputSecond() {
+        return tvInputSecond;
     }
 
-    public void setEtInputSixth(String etInputSixth) {
-        this.etInputSixth = etInputSixth;
+    public void setTvInputSecond(String tvInputSecond) {
+        this.tvInputSecond = tvInputSecond;
     }
 
-    public String getEtNoteFirst() {
-        return etNoteFirst;
+    public String getTvInputThird() {
+        return tvInputThird;
     }
 
-    public void setEtNoteFirst(String etNoteFirst) {
-        this.etNoteFirst = etNoteFirst;
+    public void setTvInputThird(String tvInputThird) {
+        this.tvInputThird = tvInputThird;
     }
 
-    public String getEtNoteSecond() {
-        return etNoteSecond;
+    public String getTvInputFourth() {
+        return tvInputFourth;
     }
 
-    public void setEtNoteSecond(String etNoteSecond) {
-        this.etNoteSecond = etNoteSecond;
+    public void setTvInputFourth(String tvInputFourth) {
+        this.tvInputFourth = tvInputFourth;
     }
 
-    public String getEtNoteThird() {
-        return etNoteThird;
+    public String getTvInputFifth() {
+        return tvInputFifth;
     }
 
-    public void setEtNoteThird(String etNoteThird) {
-        this.etNoteThird = etNoteThird;
+    public void setTvInputFifth(String tvInputFifth) {
+        this.tvInputFifth = tvInputFifth;
     }
 
-    public String getEtNoteFourth() {
-        return etNoteFourth;
+    public String getTvInputSixth() {
+        return tvInputSixth;
     }
 
-    public void setEtNoteFourth(String etNoteFourth) {
-        this.etNoteFourth = etNoteFourth;
+    public void setTvInputSixth(String tvInputSixth) {
+        this.tvInputSixth = tvInputSixth;
     }
 
-    public String getEtNoteFifth() {
-        return etNoteFifth;
+    public String getThicknessFirst() {
+        return thicknessFirst;
     }
 
-    public void setEtNoteFifth(String etNoteFifth) {
-        this.etNoteFifth = etNoteFifth;
+    public void setThicknessFirst(String thicknessFirst) {
+        this.thicknessFirst = thicknessFirst;
     }
 
-    public String getEtNoteSixth() {
-        return etNoteSixth;
+    public String getThicknessSecond() {
+        return thicknessSecond;
     }
 
-    public void setEtNoteSixth(String etNoteSixth) {
-        this.etNoteSixth = etNoteSixth;
+    public void setThicknessSecond(String thicknessSecond) {
+        this.thicknessSecond = thicknessSecond;
+    }
+
+    public String getThicknessThird() {
+        return thicknessThird;
+    }
+
+    public void setThicknessThird(String thicknessThird) {
+        this.thicknessThird = thicknessThird;
+    }
+
+    public String getThicknessFourth() {
+        return thicknessFourth;
+    }
+
+    public void setThicknessFourth(String thicknessFourth) {
+        this.thicknessFourth = thicknessFourth;
+    }
+
+    public String getThicknessFifth() {
+        return thicknessFifth;
+    }
+
+    public void setThicknessFifth(String thicknessFifth) {
+        this.thicknessFifth = thicknessFifth;
+    }
+
+    public String getThicknessSixth() {
+        return thicknessSixth;
+    }
+
+    public void setThicknessSixth(String thicknessSixth) {
+        this.thicknessSixth = thicknessSixth;
+    }
+
+    @Override
+    public String toString() {
+        return "SurveyResult{" +
+                "id=" + id +
+                ", mapNumber='" + mapNumber + '\'' +
+                ", manholType='" + manholType + '\'' +
+                ", tvSceneryFirst='" + tvSceneryFirst + '\'' +
+                ", tvScenerySecond='" + tvScenerySecond + '\'' +
+                ", tvSceneryThird='" + tvSceneryThird + '\'' +
+                ", tvSceneryFourth='" + tvSceneryFourth + '\'' +
+                ", tvSceneryFifth='" + tvSceneryFifth + '\'' +
+                ", tvScenerySixth='" + tvScenerySixth + '\'' +
+                ", etPipMaterialFirst='" + etPipMaterialFirst + '\'' +
+                ", etPipMaterialSecond='" + etPipMaterialSecond + '\'' +
+                ", etPipMaterialThird='" + etPipMaterialThird + '\'' +
+                ", etPipMaterialFourth='" + etPipMaterialFourth + '\'' +
+                ", etPipMaterialFifth='" + etPipMaterialFifth + '\'' +
+                ", etPipMaterialSixth='" + etPipMaterialSixth + '\'' +
+                ", tvInputFirst='" + tvInputFirst + '\'' +
+                ", tvInputSecond='" + tvInputSecond + '\'' +
+                ", tvInputThird='" + tvInputThird + '\'' +
+                ", tvInputFourth='" + tvInputFourth + '\'' +
+                ", tvInputFifth='" + tvInputFifth + '\'' +
+                ", tvInputSixth='" + tvInputSixth + '\'' +
+                ", thicknessFirst='" + thicknessFirst + '\'' +
+                ", thicknessSecond='" + thicknessSecond + '\'' +
+                ", thicknessThird='" + thicknessThird + '\'' +
+                ", thicknessFourth='" + thicknessFourth + '\'' +
+                ", thicknessFifth='" + thicknessFifth + '\'' +
+                ", thicknessSixth='" + thicknessSixth + '\'' +
+                '}';
     }
 }

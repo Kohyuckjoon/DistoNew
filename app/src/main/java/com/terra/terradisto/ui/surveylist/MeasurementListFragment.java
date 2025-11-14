@@ -35,15 +35,41 @@ import java.util.concurrent.Executors;
  */
 public class MeasurementListFragment extends Fragment implements
         ResultListAdapter.OnItemDeleteListener,
-        ResultListAdapter.OnItemEditListener,
+
+        ResultListAdapter.OnItemEditFirstListener,
         ResultListAdapter.OnItemEditSecondListener,
         ResultListAdapter.OnItemEditThirdListener,
-        ResultListAdapter.OnItemEditFourthListener{
+        ResultListAdapter.OnItemEditFourthListener,
+        ResultListAdapter.OnItemEditFifthListener,
+        ResultListAdapter.OnItemEditSixthListener,
+
+        ResultListAdapter.OnItemEditSceneryFirstListener,
+        ResultListAdapter.OnItemEditScenerySecondListener,
+        ResultListAdapter.OnItemEditSceneryThirdListener,
+        ResultListAdapter.OnItemEditSceneryFourthListener,
+        ResultListAdapter.OnItemEditSceneryFifthListener,
+        ResultListAdapter.OnItemEditScenerySixthListener,
+
+        ResultListAdapter.OnItemPipFirstListener,
+        ResultListAdapter.OnItemPipSecondListener,
+        ResultListAdapter.OnItemPipThirdListener,
+        ResultListAdapter.OnItemPipFourthListener,
+        ResultListAdapter.OnItemPipFifthListener,
+        ResultListAdapter.OnItemPipSixthListener,
+
+        ResultListAdapter.OnItemThicknessFirstListener,
+        ResultListAdapter.OnItemThicknessSecondListener,
+        ResultListAdapter.OnItemThicknessThirdListener,
+        ResultListAdapter.OnItemThicknessFourthListener,
+        ResultListAdapter.OnItemThicknessFifthListener,
+        ResultListAdapter.OnItemThicknessSixthListener {
 
     private static final String FIELD_1 = "1";
     private static final String FIELD_2 = "2";
     private static final String FIELD_3 = "3";
     private static final String FIELD_4 = "4";
+    private static final String FIELD_5 = "5";
+    private static final String FIELD_6 = "6";
 
     private FragmentMeasurementListBinding binding;
     private ResultListAdapter adapter;
@@ -148,27 +174,113 @@ public class MeasurementListFragment extends Fragment implements
                 })).show();
     }
 
+    // 1번 높이 수정 버튼 리스너 처리
     @Override
     public void onEditClick(SurveyResult resultToEdit, int position) {
         showEditDialog(resultToEdit, position, FIELD_1);
     }
 
-    // 💡 2번 관로 수정 버튼 리스너 처리
+    // 2번 높이 수정 버튼 리스너 처리
     @Override
     public void onEditClickSecond(SurveyResult resultToEdit, int position) {
         showEditDialog(resultToEdit, position, FIELD_2);
     }
 
-    // 💡 3번 관로 수정 버튼 리스너 처리
+    // 3번 높이 수정 버튼 리스너 처리
     @Override
     public void onEditClickThird(SurveyResult resultToEdit, int position) {
         showEditDialog(resultToEdit, position, FIELD_3);
     }
 
-    // 💡 4번 관로 수정 버튼 리스너 처리
+    // 4번 높이 수정 버튼 리스너 처리
     @Override
     public void onEditClickFourth(SurveyResult resultToEdit, int position) {
         showEditDialog(resultToEdit, position, FIELD_4);
+    }
+
+    // 5번 높이 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickFifth(SurveyResult resultToEdit, int position) {
+        showEditDialog(resultToEdit, position, FIELD_5);
+    }
+
+    // 6번 높이 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickSixth(SurveyResult resultToEdit, int position) {
+        showEditDialog(resultToEdit, position, FIELD_6);
+    }
+
+
+    // 1번 재질 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickPipFirst(SurveyResult resultToEdit, int position) {
+        showEditPipDialog(resultToEdit, position, FIELD_1);
+    }
+
+    // 2번 재질 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickPipSecond(SurveyResult resultToEdit, int position) {
+        showEditPipDialog(resultToEdit, position, FIELD_2);
+    }
+
+    // 3번 재질 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickPipThird(SurveyResult resultToEdit, int position) {
+        showEditPipDialog(resultToEdit, position, FIELD_3);
+    }
+
+    // 4번 재질 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickPipFourth(SurveyResult resultToEdit, int position) {
+        showEditPipDialog(resultToEdit, position, FIELD_4);
+    }
+
+    // 5번 재질 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickPipFifth(SurveyResult resultToEdit, int position) {
+        showEditPipDialog(resultToEdit, position, FIELD_5);
+    }
+
+    // 6번 재질 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickPipSixth(SurveyResult resultToEdit, int position) {
+        showEditPipDialog(resultToEdit, position, FIELD_6);
+    }
+
+    // 1번 두께 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickThicknessFirst(SurveyResult resultToEdit, int position) {
+        showEditThicknessDialog(resultToEdit, position, FIELD_1);
+    }
+
+    // 2번 두께 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickThicknessSecond(SurveyResult resultToEdit, int position) {
+        showEditThicknessDialog(resultToEdit, position, FIELD_2);
+    }
+
+    // 3번 두께 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickThicknessThird(SurveyResult resultToEdit, int position) {
+        showEditThicknessDialog(resultToEdit, position, FIELD_3);
+    }
+
+    // 4번 두께 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickThicknessFourth(SurveyResult resultToEdit, int position) {
+        showEditThicknessDialog(resultToEdit, position, FIELD_4);
+    }
+
+    // 5번 두께 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickThicknessFifth(SurveyResult resultToEdit, int position) {
+        showEditThicknessDialog(resultToEdit, position, FIELD_5);
+    }
+
+    // 6번 두께 수정 버튼 리스너 처리
+    @Override
+    public void onEditClickThicknessSixth(SurveyResult resultToEdit, int position) {
+        showEditThicknessDialog(resultToEdit, position, FIELD_6);
     }
 
     // 수정 입력 다이얼로그 표시 메서드
@@ -180,20 +292,28 @@ public class MeasurementListFragment extends Fragment implements
         // 💡 필드 식별자에 따라 제목 및 현재 값 설정
         switch (fieldIdentifier) {
             case FIELD_1:
-                currentTitle = "수기 입력값 수정 (1번 관로)";
-                currentValue = resultToEdit.getEtInputFirst();
+                currentTitle = "수기 입력값 수정 (1번 높이)";
+                currentValue = resultToEdit.getTvInputFirst();
                 break;
             case FIELD_2:
-                currentTitle = "수기 입력값 수정 (2번 관로)";
-                currentValue = resultToEdit.getEtInputSecond(); // SurveyResult에 getEtInputSecond()가 필요
+                currentTitle = "수기 입력값 수정 (2번 높이)";
+                currentValue = resultToEdit.getTvInputSecond(); // SurveyResult에 getEtInputSecond()가 필요
                 break;
             case FIELD_3:
-                currentTitle = "수기 입력값 수정 (3번 관로)";
-                currentValue = resultToEdit.getEtInputThird(); // SurveyResult에 getEtInputThird()가 필요
+                currentTitle = "수기 입력값 수정 (3번 높이)";
+                currentValue = resultToEdit.getTvInputThird(); // SurveyResult에 getEtInputThird()가 필요
                 break;
             case FIELD_4:
-                currentTitle = "수기 입력값 수정 (4번 관로)";
-                currentValue = resultToEdit.getEtInputFourth(); // SurveyResult에 getEtInputFourth()가 필요
+                currentTitle = "수기 입력값 수정 (4번 높이)";
+                currentValue = resultToEdit.getTvInputFourth(); // SurveyResult에 getEtInputFourth()가 필요
+                break;
+            case FIELD_5:
+                currentTitle = "수기 입력값 수정 (5번 높이)";
+                currentValue = resultToEdit.getTvInputFifth(); // SurveyResult에 getEtInputFourth()가 필요
+                break;
+            case FIELD_6:
+                currentTitle = "수기 입력값 수정 (6번 높이)";
+                currentValue = resultToEdit.getTvInputSixth(); // SurveyResult에 getEtInputFourth()가 필요
                 break;
         }
 
@@ -244,6 +364,12 @@ public class MeasurementListFragment extends Fragment implements
                     case FIELD_4:
                         surveyDiameterDao.updateInputFourth(id, newValue);
                         break;
+                    case FIELD_5:
+                        surveyDiameterDao.updateInputFifth(id, newValue);
+                        break;
+                    case FIELD_6:
+                        surveyDiameterDao.updateInputSixth(id, newValue);
+                        break;
                 }
 
                 // DB에서 해당 ID의 '1번 수기 입력 데이터' 필드만 업데이트
@@ -258,16 +384,22 @@ public class MeasurementListFragment extends Fragment implements
 
                         switch (fieldIdentifier) {
                             case FIELD_1:
-                                updatedItem.setEtInputFirst(newValue);
+                                updatedItem.setTvInputFirst(newValue);
                                 break;
                             case FIELD_2:
-                                updatedItem.setEtInputSecond(newValue); // SurveyResult에 setEtInputSecond()가 필요
+                                updatedItem.setTvInputSecond(newValue); // SurveyResult에 setEtInputSecond()가 필요
                                 break;
                             case FIELD_3:
-                                updatedItem.setEtInputThird(newValue); // SurveyResult에 setEtInputThird()가 필요
+                                updatedItem.setTvInputThird(newValue); // SurveyResult에 setEtInputThird()가 필요
                                 break;
                             case FIELD_4:
-                                updatedItem.setEtInputFourth(newValue); // SurveyResult에 setEtInputFourth()가 필요
+                                updatedItem.setTvInputFourth(newValue); // SurveyResult에 setEtInputFourth()가 필요
+                                break;
+                            case FIELD_5:
+                                updatedItem.setTvInputFifth(newValue); // SurveyResult에 setEtInputFourth()가 필요
+                                break;
+                            case FIELD_6:
+                                updatedItem.setTvInputSixth(newValue); // SurveyResult에 setEtInputFourth()가 필요
                                 break;
                         }
 
@@ -287,6 +419,382 @@ public class MeasurementListFragment extends Fragment implements
             }
         });
     }
+
+    /**
+     * 관경 데이터
+     */
+    private void showEditSceneryDialog(SurveyResult resultToEdit, int position, String fieldIdentifier) {
+        final EditText input = new EditText(requireContext());
+        String currentTitle = "";
+        String currentValue = "";
+
+        switch (fieldIdentifier) {
+            case FIELD_1:
+                currentTitle = "관경 수정 (1번 관로)";
+                currentValue = resultToEdit.getTvSceneryFirst();
+                break;
+            case FIELD_2:
+                currentTitle = "관경 수정 (2번 관로)";
+                currentValue = resultToEdit.getTvScenerySecond();
+                break;
+            case FIELD_3:
+                currentTitle = "관경 수정 (3번 관로)";
+                currentValue = resultToEdit.getTvSceneryThird();
+                break;
+            case FIELD_4:
+                currentTitle = "관경 수정 (4번 관로)";
+                currentValue = resultToEdit.getTvSceneryFourth();
+                break;
+            case FIELD_5:
+                currentTitle = "관경 수정 (5번 관로)";
+                currentValue = resultToEdit.getTvSceneryFifth();
+                break;
+            case FIELD_6:
+                currentTitle = "관경 수정 (6번 관로)";
+                currentValue = resultToEdit.getTvScenerySixth();
+                break;
+        }
+
+        input.setText(currentValue);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle(currentTitle)
+                .setMessage("새로운 관경 값을 입력하고 저장하세요 (단위: mm):")
+                .setView(input)
+                .setPositiveButton(getResString(R.string.msg_ok), (dialog, which) -> {
+                    String newValue = input.getText().toString().trim();
+                    if (!newValue.isEmpty()) {
+                        performSceneryEdit(resultToEdit.id, newValue, position, fieldIdentifier);
+                    } else {
+                        Toast.makeText(getContext(), "수정 값이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(getResString(R.string.mag_no), (dialog, which) -> dialog.cancel())
+                .show();
+    }
+
+    /**
+     * 관경 데이터를 Room DB에서 수정하고 UI를 갱신
+     */
+    private void performSceneryEdit(int id, String newValue, int position, String fieldIdentifier) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                // 💡 DB 업데이트: 관경 필드
+                switch (fieldIdentifier) {
+                    case FIELD_1:
+                        surveyDiameterDao.updateSceneryFirst(id, newValue);
+                        break;
+                    case FIELD_2:
+                        surveyDiameterDao.updateScenerySecond(id, newValue);
+                        break;
+                    case FIELD_3:
+                        surveyDiameterDao.updateSceneryThird(id, newValue);
+                        break;
+                    case FIELD_4:
+                        surveyDiameterDao.updateSceneryFourth(id, newValue);
+                        break;
+                    case FIELD_5:
+                        surveyDiameterDao.updateSceneryFifth(id, newValue);
+                        break;
+                    case FIELD_6:
+                        surveyDiameterDao.updateScenerySixth(id, newValue);
+                        break;
+                }
+
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        // 1. Adapter 데이터 모델 업데이트
+                        SurveyResult updatedItem = adapter.getResults().get(position);
+
+                        switch (fieldIdentifier) {
+                            case FIELD_1:
+                                updatedItem.setTvSceneryFirst(newValue);
+                                break;
+                            case FIELD_2:
+                                updatedItem.setTvScenerySecond(newValue);
+                                break;
+                            case FIELD_3:
+                                updatedItem.setTvSceneryThird(newValue);
+                                break;
+                            case FIELD_4:
+                                updatedItem.setTvSceneryFourth(newValue);
+                                break;
+                            case FIELD_5:
+                                updatedItem.setTvSceneryFifth(newValue);
+                                break;
+                            case FIELD_6:
+                                updatedItem.setTvScenerySixth(newValue);
+                                break;
+                        }
+
+                        // 2. UI 갱신
+                        adapter.notifyItemChanged(position);
+//                        Toast.makeText(getContext(), id + "번 데이터의 관경이 성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("DB_SCENERY_UPDATE", "관경 데이터 수정 오류: " + e.getMessage());
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "관경 데이터 수정 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+                }
+            }
+        });
+    }
+
+
+
+    /// //////////////////////
+    /**
+     * 관경 데이터
+     */
+    private void showEditPipDialog(SurveyResult resultToEdit, int position, String fieldIdentifier) {
+        final EditText input = new EditText(requireContext());
+        String currentTitle = "";
+        String currentValue = "";
+
+        switch (fieldIdentifier) {
+            case FIELD_1:
+                currentTitle = "재질 수정 (1번 재질)";
+                currentValue = resultToEdit.getEtPipMaterialFirst();
+                break;
+            case FIELD_2:
+                currentTitle = "재질 수정 (2번 재질)";
+                currentValue = resultToEdit.getEtPipMaterialSecond();
+                break;
+            case FIELD_3:
+                currentTitle = "재질 수정 (3번 재질)";
+                currentValue = resultToEdit.getEtPipMaterialThird();
+                break;
+            case FIELD_4:
+                currentTitle = "재질 수정 (4번 재질)";
+                currentValue = resultToEdit.getEtPipMaterialFourth();
+                break;
+            case FIELD_5:
+                currentTitle = "재질 수정 (5번 재질)";
+                currentValue = resultToEdit.getEtPipMaterialFifth();
+                break;
+            case FIELD_6:
+                currentTitle = "재질 수정 (6번 재질)";
+                currentValue = resultToEdit.getEtPipMaterialSixth();
+                break;
+        }
+
+        input.setText(currentValue);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle(currentTitle)
+                .setMessage("새로운 재질을 입력하고 저장하세요.")
+                .setView(input)
+                .setPositiveButton(getResString(R.string.msg_ok), (dialog, which) -> {
+                    String newValue = input.getText().toString().trim();
+                    if (!newValue.isEmpty()) {
+                        performPipEdit(resultToEdit.id, newValue, position, fieldIdentifier);
+                    } else {
+                        Toast.makeText(getContext(), "수정 값이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(getResString(R.string.mag_no), (dialog, which) -> dialog.cancel())
+                .show();
+    }
+    /// ///////////////////////
+    /**
+     * 재질 데이터를 Room DB에서 수정하고 UI를 갱신
+     */
+    private void performPipEdit(int id, String newValue, int position, String fieldIdentifier) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                // 💡 DB 업데이트: 관경 필드
+                switch (fieldIdentifier) {
+                    case FIELD_1:
+                        surveyDiameterDao.updatePipFirst(id, newValue);
+                        break;
+                    case FIELD_2:
+                        surveyDiameterDao.updatePipSecond(id, newValue);
+                        break;
+                    case FIELD_3:
+                        surveyDiameterDao.updatePipThird(id, newValue);
+                        break;
+                    case FIELD_4:
+                        surveyDiameterDao.updatePipFourth(id, newValue);
+                        break;
+                    case FIELD_5:
+                        surveyDiameterDao.updatePipFifth(id, newValue);
+                        break;
+                    case FIELD_6:
+                        surveyDiameterDao.updatePipSixth(id, newValue);
+                        break;
+                }
+
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        // 1. Adapter 데이터 모델 업데이트
+                        SurveyResult updatedItem = adapter.getResults().get(position);
+
+                        switch (fieldIdentifier) {
+                            case FIELD_1:
+                                updatedItem.setEtPipMaterialFirst(newValue);
+                                break;
+                            case FIELD_2:
+                                updatedItem.setEtPipMaterialSecond(newValue);
+                                break;
+                            case FIELD_3:
+                                updatedItem.setEtPipMaterialThird(newValue);
+                                break;
+                            case FIELD_4:
+                                updatedItem.setEtPipMaterialFourth(newValue);
+                                break;
+                            case FIELD_5:
+                                updatedItem.setEtPipMaterialFifth(newValue);
+                                break;
+                            case FIELD_6:
+                                updatedItem.setEtPipMaterialSixth(newValue);
+                                break;
+                        }
+
+                        // 2. UI 갱신
+                        adapter.notifyItemChanged(position);
+//                        Toast.makeText(getContext(), id + "번 데이터의 관경이 성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("DB_SCENERY_UPDATE", "관경 데이터 수정 오류: " + e.getMessage());
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "관경 데이터 수정 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+                }
+            }
+        });
+    }
+    /// ///////////////////////
+
+    /***************************/
+    private void showEditThicknessDialog(SurveyResult resultToEdit, int position, String fieldIdentifier) {
+        final EditText input = new EditText(requireContext());
+        String currentTitle = "";
+        String currentValue = "";
+
+        switch (fieldIdentifier) {
+            case FIELD_1:
+                currentTitle = "두께 수정 (1번)";
+                currentValue = resultToEdit.getThicknessFirst();
+                break;
+            case FIELD_2:
+                currentTitle = "두께 수정 (2번)";
+                currentValue = resultToEdit.getThicknessSecond();
+                break;
+            case FIELD_3:
+                currentTitle = "두께 수정 (3번)";
+                currentValue = resultToEdit.getThicknessThird();
+                break;
+            case FIELD_4:
+                currentTitle = "두께 수정 (4번)";
+                currentValue = resultToEdit.getThicknessFourth();
+                break;
+            case FIELD_5:
+                currentTitle = "두께 수정 (5번)";
+                currentValue = resultToEdit.getThicknessFifth();
+                break;
+            case FIELD_6:
+                currentTitle = "두께 수정 (6번)";
+                currentValue = resultToEdit.getThicknessSixth();
+                break;
+        }
+
+        input.setText(currentValue);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle(currentTitle)
+                .setMessage("새로운 재질을 입력하고 저장하세요.")
+                .setView(input)
+                .setPositiveButton(getResString(R.string.msg_ok), (dialog, which) -> {
+                    String newValue = input.getText().toString().trim();
+                    if (!newValue.isEmpty()) {
+                        performThicknessEdit(resultToEdit.id, newValue, position, fieldIdentifier);
+                    } else {
+                        Toast.makeText(getContext(), "수정 값이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(getResString(R.string.mag_no), (dialog, which) -> dialog.cancel())
+                .show();
+    }
+
+    /**
+     * 재질 데이터를 Room DB에서 수정하고 UI를 갱신
+     */
+    private void performThicknessEdit(int id, String newValue, int position, String fieldIdentifier) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                // 💡 DB 업데이트: 관경 필드
+                switch (fieldIdentifier) {
+                    case FIELD_1:
+                        surveyDiameterDao.updateThicknessFirst(id, newValue);
+                        break;
+                    case FIELD_2:
+                        surveyDiameterDao.updateThicknessSecond(id, newValue);
+                        break;
+                    case FIELD_3:
+                        surveyDiameterDao.updateThicknessThird(id, newValue);
+                        break;
+                    case FIELD_4:
+                        surveyDiameterDao.updateThicknessFourth(id, newValue);
+                        break;
+                    case FIELD_5:
+                        surveyDiameterDao.updateThicknessFifth(id, newValue);
+                        break;
+                    case FIELD_6:
+                        surveyDiameterDao.updateThicknessSixth(id, newValue);
+                        break;
+                }
+
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        // 1. Adapter 데이터 모델 업데이트
+                        SurveyResult updatedItem = adapter.getResults().get(position);
+
+                        switch (fieldIdentifier) {
+                            case FIELD_1:
+                                updatedItem.setThicknessFirst(newValue);
+                                break;
+                            case FIELD_2:
+                                updatedItem.setThicknessSecond(newValue);
+                                break;
+                            case FIELD_3:
+                                updatedItem.setThicknessThird(newValue);
+                                break;
+                            case FIELD_4:
+                                updatedItem.setThicknessFourth(newValue);
+                                break;
+                            case FIELD_5:
+                                updatedItem.setThicknessFifth(newValue);
+                                break;
+                            case FIELD_6:
+                                updatedItem.setThicknessSixth(newValue);
+                                break;
+                        }
+
+                        // 2. UI 갱신
+                        adapter.notifyItemChanged(position);
+//                        Toast.makeText(getContext(), id + "번 데이터의 두께값이 성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("DB_SCENERY_UPDATE", "관경 데이터 수정 오류: " + e.getMessage());
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "두께 데이터 수정 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+                }
+            }
+        });
+    }
+
+
 
     /**
      * @param resultToDelete
@@ -337,10 +845,37 @@ public class MeasurementListFragment extends Fragment implements
         // 2. Adapter 초기화 및 리스너 연결
         adapter = new ResultListAdapter();
         adapter.setOnItemDeleteListener(this);
+
+        // 높이
         adapter.setOnItemEditListener(this);        // 1번 수정 리스너 연결
         adapter.setOnItemEditSecondListener(this);  // 2번 수정 리스너 연결
         adapter.setOnItemEditThirdListener(this);   // 3번 수정 리스너 연결
         adapter.setOnItemEditFourthListener(this);  // 4번 수정 리스너 연결
+        adapter.setOnItemEditFifthListener(this);  // 5번 수정 리스너 연결
+        adapter.setOnItemEditSixthListener(this);  // 6번 수정 리스너 연결
+
+        // 관경
+        adapter.setOnItemEditSceneryFirstListener(this);  // 1번 수정 리스너 연결
+        adapter.setOnItemEditScenerySecondListener(this);  // 2번 수정 리스너 연결
+        adapter.setOnItemEditSceneryThirdListener(this);  // 3번 수정 리스너 연결
+        adapter.setOnItemEditSceneryFourthListener(this);  // 4번 수정 리스너 연결
+        adapter.setOnItemEditSceneryFifthListener(this);  // 5번 수정 리스너 연결
+        adapter.setOnItemEditScenerySixthListener(this);  // 6번 수정 리스너 연결
+
+        // 재질
+        adapter.setOnItemEditPipFirstListener(this);
+        adapter.setOnItemEditPipSecondListener(this);
+        adapter.setOnItemEditPipThirdListener(this);
+        adapter.setOnItemEditPipFourthListener(this);
+        adapter.setOnItemEditPipFifthListener(this);
+        adapter.setOnItemEditPipSixthListener(this);
+
+        adapter.setOnItemEditThicknessFirstListener(this);
+        adapter.setOnItemEditThicknessSecondListener(this);
+        adapter.setOnItemEditThicknessThirdListener(this);
+        adapter.setOnItemEditThicknessFourthListener(this);
+        adapter.setOnItemEditThicknessFifthListener(this);
+        adapter.setOnItemEditThicknessSixthListener(this);
 
         // 3. RecyclerView 설정
         binding.recyclerViewResults.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -367,9 +902,14 @@ public class MeasurementListFragment extends Fragment implements
             if (currentProjectId != -1) {
                 // 특정 프로젝트 ID로 조회하여 resultList에 할당 (단 한 번 할당)
                 resultList = surveyDiameterDao.getResultsByProjectId(projectIdToFilter);
+                binding.mcExportButton.setVisibility(View.VISIBLE);
+                binding.tvProjectEmpty.setVisibility(View.GONE);
             } else {
                 // ID가 없으면 모든 프로젝트 조회 (단 한 번 할당)
-                resultList = surveyDiameterDao.getAllResults();
+                binding.mcExportButton.setVisibility(View.GONE);
+                binding.tvProjectEmpty.setVisibility(View.VISIBLE);
+                resultList = java.util.Collections.emptyList();
+//                resultList = surveyDiameterDao.getAllResults();
             }
 
             if (isAdded()) {
@@ -379,6 +919,42 @@ public class MeasurementListFragment extends Fragment implements
                 });
             }
         });
+    }
+
+    // 관경 수정 다이얼로그
+    @Override
+    public void editSceneryFirstListener(SurveyResult resultToEdit, int position) {
+        showEditSceneryDialog(resultToEdit, position, FIELD_1);
+    }
+
+    // 2번 관경 수정 버튼 리스너 처리
+    @Override
+    public void editScenerySecondListener(SurveyResult resultToEdit, int position) {
+        showEditSceneryDialog(resultToEdit, position, FIELD_2);
+    }
+
+    // 3번 관경 수정 버튼 리스너 처리
+    @Override
+    public void editSceneryThirdListener(SurveyResult resultToEdit, int position) {
+        showEditSceneryDialog(resultToEdit, position, FIELD_3);
+    }
+
+    // 4번 관경 수정 버튼 리스너 처리
+    @Override
+    public void editSceneryFourthListener(SurveyResult resultToEdit, int position) {
+        showEditSceneryDialog(resultToEdit, position, FIELD_4);
+    }
+
+    // 5번 관경 수정 버튼 리스너 처리
+    @Override
+    public void editSceneryFifthListener(SurveyResult resultToEdit, int position) {
+        showEditSceneryDialog(resultToEdit, position, FIELD_5);
+    }
+
+    // 6번 관경 수정 버튼 리스너 처리
+    @Override
+    public void editScenerySixthListener(SurveyResult resultToEdit, int position) {
+        showEditSceneryDialog(resultToEdit, position, FIELD_6);
     }
 
     @Override
